@@ -1,2 +1,0 @@
-# Tarea-Final
-Proyecto DPOO
