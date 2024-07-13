@@ -1,0 +1,113 @@
+package LogicaClases;
+import java.util.ArrayList;
+
+public class Usuario {
+	private String IdU;
+	private String contraseña;
+	private String nombreCompleto;
+	private String direccion;
+	private String telefono;
+	private String correoelectronico;
+	private char sexo;
+	private String CI;
+	private String DosPasos;
+	private String telFijo;
+	private ArrayList<CuentaBancaria> cuentas;
+	
+	
+
+	public Usuario(String IdU,String contraseña,String nombreCompleto,String direccion,String telefono,String correoelectronico, char sexo,String CI,String DosPasos,String telFijo){
+		setIdU(IdU);
+		setContraseña(contraseña);
+		setNombreCompleto(nombreCompleto);
+		setDireccion(direccion);
+	 setTelefono(telefono);
+	 setCorreoelectronico(correoelectronico);
+	 setSexo(sexo);
+	 setCI(CI);
+	 setDosPasos(DosPasos);
+	 setTelFijo(telFijo);
+	 cuentas=new ArrayList<CuentaBancaria>();
+	 
+ }
+
+	
+public void setCuentas(ArrayList<CuentaBancaria> cuentas) {
+	this.cuentas = cuentas;
+}
+
+public String getContraseña() {
+	return contraseña;
+}
+
+public void setContraseña(String contraseña) {
+	this.contraseña = contraseña;
+}
+
+public String getIdU() {
+	return IdU;
+}
+public void setIdU(String idU) {
+	IdU = idU;
+}
+public String getNombreCompleto() {
+	return nombreCompleto;
+}
+public void setNombreCompleto(String nombreCompleto) {
+	this.nombreCompleto = nombreCompleto;
+}
+public String getDireccion() {
+	return direccion;
+}
+public void setDireccion(String direccion) {
+	this.direccion = direccion;
+}
+public String getTelefono() {
+	return telefono;
+}
+public void setTelefono(String telefono) {
+	this.telefono = telefono;
+}
+public String getCorreoelectronico() {
+	return correoelectronico;
+}
+public void setCorreoelectronico(String correoelectronico) {
+	this.correoelectronico = correoelectronico;
+}
+public char getSexo() {
+	return sexo;
+}
+public void setSexo(char sexo) {
+	this.sexo = sexo;
+}
+
+public String getCI() {
+	return CI;
+}
+
+public void setCI(String cI) {
+	CI = cI;
+}
+
+public String getDosPasos() {
+	return DosPasos;
+}
+
+public void setDosPasos(String dosPasos) {
+	DosPasos = dosPasos;
+}
+
+public String getTelFijo() {
+	return telFijo;
+}
+
+public void setTelFijo(String telFijo) {
+	this.telFijo = telFijo;
+}
+
+
+public ArrayList<CuentaBancaria> getCuentas() {
+	return cuentas;
+}
+ 
+}
