@@ -95,6 +95,8 @@ public class Menu extends JFrame {
 	private BotonAnimacion botonAnimacion;
 	private JLabel lblNewLabel;
 	private JPanel panelultiope;
+	private JLabel lblNewLabel_6;
+	private boolean vercuentas;
 
 	/**
 	 * Launch the application.
@@ -371,6 +373,7 @@ public class Menu extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				CrearCuenta p=new CrearCuenta();
 				p.setVisible(true);
+				VerCuenta();
 				
 				
 			}
@@ -437,6 +440,10 @@ public class Menu extends JFrame {
 		lblgmail = new JLabel("@gmail:");
 		lblgmail.setBounds(265, 42, 185, 16);
 		paneldatos.add(lblgmail);
+		
+		lblNewLabel_6 = new JLabel("Cuenta");
+		lblNewLabel_6.setBounds(400, 82, 160, 16);
+		paneldatos.add(lblNewLabel_6);
 		
 		
 		
@@ -505,6 +512,8 @@ public class Menu extends JFrame {
 		
 		CambiarAvatar();
 	}
-	private static void addPopup(Component component, final JPopupMenu popup) {
+	public void VerCuenta(){
+	if(pos!=-1 && elmain.banco.getUsuarios().get(pos).getCuentas().size()>2)
+		lblNewLabel_6.setText("si hay cuenta");
 	}
 }

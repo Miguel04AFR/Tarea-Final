@@ -95,12 +95,17 @@ public class NuevaCuenta extends JFrame {
 	private JLabel lblNewLabel_16;
 	private JLabel lblNewLabel_17;
 	private JLabel lblNewLabel_18;
+	private JLabel lblNewLabel_26;
 	private JLabel lblNewLabel_14;
 	private JLabel lblNewLabel_15;
 	private JLabel lblNewLabel_12;
 	private JLabel lblNewLabel_6;
+	private JLabel lblNewLabel_28;
 	private JLabel lblNewLabel_21;
+	private JLabel lblNewLabel_25;
+	private JLabel lblNewLabel_24;
 	private JLabel lblNewLabel_5;
+	private JLabel lblNewLabel_27;
 	private JLabel lblNewLabel_20;
 	private boolean validar1=false;
 	private boolean validar2=false;
@@ -111,6 +116,7 @@ public class NuevaCuenta extends JFrame {
 	private boolean validar7=false;//validar usuario existente
 	private boolean validar77=false;//validar usuario vacio
 	private boolean validar8=true;
+	private boolean validar9=false;//validar contraseña
 	private BotonAnimacion botonAnimacion_1;
 	private BotonAnimacion botonAnimacion;
 
@@ -413,6 +419,11 @@ public class NuevaCuenta extends JFrame {
 				if(m.getKeyCode()==KeyEvent.VK_RIGHT)
 				botonAnimacion_1.requestFocus();
 			}
+			@Override
+			public void keyTyped(KeyEvent j) {
+				if(textField_4.getText().length()>11)
+					j.consume();
+			}
 		});
 		textField_4.setColumns(10);
 		textField_4.setBounds(8, 394, 290, 30);
@@ -470,6 +481,12 @@ public class NuevaCuenta extends JFrame {
 				if(d.getKeyCode()==KeyEvent.VK_LEFT)
 					textField_1.requestFocus();
 			}
+			@Override
+			public void keyTyped(KeyEvent g) {
+				if(textField_6.getText().length()>8){
+					g.consume();
+				}
+			}
 		});
 		textField_6.setColumns(10);
 		textField_6.setBounds(612, 251, 290, 30);
@@ -494,6 +511,11 @@ public class NuevaCuenta extends JFrame {
 				
 				if(f.getKeyCode()==KeyEvent.VK_LEFT)
 					textField_2.requestFocus();
+			}
+			@Override
+			public void keyTyped(KeyEvent h) {
+				if(textField_7.getText().length()>8)
+					h.consume();
 			}
 		});
 		textField_7.setColumns(10);
@@ -570,6 +592,13 @@ public class NuevaCuenta extends JFrame {
 		contentPane.add(lblNewLabel_18);
 		lblNewLabel_18.setVisible(false);
 		
+		lblNewLabel_26 = new JLabel("*");
+		lblNewLabel_26.setForeground(new Color(255, 0, 0));
+		lblNewLabel_26.setFont(new Font("Segoe UI Black", Font.BOLD, 29));
+		lblNewLabel_26.setBounds(57, 294, 25, 27);
+		contentPane.add(lblNewLabel_26);
+		lblNewLabel_26.setVisible(false);
+		
 		lblNewLabel_5 = new JLabel("Usuario");
 		lblNewLabel_5.setForeground(Color.RED);
 		lblNewLabel_5.setFont(new Font("Segoe UI Black", Font.BOLD, 13));
@@ -584,6 +613,20 @@ public class NuevaCuenta extends JFrame {
 		contentPane.add(lblNewLabel_6);
 		lblNewLabel_6.setVisible(false);
 		
+		lblNewLabel_27 = new JLabel("Minimo 6");
+		lblNewLabel_27.setForeground(Color.RED);
+		lblNewLabel_27.setFont(new Font("Segoe UI Black", Font.BOLD, 13));
+		lblNewLabel_27.setBounds(303, 204, 79, 16);
+		contentPane.add(lblNewLabel_27);
+		lblNewLabel_27.setVisible(false);
+		
+		lblNewLabel_28 = new JLabel("caracteres");
+		lblNewLabel_28.setForeground(Color.RED);
+		lblNewLabel_28.setFont(new Font("Segoe UI Black", Font.BOLD, 13));
+		lblNewLabel_28.setBounds(301, 218, 81, 16);
+		contentPane.add(lblNewLabel_28);
+		lblNewLabel_28.setVisible(false);
+		
 		lblNewLabel_20 = new JLabel("Correo");
 		lblNewLabel_20.setForeground(Color.RED);
 		lblNewLabel_20.setFont(new Font("Segoe UI Black", Font.BOLD, 13));
@@ -597,6 +640,20 @@ public class NuevaCuenta extends JFrame {
 		lblNewLabel_21.setBounds(301, 277, 81, 16);
 		contentPane.add(lblNewLabel_21);
 		lblNewLabel_21.setVisible(false);
+		
+		lblNewLabel_24 = new JLabel("Minimo 6");
+		lblNewLabel_24.setForeground(Color.RED);
+		lblNewLabel_24.setFont(new Font("Segoe UI Black", Font.BOLD, 13));
+		lblNewLabel_24.setBounds(301, 330, 81, 16);
+		contentPane.add(lblNewLabel_24);
+		lblNewLabel_24.setVisible(false);
+		
+		lblNewLabel_25 = new JLabel("caracteres");
+		lblNewLabel_25.setForeground(Color.RED);
+		lblNewLabel_25.setFont(new Font("Segoe UI Black", Font.BOLD, 13));
+		lblNewLabel_25.setBounds(301, 344, 81, 16);
+		contentPane.add(lblNewLabel_25);
+		lblNewLabel_25.setVisible(false);
 		
 		setLocationRelativeTo(null);
 		setResizable(false);
@@ -727,7 +784,7 @@ public class NuevaCuenta extends JFrame {
 			 }
 		 }
 		 
-		 if(textField.getText().equals(""))
+		 if(textField.getText().length()>=6)
 			validar77=false;
 		 else
 			validar77=true;
@@ -795,7 +852,12 @@ public class NuevaCuenta extends JFrame {
 			 validar4=false;
 		 }
 		 
-		 if(!validar3 || !validar1 || !validar2 || !validar4 || !validar5 || !validar6 || !validar7 || !validar77 || !validar8){
+		 if(textField_2.getText().length()>=6)
+		 validar9=true;
+		 else
+		validar9=false;	 
+		 
+		 if(!validar3 || !validar1 || !validar2 || !validar4 || !validar5 || !validar6 || !validar7 || !validar77 || !validar8 || !validar9){
 			 NotificacionesModernas.getInstancia().show(Tipo.ERROR,Localizacion.INF_DER,3000,"Error a introducir los datos");
 			 validacion=false;
 		 }
@@ -818,21 +880,28 @@ public class NuevaCuenta extends JFrame {
 	        	}
 	        	if(!validar6){
 	        	lblNewLabel_20.setVisible(true);
-	        	lblNewLabel_21.setVisible(true);
-	        	lblNewLabel_12.setVisible(false);
+	        	lblNewLabel_25.setVisible(true);
+	        	lblNewLabel_12.setVisible(true);
 	        	
 	        	}
 	        	if(!validar7){
 	        	lblNewLabel_17.setVisible(true);
-	        	lblNewLabel_5.setVisible(true);
-	        	lblNewLabel_6.setVisible(true);
+	        	lblNewLabel_27.setVisible(true);
+	        	lblNewLabel_28.setVisible(true);
 	        	}
 	        	if(!validar77)
 	        	lblNewLabel_17.setVisible(true);
+	        	lblNewLabel_27.setVisible(true);
+	        	lblNewLabel_28.setVisible(true);
 	        	
 	        	if(!validar8)
-	        	lblNewLabel_18.setVisible(true);
-	        		
+	        	lblNewLabel_26.setVisible(true);
+	        	
+	        	if(!validar9){
+	        	lblNewLabel_24.setVisible(true);	
+	        	lblNewLabel_25.setVisible(true);
+	        	lblNewLabel_26.setVisible(true);
+	        	}
 	        		
 		 
 		 Timer timer = new Timer(10000, new ActionListener() {
@@ -862,9 +931,16 @@ public class NuevaCuenta extends JFrame {
 		        	}
 		        	if(!validar77)
 				    lblNewLabel_17.setVisible(false);
+		        	lblNewLabel_27.setVisible(false);
+		        	lblNewLabel_28.setVisible(false);
 		        	if(!validar8){
 		        	lblNewLabel_18.setVisible(false);
 		        	}
+		        	if(!validar9){
+			        	lblNewLabel_24.setVisible(false);	
+			        	lblNewLabel_25.setVisible(false);
+			        	lblNewLabel_26.setVisible(false);
+			        	}
 		        	}
 		        	
 		 });
