@@ -59,6 +59,7 @@ public class CrearCuenta extends JDialog {
 	private JTextField txtDejeLaCelda;
 	private JTextField textField_1;
 	private String tipoCuenta;
+	private JComboBox comboBox;
 
 	/**
 	 * Launch the application.
@@ -204,13 +205,8 @@ public class CrearCuenta extends JDialog {
 		btnmcnAceptar.setBackground(new Color(0, 128, 0));
 		btnmcnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(tipoCuenta.equals("Corriente")){
-					Corriente z=new Corriente(elmain.banco.getUsuarios().get(Menu.pos).getIdU(),null,50,null);
-					elmain.banco.getUsuarios().get(Menu.pos).getCuentas().add(z);
-				}
-					//else if(tipoCuenta.equals("Ahorro")){
-						
-					//}
+				AñadirCuenta();
+				dispose();
 
 					
 			}
@@ -239,7 +235,7 @@ public class CrearCuenta extends JDialog {
 		panel.add(btnmcnVolverAlMenu);
 		
 		
-		final JComboBox comboBox = new JComboBox();
+		  comboBox = new JComboBox();
 		comboBox.addItem("MLC");
 		comboBox.addItem("Plazo Fijo");
 		comboBox.addItem("Ahorro");
@@ -280,5 +276,11 @@ public class CrearCuenta extends JDialog {
 			dispose();
 		}
 
+	}
+	public void AñadirCuenta(){
+		if(comboBox.getSelectedItem().equals("Corriente")){
+			Corriente p=new Corriente(elmain.banco.getUsuarios().get(Menu.pos).getIdU(),textField.getText(),Float.parseFloat(textField_1.getText()),txtDejeLaCelda.getText());
+			elmain.banco.getUsuarios().get(Menu.pos).getCuentas().add(p);
+		}
 	}
 }

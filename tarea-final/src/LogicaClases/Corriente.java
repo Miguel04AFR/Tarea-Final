@@ -1,21 +1,21 @@
 package LogicaClases;
 
 public class Corriente extends CuentaBancaria{
-	private String[] titurales;
+	private String titurales;
 	private float cup;
 	
 	
-	public Corriente(String titular,String beneficiario,float cup,String[] titulares){
+	public Corriente(String titular,String beneficiario,float cup,String string){
 		super(titular,beneficiario);
 		setCup(cup);
-		setTiturales(titulares);
+		setTiturales(string);
 	}
 	
 	
-	public String[] getTiturales() {
+	public String getTiturales() {
 		return titurales;
 	}
-	public void setTiturales(String[] titurales) {
+	public void setTiturales(String titurales) {
 		this.titurales = titurales;
 	}
 	public float getCup() {

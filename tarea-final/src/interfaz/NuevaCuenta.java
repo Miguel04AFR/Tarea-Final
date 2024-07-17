@@ -47,6 +47,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import logica.utilidades.logica.Validaciones;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 
 public class NuevaCuenta extends JFrame {
@@ -91,12 +95,17 @@ public class NuevaCuenta extends JFrame {
 	private JLabel lblNewLabel_16;
 	private JLabel lblNewLabel_17;
 	private JLabel lblNewLabel_18;
+	private JLabel lblNewLabel_26;
 	private JLabel lblNewLabel_14;
 	private JLabel lblNewLabel_15;
 	private JLabel lblNewLabel_12;
 	private JLabel lblNewLabel_6;
+	private JLabel lblNewLabel_28;
 	private JLabel lblNewLabel_21;
+	private JLabel lblNewLabel_25;
+	private JLabel lblNewLabel_24;
 	private JLabel lblNewLabel_5;
+	private JLabel lblNewLabel_27;
 	private JLabel lblNewLabel_20;
 	private boolean validar1=false;
 	private boolean validar2=false;
@@ -107,6 +116,9 @@ public class NuevaCuenta extends JFrame {
 	private boolean validar7=false;//validar usuario existente
 	private boolean validar77=false;//validar usuario vacio
 	private boolean validar8=true;
+	private boolean validar9=false;//validar contraseña
+	private BotonAnimacion botonAnimacion_1;
+	private BotonAnimacion botonAnimacion;
 
 	/**
 	 * Launch the application.
@@ -158,7 +170,24 @@ public class NuevaCuenta extends JFrame {
 		panelAnimacionCurvas_1.setBounds(0, 518, 914, 37);
 		contentPane.add(panelAnimacionCurvas_1);
 		
-		BotonAnimacion botonAnimacion = new BotonAnimacion();
+		botonAnimacion = new BotonAnimacion();
+		botonAnimacion.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				botonAnimacion.setForeground(new Color(0, 0, 128));
+			}
+			@Override
+			public void focusLost(FocusEvent arg0) {
+				botonAnimacion.setForeground(new Color(0, 0, 0));
+			}
+		});
+		botonAnimacion.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent o) {
+				if(o.getKeyCode()==KeyEvent.VK_UP)
+					botonAnimacion_1.requestFocus();
+			}
+		});
 		botonAnimacion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Salir();
@@ -169,10 +198,32 @@ public class NuevaCuenta extends JFrame {
 		botonAnimacion.setColorEfecto(Color.RED);
 		botonAnimacion.setBorder(new EmptyBorder(40,40,40,40));
 		botonAnimacion.setBackground(new Color(255, 69, 0));
+		botonAnimacion.setForeground(new Color(0, 0, 0));
 		botonAnimacion.setBounds(310, 448, 290, 57);
 		contentPane.add(botonAnimacion);
 		
-		BotonAnimacion botonAnimacion_1 = new BotonAnimacion();
+		botonAnimacion_1 = new BotonAnimacion();
+		botonAnimacion_1.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent p) {
+				if(p.getKeyCode()==KeyEvent.VK_DOWN)
+					botonAnimacion.requestFocus();
+					if(p.getKeyCode()==KeyEvent.VK_LEFT)
+						textField_4.requestFocus();
+						if(p.getKeyCode()==KeyEvent.VK_RIGHT)
+							textField_8.requestFocus();
+			}
+		});
+		botonAnimacion_1.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				botonAnimacion_1.setForeground(new Color(0, 0, 128));
+			}
+			@Override
+			public void focusLost(FocusEvent arg0) {
+				botonAnimacion_1.setForeground(new Color(0, 0, 0));
+			}
+		});
 		botonAnimacion_1.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent arg0) {
 		    	Validacion();
@@ -191,7 +242,9 @@ public class NuevaCuenta extends JFrame {
 		botonAnimacion_1.setColorEfecto(Color.GREEN);
 		botonAnimacion_1.setBackground(new Color(0, 128, 0));
 		botonAnimacion_1.setBounds(310, 373, 290, 67);
+		botonAnimacion_1.setForeground(new Color(0, 0, 0));
 		contentPane.add(botonAnimacion_1);
+		
 		
 		lblNewLabel = new JLabel("Registro de Nuevo Usuario - ");
 		lblNewLabel.setFont(new Font("Segoe UI", Font.BOLD, 22));
@@ -209,6 +262,20 @@ public class NuevaCuenta extends JFrame {
 		contentPane.add(lblNewLabel_2);
 		
 		textField = new JTextField();
+		textField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent c) {
+				if(c.getKeyCode()==KeyEvent.VK_UP)
+					textField_3.requestFocus();
+				
+				if(c.getKeyCode()==KeyEvent.VK_DOWN)
+					textField_1.requestFocus();
+				if(c.getKeyCode()==KeyEvent.VK_RIGHT)
+					textField_5.requestFocus();
+				
+			}
+			
+		});
 		textField.setColumns(10);
 		textField.setBounds(11, 204, 290, 30);
 		contentPane.add(textField);
@@ -226,6 +293,19 @@ public class NuevaCuenta extends JFrame {
 		contentPane.add(lblCorreoElectronico);
 		
 		textField_1 = new JTextField();
+		textField_1.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent v) {
+				if(v.getKeyCode()==KeyEvent.VK_UP)
+					textField.requestFocus();
+					
+				
+				if(v.getKeyCode()==KeyEvent.VK_DOWN)
+					textField_2.requestFocus();
+				if(v.getKeyCode()==KeyEvent.VK_RIGHT)
+					textField_6.requestFocus();
+			}
+		});
 		textField_1.setColumns(10);
 		textField_1.setBounds(11, 263, 290, 30);
 		contentPane.add(textField_1);
@@ -237,6 +317,19 @@ public class NuevaCuenta extends JFrame {
 		contentPane.add(lblContrase);
 		
 		textField_2 = new JTextField();
+		textField_2.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent n) {
+				if(n.getKeyCode()==KeyEvent.VK_UP)
+					textField_1.requestFocus();
+					
+				
+				if(n.getKeyCode()==KeyEvent.VK_DOWN)
+					textField_4.requestFocus();
+				if(n.getKeyCode()==KeyEvent.VK_RIGHT)
+					textField_7.requestFocus();
+			}
+		});
 		textField_2.setColumns(10);
 		textField_2.setBounds(11, 330, 290, 30);
 		contentPane.add(textField_2);
@@ -251,7 +344,7 @@ public class NuevaCuenta extends JFrame {
 		checkH.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		checkH.setBounds(73, 470, 43, 23);
 		contentPane.add(checkH);
-		
+		checkH.setSelected(true);
 		
 		checkM = new JRadioButton("F");
 		checkM.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -276,6 +369,17 @@ public class NuevaCuenta extends JFrame {
 		contentPane.add(lblNombreCompleto);
 		
 		textField_3 = new JTextField();
+		textField_3.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent b) {
+			if(b.getKeyCode()==KeyEvent.VK_DOWN)
+				textField.requestFocus();
+			if(b.getKeyCode()==KeyEvent.VK_RIGHT)
+				textField_5.requestFocus();
+
+			
+			}
+		});
 		textField_3.setColumns(10);
 		textField_3.setBounds(11, 148, 290, 30);
 		contentPane.add(textField_3);
@@ -303,6 +407,24 @@ public class NuevaCuenta extends JFrame {
 		contentPane.add(lblCi);
 		
 		textField_4 = new JTextField();
+		textField_4.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent m) {
+				if(m.getKeyCode()==KeyEvent.VK_UP)
+					textField_2.requestFocus();
+					
+				
+				if(m.getKeyCode()==KeyEvent.VK_DOWN)
+					checkH.requestFocus();
+				if(m.getKeyCode()==KeyEvent.VK_RIGHT)
+				botonAnimacion_1.requestFocus();
+			}
+			@Override
+			public void keyTyped(KeyEvent j) {
+				if(textField_4.getText().length()>11)
+					j.consume();
+			}
+		});
 		textField_4.setColumns(10);
 		textField_4.setBounds(8, 394, 290, 30);
 		contentPane.add(textField_4);
@@ -314,6 +436,15 @@ public class NuevaCuenta extends JFrame {
 		contentPane.add(lblDosPasos);
 		
 		textField_5 = new JTextField();
+		textField_5.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent s) {
+				if(s.getKeyCode()==KeyEvent.VK_DOWN)
+					textField_6.requestFocus();
+				if(s.getKeyCode()==KeyEvent.VK_LEFT)
+					textField.requestFocus();
+			}
+		});
 		textField_5.setColumns(10);
 		textField_5.setBounds(612, 187, 290, 30);
 		contentPane.add(textField_5);
@@ -337,6 +468,26 @@ public class NuevaCuenta extends JFrame {
 		contentPane.add(lblDeCelular);
 		
 		textField_6 = new JTextField();
+		textField_6.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent d) {
+				if(d.getKeyCode()==KeyEvent.VK_UP)
+					textField_5.requestFocus();
+					
+				
+				if(d.getKeyCode()==KeyEvent.VK_DOWN)
+					textField_7.requestFocus();
+				
+				if(d.getKeyCode()==KeyEvent.VK_LEFT)
+					textField_1.requestFocus();
+			}
+			@Override
+			public void keyTyped(KeyEvent g) {
+				if(textField_6.getText().length()>8){
+					g.consume();
+				}
+			}
+		});
 		textField_6.setColumns(10);
 		textField_6.setBounds(612, 251, 290, 30);
 		contentPane.add(textField_6);
@@ -348,6 +499,25 @@ public class NuevaCuenta extends JFrame {
 		contentPane.add(lblNumeroDeTelefono);
 		
 		textField_7 = new JTextField();
+		textField_7.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent f) {
+				if(f.getKeyCode()==KeyEvent.VK_UP)
+					textField_6.requestFocus();
+					
+				
+				if(f.getKeyCode()==KeyEvent.VK_DOWN)
+					textField_8.requestFocus();
+				
+				if(f.getKeyCode()==KeyEvent.VK_LEFT)
+					textField_2.requestFocus();
+			}
+			@Override
+			public void keyTyped(KeyEvent h) {
+				if(textField_7.getText().length()>8)
+					h.consume();
+			}
+		});
 		textField_7.setColumns(10);
 		textField_7.setBounds(612, 315, 290, 30);
 		contentPane.add(textField_7);
@@ -359,6 +529,16 @@ public class NuevaCuenta extends JFrame {
 		contentPane.add(lblDireecion);
 		
 		textField_8 = new JTextField();
+		textField_8.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent g) {
+				if(g.getKeyCode()==KeyEvent.VK_UP)
+					textField_7.requestFocus();
+				
+				if(g.getKeyCode()==KeyEvent.VK_LEFT)
+					botonAnimacion_1.requestFocus();
+			}
+		});
 		textField_8.setColumns(10);
 		textField_8.setBounds(612, 385, 290, 30);
 		contentPane.add(textField_8);
@@ -412,6 +592,13 @@ public class NuevaCuenta extends JFrame {
 		contentPane.add(lblNewLabel_18);
 		lblNewLabel_18.setVisible(false);
 		
+		lblNewLabel_26 = new JLabel("*");
+		lblNewLabel_26.setForeground(new Color(255, 0, 0));
+		lblNewLabel_26.setFont(new Font("Segoe UI Black", Font.BOLD, 29));
+		lblNewLabel_26.setBounds(57, 294, 25, 27);
+		contentPane.add(lblNewLabel_26);
+		lblNewLabel_26.setVisible(false);
+		
 		lblNewLabel_5 = new JLabel("Usuario");
 		lblNewLabel_5.setForeground(Color.RED);
 		lblNewLabel_5.setFont(new Font("Segoe UI Black", Font.BOLD, 13));
@@ -426,6 +613,20 @@ public class NuevaCuenta extends JFrame {
 		contentPane.add(lblNewLabel_6);
 		lblNewLabel_6.setVisible(false);
 		
+		lblNewLabel_27 = new JLabel("Minimo 6");
+		lblNewLabel_27.setForeground(Color.RED);
+		lblNewLabel_27.setFont(new Font("Segoe UI Black", Font.BOLD, 13));
+		lblNewLabel_27.setBounds(303, 204, 79, 16);
+		contentPane.add(lblNewLabel_27);
+		lblNewLabel_27.setVisible(false);
+		
+		lblNewLabel_28 = new JLabel("caracteres");
+		lblNewLabel_28.setForeground(Color.RED);
+		lblNewLabel_28.setFont(new Font("Segoe UI Black", Font.BOLD, 13));
+		lblNewLabel_28.setBounds(301, 218, 81, 16);
+		contentPane.add(lblNewLabel_28);
+		lblNewLabel_28.setVisible(false);
+		
 		lblNewLabel_20 = new JLabel("Correo");
 		lblNewLabel_20.setForeground(Color.RED);
 		lblNewLabel_20.setFont(new Font("Segoe UI Black", Font.BOLD, 13));
@@ -439,6 +640,20 @@ public class NuevaCuenta extends JFrame {
 		lblNewLabel_21.setBounds(301, 277, 81, 16);
 		contentPane.add(lblNewLabel_21);
 		lblNewLabel_21.setVisible(false);
+		
+		lblNewLabel_24 = new JLabel("Minimo 6");
+		lblNewLabel_24.setForeground(Color.RED);
+		lblNewLabel_24.setFont(new Font("Segoe UI Black", Font.BOLD, 13));
+		lblNewLabel_24.setBounds(301, 330, 81, 16);
+		contentPane.add(lblNewLabel_24);
+		lblNewLabel_24.setVisible(false);
+		
+		lblNewLabel_25 = new JLabel("caracteres");
+		lblNewLabel_25.setForeground(Color.RED);
+		lblNewLabel_25.setFont(new Font("Segoe UI Black", Font.BOLD, 13));
+		lblNewLabel_25.setBounds(301, 344, 81, 16);
+		contentPane.add(lblNewLabel_25);
+		lblNewLabel_25.setVisible(false);
 		
 		setLocationRelativeTo(null);
 		setResizable(false);
@@ -569,7 +784,7 @@ public class NuevaCuenta extends JFrame {
 			 }
 		 }
 		 
-		 if(textField.getText().equals(""))
+		 if(textField.getText().length()>=6)
 			validar77=false;
 		 else
 			validar77=true;
@@ -637,7 +852,12 @@ public class NuevaCuenta extends JFrame {
 			 validar4=false;
 		 }
 		 
-		 if(!validar3 || !validar1 || !validar2 || !validar4 || !validar5 || !validar6 || !validar7 || !validar77 || !validar8){
+		 if(textField_2.getText().length()>=6)
+		 validar9=true;
+		 else
+		validar9=false;	 
+		 
+		 if(!validar3 || !validar1 || !validar2 || !validar4 || !validar5 || !validar6 || !validar7 || !validar77 || !validar8 || !validar9){
 			 NotificacionesModernas.getInstancia().show(Tipo.ERROR,Localizacion.INF_DER,3000,"Error a introducir los datos");
 			 validacion=false;
 		 }
@@ -660,24 +880,32 @@ public class NuevaCuenta extends JFrame {
 	        	}
 	        	if(!validar6){
 	        	lblNewLabel_20.setVisible(true);
-	        	lblNewLabel_21.setVisible(true);
-	        	lblNewLabel_12.setVisible(false);
+	        	lblNewLabel_25.setVisible(true);
+	        	lblNewLabel_12.setVisible(true);
 	        	
 	        	}
 	        	if(!validar7){
 	        	lblNewLabel_17.setVisible(true);
-	        	lblNewLabel_5.setVisible(true);
-	        	lblNewLabel_6.setVisible(true);
+	        	lblNewLabel_27.setVisible(true);
+	        	lblNewLabel_28.setVisible(true);
 	        	}
 	        	if(!validar77)
 	        	lblNewLabel_17.setVisible(true);
+	        	lblNewLabel_27.setVisible(true);
+	        	lblNewLabel_28.setVisible(true);
 	        	
 	        	if(!validar8)
-	        	lblNewLabel_18.setVisible(true);
-	        		
+	        	lblNewLabel_26.setVisible(true);
+	        	
+	        	if(!validar9){
+	        	lblNewLabel_24.setVisible(true);	
+	        	lblNewLabel_25.setVisible(true);
+	        	lblNewLabel_26.setVisible(true);
+	        	}
 	        		
 		 
 		 Timer timer = new Timer(10000, new ActionListener() {
+		        @Override
 		        public void actionPerformed(ActionEvent e) {
 		        	if(!validar3)
 		            lblNewLabel_4.setVisible(false);
@@ -703,9 +931,16 @@ public class NuevaCuenta extends JFrame {
 		        	}
 		        	if(!validar77)
 				    lblNewLabel_17.setVisible(false);
+		        	lblNewLabel_27.setVisible(false);
+		        	lblNewLabel_28.setVisible(false);
 		        	if(!validar8){
 		        	lblNewLabel_18.setVisible(false);
 		        	}
+		        	if(!validar9){
+			        	lblNewLabel_24.setVisible(false);	
+			        	lblNewLabel_25.setVisible(false);
+			        	lblNewLabel_26.setVisible(false);
+			        	}
 		        	}
 		        	
 		 });
