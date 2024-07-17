@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry kind="lib" path="api-2024.06.08.jar" sourcepath="C:/Users/Migue-PC/Downloads/Telegram Desktop/Proyecto-Api-Personalizada-2024.06.08-B/Proyecto-Api-Personalizada-2024.06.08-B">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/C:/Users/Migue-PC/Downloads/Telegram%20Desktop/JavaDoc/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

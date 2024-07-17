@@ -232,7 +232,7 @@ public class Menu extends JFrame {
 				card.show(panel_1, "panelope");
 			}
 		});
-		botonAnimacion_3.setBounds(69, 217, 60, 42);
+		botonAnimacion_3.setBounds(65, 217, 60, 42);
 		panel.add(botonAnimacion_3);
 		botonAnimacion_3.setBackground(null);
 		botonAnimacion_3.setForeground(null);

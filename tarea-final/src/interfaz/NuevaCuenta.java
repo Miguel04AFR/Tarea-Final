@@ -678,7 +678,6 @@ public class NuevaCuenta extends JFrame {
 	        		
 		 
 		 Timer timer = new Timer(10000, new ActionListener() {
-		        @Override
 		        public void actionPerformed(ActionEvent e) {
 		        	if(!validar3)
 		            lblNewLabel_4.setVisible(false);
