@@ -109,5 +109,18 @@ public void setTelFijo(String telFijo) {
 public ArrayList<CuentaBancaria> getCuentas() {
 	return cuentas;
 }
- 
+
+public boolean Solouno(){
+	boolean unacuenta=true;
+
+	for(int i=0;i<getCuentas().size();i++){
+		if((getCuentas().get(i) instanceof Fondo) || (getCuentas().get(i) instanceof MLC)){
+			unacuenta=false;
+			i=getCuentas().size();
+		}
+
+	}
+	return unacuenta;
+}
+
 }

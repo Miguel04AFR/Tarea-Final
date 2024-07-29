@@ -119,6 +119,7 @@ public class NuevaCuenta extends JFrame {
 	private boolean validar9=false;//validar contraseña
 	private BotonAnimacion botonAnimacion_1;
 	private BotonAnimacion botonAnimacion;
+	private JLabel label_1;
 
 	/**
 	 * Launch the application.
@@ -653,6 +654,32 @@ public class NuevaCuenta extends JFrame {
 		lblNewLabel_25.setFont(new Font("Segoe UI Black", Font.BOLD, 13));
 		lblNewLabel_25.setBounds(301, 344, 81, 16);
 		contentPane.add(lblNewLabel_25);
+		
+		label_1 = new JLabel("Volver al lobby?");
+		label_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				label_1.setForeground(Color.BLUE);
+			}
+			@Override
+			public void mouseExited(MouseEvent arg0) {
+				if(!blanco)
+				label_1.setForeground(null);
+				else
+				label_1.setForeground(Color.BLACK);	
+			}
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				VolverLobby();
+			}
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				label_1.setForeground(Color.getHSBColor(240/360f, 1f, 0.545f));
+			}
+		});
+		label_1.setFont(new Font("Segoe UI", Font.BOLD, 17));
+		label_1.setBounds(332, 322, 137, 23);
+		contentPane.add(label_1);
 		lblNewLabel_25.setVisible(false);
 		
 		setLocationRelativeTo(null);
@@ -724,6 +751,7 @@ public class NuevaCuenta extends JFrame {
 				checkH.setForeground(Color.BLACK);
 				checkM.setForeground(Color.BLACK);
 				checkOtro.setForeground(Color.BLACK);
+				label_1.setForeground(Color.BLACK);
 
 			}
 			else{
@@ -749,6 +777,7 @@ public class NuevaCuenta extends JFrame {
 				checkH.setForeground(null);
 				checkM.setForeground(null);
 				checkOtro.setForeground(null);
+				label_1.setForeground(null);
 			}
 
 
@@ -947,5 +976,10 @@ public class NuevaCuenta extends JFrame {
 		    timer.setRepeats(false);
 		    timer.start();
 
+	 }
+	 public void VolverLobby(){
+		 Lobby a=new Lobby();
+		 dispose();
+		 a.setVisible(true);
 	 }
 }

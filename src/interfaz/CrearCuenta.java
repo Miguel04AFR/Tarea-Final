@@ -60,6 +60,18 @@ public class CrearCuenta extends JDialog {
 	private JTextField textField_1;
 	private String tipoCuenta;
 	private JComboBox comboBox;
+	private JTextField textField_2;
+	private JTextField textField_3;
+	private JTextField textField_4;
+	private JTextField textField_5;
+	private JTextField textField_6;
+	private JTextField textField_7;
+	private JTextField textField_8;
+	private JTextField textField_9;
+	private JTextField textField_10;
+	private JTextField textField_11;
+	private JTextField textField_12;
+	private JTextField textField_13;
 
 	/**
 	 * Launch the application.
@@ -103,9 +115,117 @@ public class CrearCuenta extends JDialog {
 		panel_1.add(panelMLC, "MLC");
 		panelMLC.setLayout(null);
 		
+		JLabel lblParametrosParaLa = new JLabel("Parametros para la cuenta MLC:");
+		lblParametrosParaLa.setHorizontalAlignment(SwingConstants.LEFT);
+		lblParametrosParaLa.setFont(new Font("Segoe UI Black", Font.PLAIN, 26));
+		lblParametrosParaLa.setBounds(42, 13, 513, 46);
+		panelMLC.add(lblParametrosParaLa);
+		
+		textField_11 = new JTextField();
+		textField_11.setFont(new Font("Segoe UI Black", Font.PLAIN, 18));
+		textField_11.setColumns(10);
+		textField_11.setBounds(44, 72, 330, 46);
+		panelMLC.add(textField_11);
+		
+		textField_12 = new JTextField();
+		textField_12.setFont(new Font("Segoe UI Black", Font.BOLD, 18));
+		textField_12.setColumns(10);
+		textField_12.setBounds(44, 165, 330, 46);
+		panelMLC.add(textField_12);
+		
+		JLabel label_23 = new JLabel("Escriba aqu\u00ED el usuario de su beneficiario.");
+		label_23.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
+		label_23.setBounds(44, 119, 303, 33);
+		panelMLC.add(label_23);
+		
+		JLabel label_24 = new JLabel("En el caso de no tener deje la celda en blanco.");
+		label_24.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
+		label_24.setBounds(44, 135, 330, 33);
+		panelMLC.add(label_24);
+		
+		JLabel label_25 = new JLabel("Escriba aqu\u00ED el usuario de el otro titular.");
+		label_25.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
+		label_25.setBounds(44, 210, 295, 33);
+		panelMLC.add(label_25);
+		
+		JLabel label_26 = new JLabel("En el caso de no tener deje la celda en blanco.");
+		label_26.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
+		label_26.setBounds(44, 228, 330, 33);
+		panelMLC.add(label_26);
+		
+		textField_13 = new JTextField();
+		textField_13.setFont(new Font("Segoe UI Black", Font.BOLD, 18));
+		textField_13.setColumns(10);
+		textField_13.setBounds(44, 256, 330, 46);
+		panelMLC.add(textField_13);
+		
+		JLabel label_27 = new JLabel("Escriba aqu\u00ED el monto inicial de la cuenta.");
+		label_27.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
+		label_27.setBounds(42, 298, 332, 33);
+		panelMLC.add(label_27);
+		
+		JLabel label_28 = new JLabel("Debe ser mayor de 50 pesos(pueden ingresar kilo con ',' o '.').");
+		label_28.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
+		label_28.setBounds(42, 315, 456, 33);
+		panelMLC.add(label_28);
+		
 		JPanel panelFondos = new JPanel();
 		panel_1.add(panelFondos, "Fondos");
 		panelFondos.setLayout(null);
+		
+		JLabel lblParametrosParaLa_1 = new JLabel("Parametros para la cuenta de Fondos:");
+		lblParametrosParaLa_1.setHorizontalAlignment(SwingConstants.LEFT);
+		lblParametrosParaLa_1.setFont(new Font("Segoe UI Black", Font.PLAIN, 26));
+		lblParametrosParaLa_1.setBounds(42, 13, 513, 46);
+		panelFondos.add(lblParametrosParaLa_1);
+		
+		textField_8 = new JTextField();
+		textField_8.setFont(new Font("Segoe UI Black", Font.PLAIN, 18));
+		textField_8.setColumns(10);
+		textField_8.setBounds(44, 72, 330, 46);
+		panelFondos.add(textField_8);
+		
+		textField_9 = new JTextField();
+		textField_9.setFont(new Font("Segoe UI Black", Font.BOLD, 18));
+		textField_9.setColumns(10);
+		textField_9.setBounds(44, 165, 330, 46);
+		panelFondos.add(textField_9);
+		
+		JLabel label_16 = new JLabel("Escriba aqu\u00ED el usuario de su beneficiario.");
+		label_16.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
+		label_16.setBounds(44, 119, 303, 33);
+		panelFondos.add(label_16);
+		
+		JLabel label_17 = new JLabel("En el caso de no tener deje la celda en blanco.");
+		label_17.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
+		label_17.setBounds(44, 135, 330, 33);
+		panelFondos.add(label_17);
+		
+		JLabel label_18 = new JLabel("Escriba aqu\u00ED el usuario de el otro titular.");
+		label_18.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
+		label_18.setBounds(44, 210, 295, 33);
+		panelFondos.add(label_18);
+		
+		JLabel label_19 = new JLabel("En el caso de no tener deje la celda en blanco.");
+		label_19.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
+		label_19.setBounds(44, 228, 330, 33);
+		panelFondos.add(label_19);
+		
+		textField_10 = new JTextField();
+		textField_10.setFont(new Font("Segoe UI Black", Font.BOLD, 18));
+		textField_10.setColumns(10);
+		textField_10.setBounds(44, 256, 330, 46);
+		panelFondos.add(textField_10);
+		
+		JLabel label_20 = new JLabel("Escriba aqu\u00ED el monto inicial de la cuenta.");
+		label_20.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
+		label_20.setBounds(42, 298, 332, 33);
+		panelFondos.add(label_20);
+		
+		JLabel label_21 = new JLabel("Debe ser mayor de 50 pesos(pueden ingresar kilo con ',' o '.').");
+		label_21.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
+		label_21.setBounds(42, 315, 456, 33);
+		panelFondos.add(label_21);
 		
 		JPanel panelCorriente = new JPanel();
 		panel_1.add(panelCorriente, "Corriente");
@@ -169,9 +289,117 @@ public class CrearCuenta extends JDialog {
 		panel_1.add(panelPlazoFijo, "PlazoFijo");
 		panelPlazoFijo.setLayout(null);
 		
+		JLabel lblParametrosParaLa_2 = new JLabel("Parametros para la cuenta de Plazo Fijo:");
+		lblParametrosParaLa_2.setHorizontalAlignment(SwingConstants.LEFT);
+		lblParametrosParaLa_2.setFont(new Font("Segoe UI Black", Font.PLAIN, 26));
+		lblParametrosParaLa_2.setBounds(42, 13, 513, 46);
+		panelPlazoFijo.add(lblParametrosParaLa_2);
+		
+		textField_2 = new JTextField();
+		textField_2.setFont(new Font("Segoe UI Black", Font.PLAIN, 18));
+		textField_2.setColumns(10);
+		textField_2.setBounds(44, 72, 330, 46);
+		panelPlazoFijo.add(textField_2);
+		
+		textField_3 = new JTextField();
+		textField_3.setFont(new Font("Segoe UI Black", Font.BOLD, 18));
+		textField_3.setColumns(10);
+		textField_3.setBounds(44, 165, 330, 46);
+		panelPlazoFijo.add(textField_3);
+		
+		JLabel label_2 = new JLabel("Escriba aqu\u00ED el usuario de su beneficiario.");
+		label_2.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
+		label_2.setBounds(44, 119, 303, 33);
+		panelPlazoFijo.add(label_2);
+		
+		JLabel label_3 = new JLabel("En el caso de no tener deje la celda en blanco.");
+		label_3.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
+		label_3.setBounds(44, 135, 330, 33);
+		panelPlazoFijo.add(label_3);
+		
+		JLabel label_4 = new JLabel("Escriba aqu\u00ED el usuario de el otro titular.");
+		label_4.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
+		label_4.setBounds(44, 210, 295, 33);
+		panelPlazoFijo.add(label_4);
+		
+		JLabel label_5 = new JLabel("En el caso de no tener deje la celda en blanco.");
+		label_5.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
+		label_5.setBounds(44, 228, 330, 33);
+		panelPlazoFijo.add(label_5);
+		
+		textField_4 = new JTextField();
+		textField_4.setFont(new Font("Segoe UI Black", Font.BOLD, 18));
+		textField_4.setColumns(10);
+		textField_4.setBounds(44, 256, 330, 46);
+		panelPlazoFijo.add(textField_4);
+		
+		JLabel label_6 = new JLabel("Escriba aqu\u00ED el monto inicial de la cuenta.");
+		label_6.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
+		label_6.setBounds(42, 298, 332, 33);
+		panelPlazoFijo.add(label_6);
+		
+		JLabel label_7 = new JLabel("Debe ser mayor de 50 pesos(pueden ingresar kilo con ',' o '.').");
+		label_7.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
+		label_7.setBounds(42, 315, 456, 33);
+		panelPlazoFijo.add(label_7);
+		
 		JPanel panelAhorro = new JPanel();
 		panel_1.add(panelAhorro, "Ahorro");
 		panelAhorro.setLayout(null);
+		
+		JLabel lblParametrosParaLa_3 = new JLabel("Parametros para la cuenta de Ahorro:");
+		lblParametrosParaLa_3.setHorizontalAlignment(SwingConstants.LEFT);
+		lblParametrosParaLa_3.setFont(new Font("Segoe UI Black", Font.PLAIN, 26));
+		lblParametrosParaLa_3.setBounds(42, 13, 513, 46);
+		panelAhorro.add(lblParametrosParaLa_3);
+		
+		textField_5 = new JTextField();
+		textField_5.setFont(new Font("Segoe UI Black", Font.PLAIN, 18));
+		textField_5.setColumns(10);
+		textField_5.setBounds(44, 72, 330, 46);
+		panelAhorro.add(textField_5);
+		
+		textField_6 = new JTextField();
+		textField_6.setFont(new Font("Segoe UI Black", Font.BOLD, 18));
+		textField_6.setColumns(10);
+		textField_6.setBounds(44, 165, 330, 46);
+		panelAhorro.add(textField_6);
+		
+		JLabel label_9 = new JLabel("Escriba aqu\u00ED el usuario de su beneficiario.");
+		label_9.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
+		label_9.setBounds(44, 119, 303, 33);
+		panelAhorro.add(label_9);
+		
+		JLabel label_10 = new JLabel("En el caso de no tener deje la celda en blanco.");
+		label_10.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
+		label_10.setBounds(44, 135, 330, 33);
+		panelAhorro.add(label_10);
+		
+		JLabel label_11 = new JLabel("Escriba aqu\u00ED el usuario de el otro titular.");
+		label_11.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
+		label_11.setBounds(44, 210, 295, 33);
+		panelAhorro.add(label_11);
+		
+		JLabel label_12 = new JLabel("En el caso de no tener deje la celda en blanco.");
+		label_12.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
+		label_12.setBounds(44, 228, 330, 33);
+		panelAhorro.add(label_12);
+		
+		textField_7 = new JTextField();
+		textField_7.setFont(new Font("Segoe UI Black", Font.BOLD, 18));
+		textField_7.setColumns(10);
+		textField_7.setBounds(44, 256, 330, 46);
+		panelAhorro.add(textField_7);
+		
+		JLabel label_13 = new JLabel("Escriba aqu\u00ED el monto inicial de la cuenta.");
+		label_13.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
+		label_13.setBounds(42, 298, 332, 33);
+		panelAhorro.add(label_13);
+		
+		JLabel label_14 = new JLabel("Debe ser mayor de 50 pesos(pueden ingresar kilo con ',' o '.').");
+		label_14.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
+		label_14.setBounds(42, 315, 456, 33);
+		panelAhorro.add(label_14);
 		
 		JLabel lblNewLabel = new JLabel("Elija el tipo de cuenta a crear ");
 		lblNewLabel.setFont(new Font("Segoe UI", Font.BOLD, 20));

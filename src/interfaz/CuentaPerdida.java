@@ -171,6 +171,10 @@ public class CuentaPerdida extends JFrame {
 				else
 					lblVolverAlLobby.setForeground(Color.BLACK);
         	}
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				lblVolverAlLobby.setForeground(Color.getHSBColor(240/360f, 1f, 0.545f));
+			}
 		});
 		
 		
