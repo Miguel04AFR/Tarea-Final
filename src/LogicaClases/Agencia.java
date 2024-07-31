@@ -5,13 +5,13 @@ public class Agencia {
 	private String IdAgencia;
 	private String gerente;
 	private String direccion;
-	private ArrayList<CajeroAutomatico> cajero;
+	private ArrayList<CajeroAutomatico> cajeros;
 	
 	public Agencia(String IdAgencia,String gerente,String direccion) {
 		setIdAgencia(IdAgencia);
 		setGerente(gerente);
 		setDireccion(direccion);
-		cajero=new ArrayList<CajeroAutomatico>();
+		cajeros=new ArrayList<CajeroAutomatico>();
 	}
 
 	public String getIdAgencia() {
@@ -38,11 +38,19 @@ public class Agencia {
 		this.direccion = direccion;
 	}
 
-	public ArrayList<CajeroAutomatico> getCajero() {
-		return cajero;
+	public ArrayList<CajeroAutomatico> getCajeros() {
+		return cajeros;
 	}
 
-	public void setCajero(ArrayList<CajeroAutomatico> cajero) {
-		this.cajero = cajero;
+	public void setCajeros(ArrayList<CajeroAutomatico> cajeros) {
+		this.cajeros = cajeros;
+	}
+	
+	public void ReponerCajero(){
+		
+		for(CajeroAutomatico c : cajeros){
+			
+		}
+		
 	}
 }

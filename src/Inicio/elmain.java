@@ -10,6 +10,7 @@ import java.nio.file.Paths;
 import java.util.List;
 
 import LogicaClases.Banco;
+import LogicaClases.Corriente;
 import LogicaClases.CuentaBancaria;
 import LogicaClases.MLC;
 import LogicaClases.PlazoFijo;
@@ -20,16 +21,15 @@ import com.formdev.flatlaf.FlatDarculaLaf;
 import LogicaClases.Banco;
 import interfaz.Lobby;
 public class elmain {
-	public static Banco banco=new Banco();
-	
+	public static Banco banco=Banco.getInstancia();
+	 
 
 	public static void main(String[] args) {
 		Usuario primer=new Usuario("usuario","usuario","Alfredo Lopez","41y48","52334463","usuario@gmail.com",'M',"04040534681","perfil","77234398");
-		
+		Corriente j=new Corriente("usuario",null,40,null);
+		primer.getCuentas().add(j);
 		cargarUsuarios();
-		MLC a=new MLC("usuario", null, 0);
-		PlazoFijo b=new PlazoFijo("usuario", null, 0);
-		primer.getCuentas().add(a);
+		PlazoFijo b=new PlazoFijo("usuario", null, 50);
 		primer.getCuentas().add(b);
 		banco.getUsuarios().add(primer);
 		FlatDarculaLaf.setup();

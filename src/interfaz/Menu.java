@@ -7,11 +7,8 @@ import java.awt.EventQueue;
 import java.awt.Graphics;
 
 import Inicio.elmain;
-import LogicaClases.Banco;
-import LogicaClases.Usuario;
-import LogicaClases.Agencia;
-import LogicaClases.CajeroAutomatico;
-import LogicaClases.CuentaBancaria;
+import LogicaClases.*;
+import interfaz.*;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -23,6 +20,7 @@ import componentesVisuales.NotificacionesModernas;
 import componentesVisuales.NotificacionesModernas.Localizacion;
 import componentesVisuales.NotificacionesModernas.Tipo;
 
+import javax.swing.DefaultListModel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JMenuBar;
@@ -61,9 +59,17 @@ import javax.swing.JComboBox;
 import javax.swing.JTable;
 
 import java.awt.Scrollbar;
+
 import javax.swing.KeyStroke;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.InputEvent;
+import java.awt.Cursor;
+
+import javax.swing.JScrollPane;
+import javax.swing.JScrollBar;
+import javax.swing.ScrollPaneConstants;
+
 
 
 public class Menu extends JFrame {
@@ -97,6 +103,9 @@ public class Menu extends JFrame {
 	private JPanel panelultiope;
 	private JLabel lblNewLabel_6;
 	private boolean vercuentas;
+	public static boolean salirDialog=false;
+	public static boolean cuentaCreada=false;
+	private Banco banco=Banco.getInstancia();
 
 	/**
 	 * Launch the application.
@@ -333,6 +342,7 @@ public class Menu extends JFrame {
 		
 		
 		
+		
 		panelope = new JPanel();
 		panel_1.add(panelope, "panelope");
 		panelope.setLayout(null);
@@ -375,6 +385,11 @@ public class Menu extends JFrame {
 				p.setVisible(true);
 				VerCuenta();
 				
+				if(salirDialog){
+					dispose();
+				}
+			   
+				
 				
 			}
 		});
@@ -416,6 +431,7 @@ public class Menu extends JFrame {
 		panelperfil.add(paneldatos);
 		paneldatos.setLayout(null);
 		
+		
 		avatarCircular = new AvatarCircular();
 		avatarCircular.setAvatar(new ImageIcon(Menu.class.getResource("/iconos/woman_female_girl_people_avatar_icon_131275 (5).png")));
 		avatarCircular.setBounds(12, -1, 93, 99);
@@ -446,6 +462,13 @@ public class Menu extends JFrame {
 		paneldatos.add(lblNewLabel_6);
 		
 		
+		JLabel lblNewLabel_7 = new JLabel("a");
+		lblNewLabel_7.setBounds(166, 71, 56, 16);
+		paneldatos.add(lblNewLabel_7);
+		if(pos!=-1){
+			lblNewLabel_7.setText(String.valueOf(banco.getUsuarios().get(pos).getCuentas().size()));
+			}
+		
 		
 		
 		
@@ -456,24 +479,31 @@ public class Menu extends JFrame {
 		
 
 		DefaultTableModel miTabla=new DefaultTableModel();
-		miTabla.addColumn("Columna 1");
-		miTabla.addColumn("Columna 2");
-		miTabla.addRow(new Object[]{"Dato 1", "Dato 2"});
+		 miTabla.addColumn("Cuenta");
+	        miTabla.addColumn("Saldo");
+	        miTabla.addColumn("Fecha de creacion");
 		
-		table = new JTable(new DefaultTableModel(
-			new Object[][] {
-				{null},
-				{null},
-				{null},
-			},
-			new String[] {
-				"New column"
-			}
-		));
+		
+		/*Object[][] datos = new Object[][] {
+			    {null, null, null},
+			    {null, null, null},
+			    {null, null, null},
+			};*/
+	    
+		table = new JTable(miTabla);
+		table.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
 		table.setBounds(47, 38, 647, 229);
 		paneltabla.add(table);
+		table.setFillsViewportHeight(true);
 		
-		
+		JScrollPane scrollPane = new JScrollPane(table);
+		scrollPane.setBounds(47, 13, 647, 257);
+		paneltabla.add(scrollPane);
+		 if(cuentaCreada){ 
+			 AñadirCuentaTabla(miTabla);
+			 cuentaCreada=false;
+		     }
+		 AñadirCuentaTabla(miTabla);
 		panelultiope = new JPanel();
 		panel_1.add(panelultiope, "ultiope");
 		panelultiope.setLayout(null);
@@ -490,30 +520,51 @@ public class Menu extends JFrame {
 		}
 	}
 	public void CambiarAvatar(){
-	if(elmain.banco.getUsuarios().get(pos).getSexo()=='O'){
+	if(banco.getUsuarios().get(pos).getSexo()=='O'){
 		avatarCircular.setAvatar(new ImageIcon(Menu.class.getResource("/iconos/woman_female_girl_people_avatar_icon_131275 (5).png")));
 		lblNewLabel_4.setText("Sexo:Otro");
 	}
-	else if(elmain.banco.getUsuarios().get(pos).getSexo()=='M'){
+	else if(banco.getUsuarios().get(pos).getSexo()=='M'){
 		avatarCircular.setAvatar(new ImageIcon(Menu.class.getResource("/iconos/people_avatar_boy_child_person_icon_131264 (3).png")));
 		lblNewLabel_4.setText("Sexo:Masculino");
 	}
-	else if(elmain.banco.getUsuarios().get(pos).getSexo()=='F'){
+	else if(banco.getUsuarios().get(pos).getSexo()=='F'){
 		avatarCircular.setAvatar(new ImageIcon(Menu.class.getResource("/iconos/avatar_woman_female_girl_people_icon_131282 (2) - copia.png")));
 		lblNewLabel_4.setText("Sexo:Femenino");
 	}
 	}
 	
 	public void PerfilIniciado(){
-		lblNombre.setText("Nombre:" + elmain.banco.getUsuarios().get(pos).getNombreCompleto());
-		lblNewLabel_5.setText("Direccion:" + elmain.banco.getUsuarios().get(pos).getDireccion());
-		lblUsuario_1.setText("Usuario:" + elmain.banco.getUsuarios().get(pos).getIdU());
-		lblgmail.setText("@gmail:" + elmain.banco.getUsuarios().get(pos).getCorreoelectronico());
+		lblNombre.setText("Nombre:" + banco.getUsuarios().get(pos).getNombreCompleto());
+		lblNewLabel_5.setText("Direccion:" + banco.getUsuarios().get(pos).getDireccion());
+		lblUsuario_1.setText("Usuario:" + banco.getUsuarios().get(pos).getIdU());
+		lblgmail.setText("@gmail:" + banco.getUsuarios().get(pos).getCorreoelectronico());
 		
 		CambiarAvatar();
 	}
 	public void VerCuenta(){
-	if(pos!=-1 && elmain.banco.getUsuarios().get(pos).getCuentas().size()>2)
+	if(pos!=-1 && banco.getUsuarios().get(pos).getCuentas().size()>2){
 		lblNewLabel_6.setText("si hay cuenta");
 	}
+	}
+	
+	public void AñadirCuentaTabla(DefaultTableModel mitabla){
+		int i=0;
+		if(pos!=-1){//para que no se parta sino inicialice 
+		for(CuentaBancaria c : banco.getUsuarios().get(pos).getCuentas()){
+			if(c.getTipo().equalsIgnoreCase("Corriente")){
+			mitabla.addRow(new Object[]{c.getTipo(),((Corriente)c).getCup(),null});
+			}
+			if(c.getTipo().equalsIgnoreCase("MLC")){
+				mitabla.addRow(new Object[]{c.getTipo(),((MLC)c).getMlc(),null});
+				}
+			if(c.getTipo().equalsIgnoreCase("PlazoFijo")){
+				mitabla.addRow(new Object[]{c.getTipo(),((PlazoFijo)c).getCup(),null});
+				}
+		}
+		
+	}
+	}
+	
+	
 }

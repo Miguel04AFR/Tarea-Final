@@ -17,7 +17,6 @@ import interfaz.Menu;
 import interfaz.Lobby;
 import LogicaClases.*;
 
-
 import com.formdev.flatlaf.FlatDarculaLaf;
 
 import java.awt.Color;
@@ -27,6 +26,7 @@ import componentesVisuales.BotonAnimacion;
 import java.awt.Component;
 import java.awt.Rectangle;
 import java.awt.Point;
+import java.awt.Window;
 
 import javax.swing.SwingConstants;
 
@@ -39,8 +39,10 @@ import javax.swing.JComboBox;
 import java.awt.Font;
 import java.awt.CardLayout;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JLayeredPane;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -49,8 +51,18 @@ import javax.swing.KeyStroke;
 import java.awt.event.KeyEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
+
 import javax.swing.JTextPane;
 import javax.swing.JTextField;
+
+import java.awt.event.KeyAdapter;
+
+import logica.utilidades.logica.Validaciones;
+
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.List;
+
 
 public class CrearCuenta extends JDialog {
 
@@ -72,6 +84,13 @@ public class CrearCuenta extends JDialog {
 	private JTextField textField_11;
 	private JTextField textField_12;
 	private JTextField textField_13;
+	private String tex;
+	private int pos=Lobby.pos;
+	private JList<String> jListCuentas;
+	private Banco banco=Banco.getInstancia();
+
+
+	
 
 	/**
 	 * Launch the application.
@@ -100,11 +119,11 @@ public class CrearCuenta extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel);
 		contentPanel.setLayout(null);
-		setResizable(false);
-		setUndecorated(true);
+		setResizable(false);//para que no sea recursiva
+		setUndecorated(true);//esto es lo de quitar la cruz de cerrar
 		setLocation(40, 50);
-		setLocationRelativeTo(null);
-		setModalityType(ModalityType.APPLICATION_MODAL);
+		setLocationRelativeTo(null);//esto es lo que hace que se centre
+		setModalityType(ModalityType.APPLICATION_MODAL); //esto es lo que hace que solo puedas interactuar con esta ventana
 		
 		final JLayeredPane panel_1 = new JLayeredPane();
 		panel_1.setBounds(0, 69, 656, 383);
@@ -122,6 +141,14 @@ public class CrearCuenta extends JDialog {
 		panelMLC.add(lblParametrosParaLa);
 		
 		textField_11 = new JTextField();
+		textField_11.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent x) {
+				if(textField_11.getText().length()>UsuarioTam()){
+					x.consume();
+				}
+			}
+		});
 		textField_11.setFont(new Font("Segoe UI Black", Font.PLAIN, 18));
 		textField_11.setColumns(10);
 		textField_11.setBounds(44, 72, 330, 46);
@@ -152,13 +179,26 @@ public class CrearCuenta extends JDialog {
 		label_26.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
 		label_26.setBounds(44, 228, 330, 33);
 		panelMLC.add(label_26);
-		
+
 		textField_13 = new JTextField();
+		textField_13.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent v) {
+
+				if(!(textField_13.getText().equalsIgnoreCase(""))){
+					if(!EsFloat(textField_13.getText())){
+						textField_13.setText("");
+						v.consume();
+									
+					}
+				}
+			}
+		});
 		textField_13.setFont(new Font("Segoe UI Black", Font.BOLD, 18));
 		textField_13.setColumns(10);
 		textField_13.setBounds(44, 256, 330, 46);
 		panelMLC.add(textField_13);
-		
+
 		JLabel label_27 = new JLabel("Escriba aqu\u00ED el monto inicial de la cuenta.");
 		label_27.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
 		label_27.setBounds(42, 298, 332, 33);
@@ -227,6 +267,31 @@ public class CrearCuenta extends JDialog {
 		label_21.setBounds(42, 315, 456, 33);
 		panelFondos.add(label_21);
 		
+		JLabel label_1 = new JLabel("Esta cuenta tiene intereses");
+		label_1.setFont(new Font("Segoe UI Black", Font.BOLD, 18));
+		label_1.setBounds(386, 72, 270, 33);
+		panelFondos.add(label_1);
+		
+		JLabel label_8 = new JLabel("fijados por el banco.Estos");
+		label_8.setFont(new Font("Segoe UI Black", Font.BOLD, 18));
+		label_8.setBounds(386, 92, 270, 33);
+		panelFondos.add(label_8);
+		
+		JLabel label_15 = new JLabel("son anuales y depende de ");
+		label_15.setFont(new Font("Segoe UI Black", Font.BOLD, 18));
+		label_15.setBounds(386, 112, 270, 33);
+		panelFondos.add(label_15);
+		
+		JLabel label_22 = new JLabel("el monto depositado,es ");
+		label_22.setFont(new Font("Segoe UI Black", Font.BOLD, 18));
+		label_22.setBounds(386, 132, 270, 33);
+		panelFondos.add(label_22);
+		
+		JLabel label_29 = new JLabel("decir su saldo actual.");
+		label_29.setFont(new Font("Segoe UI Black", Font.BOLD, 18));
+		label_29.setBounds(386, 152, 270, 33);
+		panelFondos.add(label_29);
+		
 		JPanel panelCorriente = new JPanel();
 		panel_1.add(panelCorriente, "Corriente");
 		panelCorriente.setLayout(null);
@@ -284,6 +349,31 @@ public class CrearCuenta extends JDialog {
 		lblDebeSerMayor.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
 		lblDebeSerMayor.setBounds(42, 315, 456, 33);
 		panelCorriente.add(lblDebeSerMayor);
+		
+		JLabel lblEstaCuentaTiene = new JLabel("Esta cuenta tiene intereses");
+		lblEstaCuentaTiene.setFont(new Font("Segoe UI Black", Font.BOLD, 18));
+		lblEstaCuentaTiene.setBounds(386, 72, 270, 33);
+		panelCorriente.add(lblEstaCuentaTiene);
+		
+		JLabel lblFijadosPorEl = new JLabel("fijados por el banco.Estos");
+		lblFijadosPorEl.setFont(new Font("Segoe UI Black", Font.BOLD, 18));
+		lblFijadosPorEl.setBounds(386, 92, 270, 33);
+		panelCorriente.add(lblFijadosPorEl);
+		
+		JLabel lblSonAnualesY = new JLabel("son anuales y depende de ");
+		lblSonAnualesY.setFont(new Font("Segoe UI Black", Font.BOLD, 18));
+		lblSonAnualesY.setBounds(386, 112, 270, 33);
+		panelCorriente.add(lblSonAnualesY);
+		
+		JLabel lblElMontoDepositado = new JLabel("el monto depositado,es ");
+		lblElMontoDepositado.setFont(new Font("Segoe UI Black", Font.BOLD, 18));
+		lblElMontoDepositado.setBounds(386, 132, 270, 33);
+		panelCorriente.add(lblElMontoDepositado);
+		
+		JLabel lblDecirSuSaldo = new JLabel("decir su saldo actual.");
+		lblDecirSuSaldo.setFont(new Font("Segoe UI Black", Font.BOLD, 18));
+		lblDecirSuSaldo.setBounds(386, 152, 270, 33);
+		panelCorriente.add(lblDecirSuSaldo);
 		
 		JPanel panelPlazoFijo = new JPanel();
 		panel_1.add(panelPlazoFijo, "PlazoFijo");
@@ -429,10 +519,17 @@ public class CrearCuenta extends JDialog {
 		panel.setLayout(null);
 		
 		BotonAnimacion btnmcnAceptar = new BotonAnimacion();
+		btnmcnAceptar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				
+			}
+		});
 		btnmcnAceptar.setColorEfecto(new Color(0, 255, 0));
 		btnmcnAceptar.setBackground(new Color(0, 128, 0));
 		btnmcnAceptar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent arg0) {		
+				Menu.cuentaCreada=true;
 				AñadirCuenta();
 				dispose();
 
@@ -456,6 +553,11 @@ public class CrearCuenta extends JDialog {
 		panel.add(btnmcnSalir);
 		
 		BotonAnimacion btnmcnVolverAlMenu = new BotonAnimacion();
+		btnmcnVolverAlMenu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				VolverMenu();
+			}
+		});
 		btnmcnVolverAlMenu.setText("Volver al menu");
 		btnmcnVolverAlMenu.setColorEfecto(new Color(255, 215, 0));
 		btnmcnVolverAlMenu.setBackground(new Color(255, 255, 0));
@@ -468,23 +570,23 @@ public class CrearCuenta extends JDialog {
 		comboBox.addItem("Plazo Fijo");
 		comboBox.addItem("Ahorro");
 		comboBox.addItem("Corriente");
-		comboBox.addItem("Fondo");
+		comboBox.addItem("Fondos");
 		tipoCuenta=((String)comboBox.getSelectedItem());
 		comboBox.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				//cambiar de panel			
 				CardLayout card=(CardLayout) panel_1.getLayout();
 				if(comboBox.getSelectedItem().equals("MLC"))
-				card.show(panel_1, "MLC");
+					card.show(panel_1, "MLC");
 				else if(comboBox.getSelectedItem().equals("Ahorro"))
-				card.show(panel_1, "Ahorro");
+					card.show(panel_1, "Ahorro");
 				else if(comboBox.getSelectedItem().equals("Plazo Fijo"))
 					card.show(panel_1, "PlazoFijo");
 				else if(comboBox.getSelectedItem().equals("Corriente"))
 					card.show(panel_1, "Corriente");
-				else if(comboBox.getSelectedItem().equals("Fondo"))
-					card.show(panel_1, "Fondo");
-				
+				else if(comboBox.getSelectedItem().equals("Fondos"))
+					card.show(panel_1, "Fondos");
+
 			}
 			
 		});
@@ -502,13 +604,43 @@ public class CrearCuenta extends JDialog {
 
 		if(respuesta==JOptionPane.YES_OPTION){
 			dispose();
+			Menu.salirDialog=true;
+			
 		}
 
 	}
 	public void AñadirCuenta(){
 		if(comboBox.getSelectedItem().equals("Corriente")){
-			Corriente p=new Corriente(elmain.banco.getUsuarios().get(Menu.pos).getIdU(),textField.getText(),Float.parseFloat(textField_1.getText()),txtDejeLaCelda.getText());
-			elmain.banco.getUsuarios().get(Menu.pos).getCuentas().add(p);
+			Corriente p=new Corriente(banco.getUsuarios().get(pos).getIdU(),textField.getText(),Float.parseFloat(textField_1.getText()),txtDejeLaCelda.getText());
+			banco.getUsuarios().get(pos).getCuentas().add(p);
 		}
 	}
+	
+
+
+	
+	public void VolverMenu(){
+		dispose();
+	}
+	public int UsuarioTam(){
+		int caracterTam=0;
+		for(Usuario u : banco.getUsuarios()){
+			if(caracterTam<u.getIdU().length()){
+				caracterTam=u.getIdU().length();
+			}
+		}
+		return caracterTam;
+	}
+
+	public static boolean EsFloat(String text) {
+		boolean sies;
+        try {
+            Float.parseFloat(text);
+            sies=true;
+        } catch (NumberFormatException e) {
+           sies=false;
+        }
+        return sies;
+    }
+
 }

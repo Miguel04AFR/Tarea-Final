@@ -24,6 +24,8 @@ public abstract class CuentaBancaria {
 		this.beneficiario = beneficiario;
 	}
 	
-	
+	public String getTipo(){
+		return getClass().getSimpleName();
+	}
 
 }

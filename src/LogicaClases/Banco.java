@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Banco {
 	private ArrayList<Usuario> usuarios;
 	private ArrayList<Agencia> agencias;
-	
+	private static Banco instancia;
 	
 	public Banco(){
 		usuarios=new ArrayList<Usuario>();
@@ -33,6 +33,11 @@ public class Banco {
 		this.agencias = agencias;
 	}
 	
-	
+	public static Banco getInstancia() {
+        if (instancia == null) {
+        	instancia= new Banco();
+        }
+        return instancia;
+    }
 
 }
