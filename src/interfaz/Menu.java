@@ -106,6 +106,8 @@ public class Menu extends JFrame {
 	public static boolean salirDialog=false;
 	public static boolean cuentaCreada=false;
 	private Banco banco=Banco.getInstancia();
+	private int lineas=0;
+	private DefaultTableModel miTabla=new DefaultTableModel();
 
 	/**
 	 * Launch the application.
@@ -384,6 +386,7 @@ public class Menu extends JFrame {
 				CrearCuenta p=new CrearCuenta();
 				p.setVisible(true);
 				VerCuenta();
+				 AñadirCuentaTabla(miTabla);
 				
 				if(salirDialog){
 					dispose();
@@ -478,7 +481,7 @@ public class Menu extends JFrame {
 		paneltabla.setLayout(null);
 		
 
-		DefaultTableModel miTabla=new DefaultTableModel();
+		
 		 miTabla.addColumn("Cuenta");
 	        miTabla.addColumn("Saldo");
 	        miTabla.addColumn("Fecha de creacion");
@@ -551,20 +554,50 @@ public class Menu extends JFrame {
 	public void AñadirCuentaTabla(DefaultTableModel mitabla){
 		int i=0;
 		if(pos!=-1){//para que no se parta sino inicialice 
+			if(lineas==0){	
 		for(CuentaBancaria c : banco.getUsuarios().get(pos).getCuentas()){
 			if(c.getTipo().equalsIgnoreCase("Corriente")){
 			mitabla.addRow(new Object[]{c.getTipo(),((Corriente)c).getCup(),null});
+			lineas++;
 			}
 			if(c.getTipo().equalsIgnoreCase("MLC")){
 				mitabla.addRow(new Object[]{c.getTipo(),((MLC)c).getMlc(),null});
+				lineas++;
 				}
 			if(c.getTipo().equalsIgnoreCase("PlazoFijo")){
 				mitabla.addRow(new Object[]{c.getTipo(),((PlazoFijo)c).getCup(),null});
-				}
+				lineas++;
+			}
 		}
-		
-	}
-	}
-	
+
+			}
+			else{
+					while(lineas<banco.getUsuarios().get(pos).getCuentas().size()){
+						CuentaBancaria c=banco.getUsuarios().get(pos).getCuentas().get(lineas);
+					if(c.getTipo().equalsIgnoreCase("Corriente")){
+						mitabla.addRow(new Object[]{c.getTipo(),((Corriente)c).getCup(),null});
+						lineas++;
+					}
+					if(c.getTipo().equalsIgnoreCase("MLC")){
+						mitabla.addRow(new Object[]{c.getTipo(),((MLC)c).getMlc(),null});
+						lineas++;
+					}
+					if(c.getTipo().equalsIgnoreCase("PlazoFijo")){
+						mitabla.addRow(new Object[]{"Plazo Fijo",((PlazoFijo)c).getCup(),null});
+						lineas++;
+					}
+					if(c.getTipo().equalsIgnoreCase("Ahorro")){
+						mitabla.addRow(new Object[]{"Plazo Fijo",((PlazoFijo)c).getCup(),null});
+						lineas++;
+					}
+					if(c.getTipo().equalsIgnoreCase("Fondos")){
+						mitabla.addRow(new Object[]{"Fondos",((PlazoFijo)c).getCup(),null});
+						lineas++;
+					}
+				}
+			}
+			}
+		}
+
 	
 }

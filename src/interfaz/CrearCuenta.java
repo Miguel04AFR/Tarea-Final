@@ -62,6 +62,7 @@ import logica.utilidades.logica.Validaciones;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
+import com.toedter.calendar.demo.JCalendarDemo;
 
 
 public class CrearCuenta extends JDialog {
@@ -204,10 +205,10 @@ public class CrearCuenta extends JDialog {
 		label_27.setBounds(42, 298, 332, 33);
 		panelMLC.add(label_27);
 		
-		JLabel label_28 = new JLabel("Debe ser mayor de 50 pesos(pueden ingresar kilo con ',' o '.').");
-		label_28.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
-		label_28.setBounds(42, 315, 456, 33);
-		panelMLC.add(label_28);
+		JLabel lblDebeSerMayor_1 = new JLabel("Debe ser mayor de 50 pesos(pueden ingresar kilo con un punto '.').");
+		lblDebeSerMayor_1.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
+		lblDebeSerMayor_1.setBounds(42, 315, 493, 33);
+		panelMLC.add(lblDebeSerMayor_1);
 		
 		JPanel panelFondos = new JPanel();
 		panel_1.add(panelFondos, "Fondos");
@@ -614,6 +615,22 @@ public class CrearCuenta extends JDialog {
 			Corriente p=new Corriente(banco.getUsuarios().get(pos).getIdU(),textField.getText(),Float.parseFloat(textField_1.getText()),txtDejeLaCelda.getText());
 			banco.getUsuarios().get(pos).getCuentas().add(p);
 		}
+		if(comboBox.getSelectedItem().equals("Ahorro")){
+			Corriente p=new Corriente(banco.getUsuarios().get(pos).getIdU(),textField.getText(),Float.parseFloat(textField_1.getText()),txtDejeLaCelda.getText());
+			banco.getUsuarios().get(pos).getCuentas().add(p);
+		}
+		if(comboBox.getSelectedItem().equals("Fondos")){
+			Corriente p=new Corriente(banco.getUsuarios().get(pos).getIdU(),textField.getText(),Float.parseFloat(textField_1.getText()),txtDejeLaCelda.getText());
+			banco.getUsuarios().get(pos).getCuentas().add(p);
+		}
+		if(comboBox.getSelectedItem().equals("MLC")){
+			Corriente p=new Corriente(banco.getUsuarios().get(pos).getIdU(),textField.getText(),Float.parseFloat(textField_1.getText()),txtDejeLaCelda.getText());
+			banco.getUsuarios().get(pos).getCuentas().add(p);
+		}
+		if(comboBox.getSelectedItem().equals("PlazoFijo")){
+			Corriente p=new Corriente(banco.getUsuarios().get(pos).getIdU(),textField.getText(),Float.parseFloat(textField_1.getText()),txtDejeLaCelda.getText());
+			banco.getUsuarios().get(pos).getCuentas().add(p);
+		}
 	}
 	
 
@@ -642,5 +659,4 @@ public class CrearCuenta extends JDialog {
         }
         return sies;
     }
-
 }

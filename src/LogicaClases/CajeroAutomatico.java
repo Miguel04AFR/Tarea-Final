@@ -9,6 +9,29 @@ private String moneda;
 public CajeroAutomatico(String moneda){
 	billetes=new ArrayList<Integer>();
 	setMoneda(moneda);
+	
+	billetes.add(5);
+	billetes.add(5);
+	billetes.add(5);
+	billetes.add(5);
+	billetes.add(20);
+	billetes.add(20);
+	billetes.add(20);
+	billetes.add(20);
+	billetes.add(50);
+	billetes.add(50);
+	billetes.add(50);
+	billetes.add(100);
+	billetes.add(100);
+	billetes.add(100);
+	billetes.add(500);
+	billetes.add(500);
+	billetes.add(1000);
+	billetes.add(1000);
+	billetes.add(1000);
+	billetes.add(1000);
+	billetes.add(5000);
+	
 }
 
 public ArrayList<Integer> getBilletes() {

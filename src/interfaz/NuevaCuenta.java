@@ -678,7 +678,7 @@ public class NuevaCuenta extends JFrame {
 			}
 		});
 		label_1.setFont(new Font("Segoe UI", Font.BOLD, 17));
-		label_1.setBounds(332, 322, 137, 23);
+		label_1.setBounds(376, 319, 137, 23);
 		contentPane.add(label_1);
 		lblNewLabel_25.setVisible(false);
 		
