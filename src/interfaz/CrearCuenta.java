@@ -61,8 +61,15 @@ import logica.utilidades.logica.Validaciones;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Date;
 import java.util.List;
+
 import com.toedter.calendar.demo.JCalendarDemo;
+
+import raven.datetime.component.time.TimePicker;
+import componentesVisuales.JLabelHora;
+import componentes.JHora;
+import componentes.JFecha;
 
 
 public class CrearCuenta extends JDialog {
@@ -89,6 +96,9 @@ public class CrearCuenta extends JDialog {
 	private int pos=Lobby.pos;
 	private JList<String> jListCuentas;
 	private Banco banco=Banco.getInstancia();
+	private JHora hrPm;
+	public static String horaCreada;
+	private JFecha fchjul;
 
 
 	
@@ -209,6 +219,19 @@ public class CrearCuenta extends JDialog {
 		lblDebeSerMayor_1.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
 		lblDebeSerMayor_1.setBounds(42, 315, 493, 33);
 		panelMLC.add(lblDebeSerMayor_1);
+		
+		hrPm = new JHora(0);
+		hrPm.setBounds(583, 367, 73, 16);
+		panelMLC.add(hrPm);
+		
+		fchjul = new JFecha();
+		fchjul.setBounds(587, 354, 66, 16);
+		panelMLC.add(fchjul);
+		
+		
+		
+		
+		
 		
 		JPanel panelFondos = new JPanel();
 		panel_1.add(panelFondos, "Fondos");
@@ -531,6 +554,7 @@ public class CrearCuenta extends JDialog {
 		btnmcnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {		
 				Menu.cuentaCreada=true;
+				horaCreada=fchjul.getText();
 				AñadirCuenta();
 				dispose();
 
@@ -611,6 +635,7 @@ public class CrearCuenta extends JDialog {
 
 	}
 	public void AñadirCuenta(){
+		horaCreada=fchjul.getText();
 		if(comboBox.getSelectedItem().equals("Corriente")){
 			Corriente p=new Corriente(banco.getUsuarios().get(pos).getIdU(),textField.getText(),Float.parseFloat(textField_1.getText()),txtDejeLaCelda.getText());
 			banco.getUsuarios().get(pos).getCuentas().add(p);

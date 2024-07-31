@@ -65,6 +65,7 @@ import javax.swing.KeyStroke;
 import java.awt.event.KeyEvent;
 import java.awt.event.InputEvent;
 import java.awt.Cursor;
+import java.util.Date;
 
 import javax.swing.JScrollPane;
 import javax.swing.JScrollBar;
@@ -108,6 +109,8 @@ public class Menu extends JFrame {
 	private Banco banco=Banco.getInstancia();
 	private int lineas=0;
 	private DefaultTableModel miTabla=new DefaultTableModel();
+	private String horaCreada;
+	private JLabel lblNewLabel_7;
 
 	/**
 	 * Launch the application.
@@ -387,6 +390,10 @@ public class Menu extends JFrame {
 				p.setVisible(true);
 				VerCuenta();
 				 AñadirCuentaTabla(miTabla);
+				 horaCreada=CrearCuenta.horaCreada;
+				 if(pos!=-1){
+						lblNewLabel_7.setText(String.valueOf(horaCreada));
+						}
 				
 				if(salirDialog){
 					dispose();
@@ -465,12 +472,10 @@ public class Menu extends JFrame {
 		paneldatos.add(lblNewLabel_6);
 		
 		
-		JLabel lblNewLabel_7 = new JLabel("a");
+		lblNewLabel_7 = new JLabel("a");
 		lblNewLabel_7.setBounds(166, 71, 56, 16);
 		paneldatos.add(lblNewLabel_7);
-		if(pos!=-1){
-			lblNewLabel_7.setText(String.valueOf(banco.getUsuarios().get(pos).getCuentas().size()));
-			}
+		
 		
 		
 		
@@ -504,6 +509,7 @@ public class Menu extends JFrame {
 		paneltabla.add(scrollPane);
 		 if(cuentaCreada){ 
 			 AñadirCuentaTabla(miTabla);
+			 horaCreada=CrearCuenta.horaCreada;
 			 cuentaCreada=false;
 		     }
 		 AñadirCuentaTabla(miTabla);
@@ -572,26 +578,27 @@ public class Menu extends JFrame {
 
 			}
 			else{
+				horaCreada=CrearCuenta.horaCreada;
 					while(lineas<banco.getUsuarios().get(pos).getCuentas().size()){
 						CuentaBancaria c=banco.getUsuarios().get(pos).getCuentas().get(lineas);
 					if(c.getTipo().equalsIgnoreCase("Corriente")){
-						mitabla.addRow(new Object[]{c.getTipo(),((Corriente)c).getCup(),null});
+						mitabla.addRow(new Object[]{c.getTipo(),((Corriente)c).getCup(),horaCreada});
 						lineas++;
 					}
 					if(c.getTipo().equalsIgnoreCase("MLC")){
-						mitabla.addRow(new Object[]{c.getTipo(),((MLC)c).getMlc(),null});
+						mitabla.addRow(new Object[]{c.getTipo(),((MLC)c).getMlc(),horaCreada});
 						lineas++;
 					}
 					if(c.getTipo().equalsIgnoreCase("PlazoFijo")){
-						mitabla.addRow(new Object[]{"Plazo Fijo",((PlazoFijo)c).getCup(),null});
+						mitabla.addRow(new Object[]{"Plazo Fijo",((PlazoFijo)c).getCup(),horaCreada});
 						lineas++;
 					}
 					if(c.getTipo().equalsIgnoreCase("Ahorro")){
-						mitabla.addRow(new Object[]{"Plazo Fijo",((PlazoFijo)c).getCup(),null});
+						mitabla.addRow(new Object[]{"Plazo Fijo",((PlazoFijo)c).getCup(),horaCreada});
 						lineas++;
 					}
 					if(c.getTipo().equalsIgnoreCase("Fondos")){
-						mitabla.addRow(new Object[]{"Fondos",((PlazoFijo)c).getCup(),null});
+						mitabla.addRow(new Object[]{"Fondos",((PlazoFijo)c).getCup(),horaCreada});
 						lineas++;
 					}
 				}
