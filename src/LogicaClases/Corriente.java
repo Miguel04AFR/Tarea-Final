@@ -1,6 +1,6 @@
 package LogicaClases;
 
-public class Corriente extends CuentaBancaria{
+public class Corriente extends CuentaBancaria implements Iintereses{
 	private String titurales;
 	private float cup;
 	
@@ -24,6 +24,8 @@ public class Corriente extends CuentaBancaria{
 	public void setCup(float cup) {
 		this.cup = cup;
 	}
-	
+	public double CalcularInteres(){
+		return (cup / 5) * 0.75;
+	}
 	
 }

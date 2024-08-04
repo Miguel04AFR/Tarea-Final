@@ -1,7 +1,7 @@
 package LogicaClases;
 import java.util.Random;
 
-public class Fondo extends CuentaBancaria implements IdepositarEntidad{
+public class Fondo extends CuentaBancaria implements IdepositarEntidad,Iintereses{
 	private float cup;
 
 	
@@ -24,6 +24,10 @@ public class Fondo extends CuentaBancaria implements IdepositarEntidad{
 		return 2;
 	}
 	
+	public double CalcularInteres(){
+		return (cup / 5) * 0.75;
+	}
+
 	
 
 }
