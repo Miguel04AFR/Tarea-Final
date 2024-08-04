@@ -84,8 +84,6 @@ public class NuevaCuenta extends JFrame {
 	private JLabel lblNewLabel_2;
 	private JLabel lblNewLabel;
 	private JLabel lblDeCelular;
-	private JLabel lblSuContrasea;
-	private JLabel lblUnaPistaPor;
 	private JLabel lblDosPasos;
 	private JTextField textField;
 	private JTextField textField_5;
@@ -120,6 +118,7 @@ public class NuevaCuenta extends JFrame {
 	private BotonAnimacion botonAnimacion_1;
 	private BotonAnimacion botonAnimacion;
 	private JLabel label_1;
+	private JLabel lblSiSeLe;
 
 	/**
 	 * Launch the application.
@@ -195,12 +194,12 @@ public class NuevaCuenta extends JFrame {
 			}
 		});
 		botonAnimacion.setText("Salir");
-		botonAnimacion.setFont(new Font("Segoe UI", Font.BOLD, 20));
-		botonAnimacion.setColorEfecto(Color.RED);
+		botonAnimacion.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
+		botonAnimacion.setColorEfecto(new Color(128, 0, 0));
 		botonAnimacion.setBorder(new EmptyBorder(40,40,40,40));
-		botonAnimacion.setBackground(new Color(255, 69, 0));
+		botonAnimacion.setBackground(new Color(255, 0, 0));
 		botonAnimacion.setForeground(new Color(0, 0, 0));
-		botonAnimacion.setBounds(310, 448, 290, 57);
+		botonAnimacion.setBounds(320, 448, 269, 57);
 		contentPane.add(botonAnimacion);
 		
 		botonAnimacion_1 = new BotonAnimacion();
@@ -242,7 +241,7 @@ public class NuevaCuenta extends JFrame {
 		botonAnimacion_1.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
 		botonAnimacion_1.setColorEfecto(Color.GREEN);
 		botonAnimacion_1.setBackground(new Color(0, 128, 0));
-		botonAnimacion_1.setBounds(310, 373, 290, 67);
+		botonAnimacion_1.setBounds(320, 383, 269, 57);
 		botonAnimacion_1.setForeground(new Color(0, 0, 0));
 		contentPane.add(botonAnimacion_1);
 		
@@ -312,9 +311,9 @@ public class NuevaCuenta extends JFrame {
 		contentPane.add(textField_1);
 		
 		lblContrase = new JLabel("Contrase\u00F1a:");
-		lblContrase.setHorizontalAlignment(SwingConstants.CENTER);
+		lblContrase.setHorizontalAlignment(SwingConstants.LEFT);
 		lblContrase.setFont(new Font("Segoe UI Black", Font.PLAIN, 22));
-		lblContrase.setBounds(-30, 294, 331, 30);
+		lblContrase.setBounds(32, 294, 232, 30);
 		contentPane.add(lblContrase);
 		
 		textField_2 = new JTextField();
@@ -338,7 +337,7 @@ public class NuevaCuenta extends JFrame {
 		JLabel lblNewLabel_3 = new JLabel("");
 		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_3.setIcon(new ImageIcon("D:\\Proyectos\\Java\\tarea-final\\iconos\\business_application_addmale_useradd_insert_add_user_client_2312 (1).png"));
-		lblNewLabel_3.setBounds(294, 176, 290, 73);
+		lblNewLabel_3.setBounds(297, 176, 290, 73);
 		contentPane.add(lblNewLabel_3);
 		
 		checkH = new JRadioButton("M");
@@ -402,9 +401,9 @@ public class NuevaCuenta extends JFrame {
 		contentPane.add(label);
 		
 		lblCi = new JLabel("CI:");
-		lblCi.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCi.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCi.setFont(new Font("Segoe UI Black", Font.PLAIN, 22));
-		lblCi.setBounds(-30, 357, 331, 30);
+		lblCi.setBounds(32, 358, 56, 30);
 		contentPane.add(lblCi);
 		
 		textField_4 = new JTextField();
@@ -430,10 +429,10 @@ public class NuevaCuenta extends JFrame {
 		textField_4.setBounds(8, 394, 290, 30);
 		contentPane.add(textField_4);
 		
-		lblDosPasos = new JLabel("Dos pasos:");
-		lblDosPasos.setHorizontalAlignment(SwingConstants.CENTER);
+		lblDosPasos = new JLabel("Dos pasos :Una pista de");
+		lblDosPasos.setHorizontalAlignment(SwingConstants.LEFT);
 		lblDosPasos.setFont(new Font("Segoe UI Black", Font.PLAIN, 22));
-		lblDosPasos.setBounds(583, 115, 331, 30);
+		lblDosPasos.setBounds(615, 128, 293, 37);
 		contentPane.add(lblDosPasos);
 		
 		textField_5 = new JTextField();
@@ -450,22 +449,10 @@ public class NuevaCuenta extends JFrame {
 		textField_5.setBounds(612, 187, 290, 30);
 		contentPane.add(textField_5);
 		
-		lblUnaPistaPor = new JLabel("Una pista por si se le olvida");
-		lblUnaPistaPor.setHorizontalAlignment(SwingConstants.CENTER);
-		lblUnaPistaPor.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
-		lblUnaPistaPor.setBounds(578, 136, 331, 30);
-		contentPane.add(lblUnaPistaPor);
-		
-		lblSuContrasea = new JLabel("su contrase\u00F1a");
-		lblSuContrasea.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSuContrasea.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
-		lblSuContrasea.setBounds(583, 156, 331, 30);
-		contentPane.add(lblSuContrasea);
-		
 		lblDeCelular = new JLabel("Numero de celular:");
-		lblDeCelular.setHorizontalAlignment(SwingConstants.CENTER);
+		lblDeCelular.setHorizontalAlignment(SwingConstants.LEFT);
 		lblDeCelular.setFont(new Font("Segoe UI Black", Font.PLAIN, 22));
-		lblDeCelular.setBounds(583, 219, 331, 30);
+		lblDeCelular.setBounds(615, 219, 331, 30);
 		contentPane.add(lblDeCelular);
 		
 		textField_6 = new JTextField();
@@ -524,9 +511,9 @@ public class NuevaCuenta extends JFrame {
 		contentPane.add(textField_7);
 		
 		lblDireecion = new JLabel("Direccion:");
-		lblDireecion.setHorizontalAlignment(SwingConstants.CENTER);
+		lblDireecion.setHorizontalAlignment(SwingConstants.LEFT);
 		lblDireecion.setFont(new Font("Segoe UI Black", Font.PLAIN, 22));
-		lblDireecion.setBounds(595, 346, 331, 30);
+		lblDireecion.setBounds(615, 344, 207, 30);
 		contentPane.add(lblDireecion);
 		
 		textField_8 = new JTextField();
@@ -561,14 +548,14 @@ public class NuevaCuenta extends JFrame {
 		lblNewLabel_15 = new JLabel("*");
 		lblNewLabel_15.setForeground(new Color(255, 0, 0));
 		lblNewLabel_15.setFont(new Font("Segoe UI Black", Font.BOLD, 29));
-		lblNewLabel_15.setBounds(105, 358, 25, 27);
+		lblNewLabel_15.setBounds(11, 358, 25, 27);
 		contentPane.add(lblNewLabel_15);
 		lblNewLabel_15.setVisible(false);
 		
 		lblNewLabel_14 = new JLabel("*");
 		lblNewLabel_14.setForeground(new Color(255, 0, 0));
 		lblNewLabel_14.setFont(new Font("Segoe UI Black", Font.BOLD, 29));
-		lblNewLabel_14.setBounds(627, 219, 25, 27);
+		lblNewLabel_14.setBounds(599, 219, 25, 27);
 		contentPane.add(lblNewLabel_14);
 		lblNewLabel_14.setVisible(false);
 		
@@ -596,7 +583,7 @@ public class NuevaCuenta extends JFrame {
 		lblNewLabel_26 = new JLabel("*");
 		lblNewLabel_26.setForeground(new Color(255, 0, 0));
 		lblNewLabel_26.setFont(new Font("Segoe UI Black", Font.BOLD, 29));
-		lblNewLabel_26.setBounds(57, 294, 25, 27);
+		lblNewLabel_26.setBounds(11, 294, 25, 27);
 		contentPane.add(lblNewLabel_26);
 		lblNewLabel_26.setVisible(false);
 		
@@ -680,6 +667,12 @@ public class NuevaCuenta extends JFrame {
 		label_1.setFont(new Font("Segoe UI", Font.BOLD, 17));
 		label_1.setBounds(376, 319, 137, 23);
 		contentPane.add(label_1);
+		
+		lblSiSeLe = new JLabel("olvidarse su contrase\u00F1a");
+		lblSiSeLe.setHorizontalAlignment(SwingConstants.LEFT);
+		lblSiSeLe.setFont(new Font("Segoe UI Black", Font.PLAIN, 22));
+		lblSiSeLe.setBounds(615, 155, 293, 37);
+		contentPane.add(lblSiSeLe);
 		lblNewLabel_25.setVisible(false);
 		
 		setLocationRelativeTo(null);
@@ -746,8 +739,7 @@ public class NuevaCuenta extends JFrame {
 				lblNombreDeUsuario.setForeground(Color.BLACK);
 				lblNumeroDeTelefono.setForeground(Color.BLACK);
 				lblSexo.setForeground(Color.BLACK);
-				lblSuContrasea.setForeground(Color.BLACK);
-				lblUnaPistaPor.setForeground(Color.BLACK);
+				lblSiSeLe.setForeground(Color.BLACK);
 				checkH.setForeground(Color.BLACK);
 				checkM.setForeground(Color.BLACK);
 				checkOtro.setForeground(Color.BLACK);
@@ -772,8 +764,7 @@ public class NuevaCuenta extends JFrame {
 				lblNombreDeUsuario.setForeground(null);
 				lblNumeroDeTelefono.setForeground(null);
 				lblSexo.setForeground(null);
-				lblSuContrasea.setForeground(null);
-				lblUnaPistaPor.setForeground(null);
+				lblSiSeLe.setForeground(Color.BLACK);
 				checkH.setForeground(null);
 				checkM.setForeground(null);
 				checkOtro.setForeground(null);
@@ -814,9 +805,9 @@ public class NuevaCuenta extends JFrame {
 		 }
 		 
 		 if(textField.getText().length()>=6)
-			validar77=false;
-		 else
 			validar77=true;
+		 else
+			validar77=false;
 		 
 		 
 		 for(int j=0;j< elmain.banco.getUsuarios().size();j++){
@@ -915,14 +906,14 @@ public class NuevaCuenta extends JFrame {
 	        	}
 	        	if(!validar7){
 	        	lblNewLabel_17.setVisible(true);
-	        	lblNewLabel_27.setVisible(true);
-	        	lblNewLabel_28.setVisible(true);
+	        	lblNewLabel_5.setVisible(true);
+		        lblNewLabel_6.setVisible(true);
 	        	}
-	        	if(!validar77)
+	        	if(!validar77){
 	        	lblNewLabel_17.setVisible(true);
 	        	lblNewLabel_27.setVisible(true);
 	        	lblNewLabel_28.setVisible(true);
-	        	
+	        	}
 	        	if(!validar8)
 	        	lblNewLabel_26.setVisible(true);
 	        	
@@ -958,10 +949,11 @@ public class NuevaCuenta extends JFrame {
 			        lblNewLabel_5.setVisible(false);
 			        lblNewLabel_6.setVisible(false);
 		        	}
-		        	if(!validar77)
+		        	if(!validar77){
 				    lblNewLabel_17.setVisible(false);
 		        	lblNewLabel_27.setVisible(false);
 		        	lblNewLabel_28.setVisible(false);
+		        	}
 		        	if(!validar8){
 		        	lblNewLabel_18.setVisible(false);
 		        	}

@@ -35,6 +35,8 @@ import java.awt.event.MouseEvent;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 
 public class CuentaPerdida extends JFrame {
@@ -111,6 +113,21 @@ public class CuentaPerdida extends JFrame {
 		contentPane.add(lblNewLabel_1);
 		
 		textField = new JTextField();
+		textField.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				if(textField.getText().equals("Escriba aqui...")){
+					textField.setText("");
+				}
+				
+			}
+			@Override
+			public void focusLost(FocusEvent arg0) {
+				if(textField.getText().equals("")){
+					textField.setText("Escriba aqui...");
+			}
+			}
+		});
 		textField.setText("Escriba aqui...");
 		textField.setColumns(10);
 		textField.setBounds(124, 319, 290, 30);
@@ -126,6 +143,7 @@ public class CuentaPerdida extends JFrame {
 		botonAnimacion.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
 		botonAnimacion.setColorEfecto(Color.GREEN);
 		botonAnimacion.setBackground(new Color(0, 128, 0));
+		botonAnimacion.setForeground(Color.BLACK);
 		botonAnimacion.setBounds(124, 441, 290, 67);
 		contentPane.add(botonAnimacion);
 		
@@ -137,10 +155,11 @@ public class CuentaPerdida extends JFrame {
 		});
 		botonAnimacion_2.setText("Salir");
 		botonAnimacion_2.setFont(new Font("Segoe UI", Font.BOLD, 20));
-		botonAnimacion_2.setColorEfecto(Color.RED);
+		botonAnimacion_2.setColorEfecto(new Color(128,0,0));
+		botonAnimacion_2.setForeground(Color.BLACK);
 		botonAnimacion_2.setBorder(new EmptyBorder(40,40,40,40));
-		botonAnimacion_2.setBackground(new Color(255, 69, 0));
-		botonAnimacion_2.setBounds(124, 540, 290, 57);
+		botonAnimacion_2.setBackground(new Color(255, 0, 0));
+		botonAnimacion_2.setBounds(124, 530, 290, 67);
 		contentPane.add(botonAnimacion_2);
 		
 		lblNewLabel_2 = new JLabel("Recuperar cuenta...");
@@ -178,8 +197,8 @@ public class CuentaPerdida extends JFrame {
 		});
 		
 		
-		lblVolverAlLobby.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblVolverAlLobby.setBounds(124, 352, 116, 16);
+		lblVolverAlLobby.setFont(new Font("Segoe UI", Font.BOLD, 17));
+		lblVolverAlLobby.setBounds(124, 352, 147, 16);
 		contentPane.add(lblVolverAlLobby);
 		
 		lblOSuCorreo = new JLabel("o su correo electronico:");

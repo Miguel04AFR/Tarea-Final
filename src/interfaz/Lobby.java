@@ -326,8 +326,8 @@ public class Lobby extends JFrame {
 	        	}
 	        });
 	        btnmcnSdf.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
-	        btnmcnSdf.setBackground(new Color(255, 69, 0));
-	        btnmcnSdf.setColorEfecto(new Color(255, 0, 0));
+	        btnmcnSdf.setBackground(new Color(255, 0, 0));
+	        btnmcnSdf.setColorEfecto(new Color(128, 0, 0));
 	        btnmcnSdf.setForeground(new Color(0, 0, 0));
 	        btnmcnSdf.setText("Salir");
 	        btnmcnSdf.addActionListener(new ActionListener() {

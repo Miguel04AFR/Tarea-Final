@@ -1,4 +1,5 @@
 package LogicaClases;
+import java.util.Random;
 
 public class Ahorro extends CuentaBancaria{
 	private float mlc;

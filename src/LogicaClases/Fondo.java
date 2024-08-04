@@ -1,6 +1,7 @@
 package LogicaClases;
+import java.util.Random;
 
-public class Fondo extends CuentaBancaria{
+public class Fondo extends CuentaBancaria implements IdepositarEntidad{
 	private float cup;
 
 	
@@ -14,6 +15,13 @@ public class Fondo extends CuentaBancaria{
 
 	public void setCup(float cup) {
 		this.cup = cup;
+	}
+	
+	public float DepositarEntidad(){
+		
+		
+		
+		return 2;
 	}
 	
 	
