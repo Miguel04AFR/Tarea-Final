@@ -70,6 +70,8 @@ import raven.datetime.component.time.TimePicker;
 import componentesVisuales.JLabelHora;
 import componentes.JHora;
 import componentes.JFecha;
+import javax.swing.JRadioButton;
+import javax.swing.ButtonGroup;
 
 
 public class CrearCuenta extends JDialog {
@@ -95,11 +97,19 @@ public class CrearCuenta extends JDialog {
 	public static String fechaCreada;
 	public static String horaCreada;
 	public static String fechaPlazo="";
+	public static String Estatal="";
 	private boolean MoF=true;
 	private JFecha fchjul;
 	private JTextField textField_8;
 	private JTextField textField_9;
 	private Usuario usuario=banco.getUsuarios().get(pos);
+	/**
+	 * @wbp.nonvisual location=721,394
+	 */
+	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private JRadioButton buttonEstatal;
+	private JRadioButton buttonPersonal;
+	
 	
 
 	
@@ -513,12 +523,12 @@ public class CrearCuenta extends JDialog {
 		textField_7.setBounds(42, 211, 215, 46);
 		panelAhorro.add(textField_7);
 		
-		JLabel label_13 = new JLabel("Escriba aqu\u00ED el monto inicial de la cuenta.");
-		label_13.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
-		label_13.setBounds(42, 270, 332, 33);
-		panelAhorro.add(label_13);
+		JLabel lblEscribaAquEl_3 = new JLabel("Escriba aqu\u00ED el monto inicial de la cuenta.Debe ser mayor de 50 ");
+		lblEscribaAquEl_3.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
+		lblEscribaAquEl_3.setBounds(42, 270, 500, 33);
+		panelAhorro.add(lblEscribaAquEl_3);
 		
-		JLabel lblDebeSerMayor_4 = new JLabel("Debe ser mayor de 50 pesos(pueden ingresar kilos con un punto '.').");
+		JLabel lblDebeSerMayor_4 = new JLabel("pesos o 10mlc(pueden ingresar kilos o centavos con un punto '.').");
 		lblDebeSerMayor_4.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
 		lblDebeSerMayor_4.setBounds(42, 292, 500, 33);
 		panelAhorro.add(lblDebeSerMayor_4);
@@ -532,6 +542,25 @@ public class CrearCuenta extends JDialog {
 		lblCup.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
 		lblCup.setBounds(327, 181, 54, 33);
 		panelAhorro.add(lblCup);
+		
+		buttonEstatal = new JRadioButton("Estatal");
+		buttonEstatal.setFont(new Font("Segoe UI Black", Font.PLAIN, 13));
+		buttonEstatal.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(buttonEstatal.isSelected()){
+					
+				}
+			}
+			
+		});
+		buttonEstatal.setBounds(130, 349, 127, 25);
+		panelAhorro.add(buttonEstatal);
+		
+		buttonPersonal = new JRadioButton("Personal");
+		buttonPersonal.setSelected(true);
+		buttonPersonal.setFont(new Font("Segoe UI Black", Font.PLAIN, 13));
+		buttonPersonal.setBounds(42, 349, 127, 25);
+		panelAhorro.add(buttonPersonal);
 		
 		JLabel lblNewLabel = new JLabel("Elija el tipo de cuenta a crear ");
 		lblNewLabel.setFont(new Font("Segoe UI", Font.BOLD, 20));
@@ -696,6 +725,44 @@ public class CrearCuenta extends JDialog {
 		lblDeTenerYa.setBounds(42, 315, 425, 33);
 		panelMLC.add(lblDeTenerYa);
 			
+		buttonGroup.add(buttonPersonal);
+		buttonGroup.add(buttonEstatal);
+		
+		JLabel lblEstaCuentaPuede = new JLabel("Esta cuenta puede ser de");
+		lblEstaCuentaPuede.setFont(new Font("Segoe UI Black", Font.BOLD, 18));
+		lblEstaCuentaPuede.setBounds(386, 72, 270, 33);
+		panelAhorro.add(lblEstaCuentaPuede);
+		
+		JLabel lblDeDosTipos = new JLabel("de dos tipos de moneda.\r\n");
+		lblDeDosTipos.setFont(new Font("Segoe UI Black", Font.BOLD, 18));
+		lblDeDosTipos.setBounds(386, 92, 270, 33);
+		panelAhorro.add(lblDeDosTipos);
+		
+		JLabel lblEnCasoDe = new JLabel("En caso de que el depo-");
+		lblEnCasoDe.setFont(new Font("Segoe UI Black", Font.BOLD, 18));
+		lblEnCasoDe.setBounds(386, 112, 270, 33);
+		panelAhorro.add(lblEnCasoDe);
+		
+		JLabel lblSitanteSeUna = new JLabel("sitante se una empresa");
+		lblSitanteSeUna.setFont(new Font("Segoe UI Black", Font.BOLD, 18));
+		lblSitanteSeUna.setBounds(386, 132, 270, 33);
+		panelAhorro.add(lblSitanteSeUna);
+		
+		JLabel lblEstatalelUsuarioNo = new JLabel("estatal,el usuario no po-");
+		lblEstatalelUsuarioNo.setFont(new Font("Segoe UI Black", Font.BOLD, 18));
+		lblEstatalelUsuarioNo.setBounds(386, 152, 270, 33);
+		panelAhorro.add(lblEstatalelUsuarioNo);
+		
+		JLabel lblDraCerrarSu = new JLabel("dra cerrar su cuenta.");
+		lblDraCerrarSu.setFont(new Font("Segoe UI Black", Font.BOLD, 18));
+		lblDraCerrarSu.setBounds(386, 172, 270, 33);
+		panelAhorro.add(lblDraCerrarSu);
+		
+		JLabel lblSoloPuedeElegir = new JLabel("Solo puede elegir un tipo de moneda.");
+		lblSoloPuedeElegir.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
+		lblSoloPuedeElegir.setBounds(42, 316, 500, 33);
+		panelAhorro.add(lblSoloPuedeElegir);
+		
 	}
 	
 	public void Salir(){
@@ -709,6 +776,7 @@ public class CrearCuenta extends JDialog {
 
 	}
 	public void AñadirCuenta(){
+		PersonalOEstatal();
 		fechaCreada=fchjul.getText();
 		horaCreada=hrPm.getText();
 		if(comboBox.getSelectedItem().equals("Corriente")){
@@ -716,8 +784,17 @@ public class CrearCuenta extends JDialog {
 			banco.getUsuarios().get(pos).getCuentas().add(p);
 		}else
 		if(comboBox.getSelectedItem().equals("Ahorro")){
-			Corriente p=new Corriente(usuario.getIdU(),textField.getText(),Float.parseFloat(textField_1.getText()),txtDejeLaCelda.getText());
+			if(textField_7.getText().equals("") && !(textField_6.getText().equalsIgnoreCase(""))){
+			Ahorro p=new Ahorro(usuario.getIdU(),textField_5.getText(),Float.parseFloat(textField_6.getText()),-1);
 			banco.getUsuarios().get(pos).getCuentas().add(p);
+			}
+			else{
+				if(!(textField_7.getText().equals("")) && textField_6.getText().equalsIgnoreCase("")){
+					Ahorro p=new Ahorro(usuario.getIdU(),textField_5.getText(),-1,Float.parseFloat(textField_7.getText()));
+					banco.getUsuarios().get(pos).getCuentas().add(p);
+				}
+				
+			}
 		}else
 		if(comboBox.getSelectedItem().equals("Fondos")){
 			if(MoF){
@@ -756,7 +833,7 @@ public class CrearCuenta extends JDialog {
 		return caracterTam;
 	}
 
-	public static boolean EsFloat(String text) {
+	public  static boolean EsFloat(String text) {
 		boolean sies;
         try {
             Float.parseFloat(text);
@@ -766,4 +843,11 @@ public class CrearCuenta extends JDialog {
         }
         return sies;
     }
+	
+	public void PersonalOEstatal(){
+		if(buttonPersonal.isSelected())
+			Estatal="no";
+		else if(buttonEstatal.isSelected())
+			Estatal="si";
+	}
 }

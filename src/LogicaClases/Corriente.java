@@ -25,7 +25,7 @@ public class Corriente extends CuentaBancaria implements Iintereses{
 		this.cup = cup;
 	}
 	public double CalcularInteres(){
-		return (cup / 5) * 0.75;
+		return (getCup()/ 5) * 0.75;
 	}
 	
 }

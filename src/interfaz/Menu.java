@@ -117,6 +117,7 @@ public class Menu extends JFrame {
 	private boolean vercuentas;
 	public static boolean salirDialog=false;
 	public static boolean cuentaCreada=false;
+	public static String Estatal;
 	private String fechaPlazo;
 	private Banco banco=Banco.getInstancia();
 	private int lineas=0;//de la tabla
@@ -1170,7 +1171,7 @@ public class Menu extends JFrame {
 				lineas++;
 			}
 			if(c.getTipo().equalsIgnoreCase("Fondos")){
-				mitabla.addRow(new Object[]{"Fondos",((PlazoFijo)c).getCup(),"cup","12","12:50:30 PM","18-oct-2024","no",beneficiario,"no","no",lineas});
+				mitabla.addRow(new Object[]{"Fondos",((PlazoFijo)c).getCup(),"cup","12","12:50:30 PM","18-oct-2024","no",beneficiario,"no","si",lineas});
 				lineas++;
 			}
 			 
@@ -1182,6 +1183,7 @@ public class Menu extends JFrame {
 				fechaCreada=CrearCuenta.fechaCreada;
 				horaCreada=CrearCuenta.horaCreada;
 				fechaPlazo=CrearCuenta.fechaPlazo;
+				Estatal=CrearCuenta.Estatal;
 					while(lineas< usuario.getCuentas().size()+1){
 						CuentaBancaria c= usuario.getCuentas().get(lineas-1);
 						String beneficiario=c.getBeneficiario();
@@ -1195,24 +1197,30 @@ public class Menu extends JFrame {
 						if(segundoTitular.equalsIgnoreCase("")){
 							segundoTitular="no";
 						}
-						mitabla.addRow(new Object[]{c.getTipo(),((Corriente)c).getCup(),"cup","a",horaCreada,fechaCreada,segundoTitular,beneficiario,"no","si",lineas});
+						mitabla.addRow(new Object[]{c.getTipo(),((Corriente)c).getCup(),"cup",((Corriente)c).CalcularInteres(),horaCreada,fechaCreada,segundoTitular,beneficiario,"no","no",lineas});
 						lineas++;
 					}
 					if(c.getTipo().equalsIgnoreCase("MLC")){
 						
-						mitabla.addRow(new Object[]{c.getTipo(),((MLC)c).getMlc(),"mlc","a",horaCreada,fechaCreada,"no",beneficiario,"no","si",lineas});
+						mitabla.addRow(new Object[]{c.getTipo(),((MLC)c).getMlc(),"mlc","no",horaCreada,fechaCreada,"no",beneficiario,"no","no",lineas});
 						lineas++;
 					}
 					if(c.getTipo().equalsIgnoreCase("PlazoFijo")){
-						mitabla.addRow(new Object[]{"PlazoFijo",((PlazoFijo)c).getCup(),"cup",((PlazoFijo)c).CalcularInteres(fechaPlazo,fechaCreada),horaCreada,fechaCreada,"no",beneficiario,fechaPlazo,"si",lineas});
+						mitabla.addRow(new Object[]{"PlazoFijo",((PlazoFijo)c).getCup(),"cup",((PlazoFijo)c).CalcularInteres(fechaPlazo,fechaCreada),horaCreada,fechaCreada,"no",beneficiario,fechaPlazo,"no",lineas});
 						lineas++;
 					}
 					if(c.getTipo().equalsIgnoreCase("Ahorro")){
-						mitabla.addRow(new Object[]{c.getTipo(),((PlazoFijo)c).getCup(),"cup","a",horaCreada,fechaCreada,"no",beneficiario,"no","si",lineas});
+						if(((Ahorro)c).getCup()!=-1 && ((Ahorro)c).getMlc()==-1){
+						mitabla.addRow(new Object[]{c.getTipo(),((Ahorro)c).getCup(),"cup","no",horaCreada,fechaCreada,"no",beneficiario,"no",Estatal,lineas});
 						lineas++;
+						}
+						else{
+							mitabla.addRow(new Object[]{c.getTipo(),((Ahorro)c).getMlc(),"mlc","no",horaCreada,fechaCreada,"no",beneficiario,"no",Estatal,lineas});
+							lineas++;
+						}
 					}
 					if(c.getTipo().equalsIgnoreCase("Fondos")){
-						mitabla.addRow(new Object[]{"Fondos",((PlazoFijo)c).getCup(),"cup","a",horaCreada,fechaCreada,"no",beneficiario,"no","si",lineas});
+						mitabla.addRow(new Object[]{"Fondos",((Fondo)c).getCup(),"cup",((Fondo)c).CalcularInteres(),horaCreada,fechaCreada,"no",beneficiario,"no","si",lineas});
 						lineas++;
 					}
 					}
