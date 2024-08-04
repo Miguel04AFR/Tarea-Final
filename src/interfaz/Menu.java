@@ -75,6 +75,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.JTextField;
+import java.awt.ScrollPane;
 
 
 
@@ -113,8 +114,9 @@ public class Menu extends JFrame {
 	public static boolean cuentaCreada=false;
 	private String fechaPlazo;
 	private Banco banco=Banco.getInstancia();
-	private int lineas=0;
-	private int lineast=0;
+	private int lineas=0;//de la tabla
+	private int lineast=0;//de la transferencia
+	private int lineasR=0;//estas son para la lista de recargar
 	private DefaultTableModel miTabla=new DefaultTableModel();
 	private String fechaCreada;
 	private String horaCreada;
@@ -124,6 +126,9 @@ public class Menu extends JFrame {
 	private JList<String> ListaTranfer=new JList<>(listaGrafica);
 	private DefaultListModel<String> ListaGraficaEnvio=listaGrafica;
 	private JList<String> ListaEnvio=new JList<>(ListaGraficaEnvio);
+	private DefaultListModel<String> listaMovil= new DefaultListModel();
+	private JList<String> ListaMovilRecarga=new JList<>(listaMovil);
+	
 	private JTextField textField_1;
 	private JLabel lblNewLabel_8;
 	private int cambioPos=0;//la posicion del saldo que transfiere ,la posicion del enviado esta en el evento de el boton Acaptar
@@ -174,13 +179,14 @@ public class Menu extends JFrame {
 		panel = new JPanel();
 		panel.setBorder(new MatteBorder(1, 1, 2, 2, (Color) new Color(0, 0, 0)));
 		panel.setForeground(Color.GRAY);
-		panel.setBounds(0, -421, 129, 484);
+		panel.setBounds(0, -425, 129, 484);
+		//panel.setBounds(0, -418, 129, 484); localizacion deseada
 		contentPane.add(panel);
 
 		lblNewLabel = new JLabel("New label");
 		lblNewLabel.setIcon(new ImageIcon(Menu.class.getResource("/iconos/iconmonstr-menu-dot-horizontal-circle-lined-48.png")));
 		lblNewLabel.setBounds(69, 429, 48, 42);
-		//lblNewLabel.setBounds(69, 429, 48, 42); localizacion deseada
+		
 		timer = new Timer(10, new ActionListener() {
 			int y = panel.getY();
 
@@ -225,19 +231,19 @@ public class Menu extends JFrame {
 				
 			}
 		});
-		botonAnimacion.setBounds(69, 262, 48, 47);
+		botonAnimacion.setBounds(69, 309, 48, 47);
 		panel.add(botonAnimacion);
 		botonAnimacion.setIcon(new ImageIcon(Menu.class.getResource("/iconos/checklist_list_icon_259149.png")));
 		botonAnimacion.setBackground(null);
 		botonAnimacion.setForeground(null);
 		
 		lblNewLabel_2 = new JLabel("ultimas");
-		lblNewLabel_2.setBounds(0, 269, 56, 16);
+		lblNewLabel_2.setBounds(1, 322, 56, 16);
 		panel.add(lblNewLabel_2);
 		lblNewLabel_2.setFont(new Font("Segoe UI Black", Font.BOLD, 13));
 		
 		lblNewLabel_3 = new JLabel("operaciones");
-		lblNewLabel_3.setBounds(0, 288, 85, 16);
+		lblNewLabel_3.setBounds(0, 340, 85, 16);
 		panel.add(lblNewLabel_3);
 		lblNewLabel_3.setFont(new Font("Segoe UI Black", Font.PLAIN, 11));
 		
@@ -267,15 +273,42 @@ public class Menu extends JFrame {
 				card.show(panel_1, "panelope");
 			}
 		});
-		botonAnimacion_3.setBounds(69, 217, 60, 42);
+		botonAnimacion_3.setBounds(69, 254, 48, 42);
 		panel.add(botonAnimacion_3);
 		botonAnimacion_3.setBackground(null);
 		botonAnimacion_3.setForeground(null);
 		
 		lblOperaciones = new JLabel("Operaciones");
 		lblOperaciones.setFont(new Font("Segoe UI Black", Font.PLAIN, 11));
-		lblOperaciones.setBounds(0, 229, 69, 16);
+		lblOperaciones.setBounds(1, 265, 69, 16);
 		panel.add(lblOperaciones);
+		
+		BotonAnimacion botonAnimacion_8 = new BotonAnimacion();
+		botonAnimacion_8.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				CardLayout card =(CardLayout) panel_1.getLayout();
+				card.show(panel_1, "inicio");
+			}
+		});
+		botonAnimacion_8.setIcon(new ImageIcon(Menu.class.getResource("/iconos/bank_78916.png")));
+		botonAnimacion_8.setForeground((Color) null);
+		botonAnimacion_8.setBackground((Color) null);
+		botonAnimacion_8.setBounds(69, 369, 48, 47);
+		panel.add(botonAnimacion_8);
+		
+		BotonAnimacion botonAnimacion_9 = new BotonAnimacion();
+		botonAnimacion_9.setIcon(new ImageIcon(Menu.class.getResource("/iconos/manandcashiermachine_89097.png")));
+		botonAnimacion_9.setForeground((Color) null);
+		botonAnimacion_9.setBackground((Color) null);
+		botonAnimacion_9.setBounds(69, 188, 48, 54);
+		panel.add(botonAnimacion_9);
+		
+		BotonAnimacion botonAnimacion_10 = new BotonAnimacion();
+		botonAnimacion_10.setIcon(new ImageIcon(Menu.class.getResource("/iconos/handshake_icon_198540.png")));
+		botonAnimacion_10.setForeground((Color) null);
+		botonAnimacion_10.setBackground((Color) null);
+		botonAnimacion_10.setBounds(61, 129, 56, 54);
+		panel.add(botonAnimacion_10);
 		
 				JMenuBar menuBar = new JMenuBar();
 				menuBar.setBorderPainted(false);
@@ -374,6 +407,12 @@ public class Menu extends JFrame {
 		panelope.setLayout(null);
 		
 		BotonAnimacion botonAnimacion_1 = new BotonAnimacion();
+		botonAnimacion_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				CardLayout card =(CardLayout) panel_1.getLayout();
+				card.show(panel_1, "Movil");
+			}
+		});
 		botonAnimacion_1.setIcon(new ImageIcon(Menu.class.getResource("/iconos/transfer_data_icon_154703.png")));
 		botonAnimacion_1.setBackground(new Color(50, 205, 50));
 		botonAnimacion_1.setBounds(80, 131, 78, 78);
@@ -676,6 +715,20 @@ public class Menu extends JFrame {
 		label_2.setBounds(541, 249, 140, 16);
 		panelTransferir.add(label_2);
 		
+		JPanel panelMovil = new JPanel();
+		panel_1.add(panelMovil, "Movil");
+		panelMovil.setLayout(null);
+		
+		JScrollPane scrollPane_3 = new JScrollPane(ListaMovilRecarga);
+		scrollPane_3.setBounds(199, 127, 289, 130);
+		panelMovil.add(scrollPane_3);
+		
+		JLabel lblRecargarSaldoMovil = new JLabel("Recargar Saldo Movil");
+		lblRecargarSaldoMovil.setFont(new Font("Segoe UI", Font.BOLD, 20));
+		lblRecargarSaldoMovil.setBackground(Color.BLACK);
+		lblRecargarSaldoMovil.setBounds(243, 13, 208, 27);
+		panelMovil.add(lblRecargarSaldoMovil);
+		
 		
 		
 		
@@ -761,18 +814,21 @@ public class Menu extends JFrame {
 					while(lineas< usuario.getCuentas().size()+1){
 						CuentaBancaria c= usuario.getCuentas().get(lineas-1);
 						String beneficiario=c.getBeneficiario();
-						String segundoTitular=((Corriente)c).getTiturales();
+						
 						if(beneficiario.equalsIgnoreCase("")){
 							beneficiario="no";
 						}
+						
+					if(c.getTipo().equalsIgnoreCase("Corriente")){
+						String segundoTitular=((Corriente)c).getTiturales();
 						if(segundoTitular.equalsIgnoreCase("")){
 							segundoTitular="no";
 						}
-					if(c.getTipo().equalsIgnoreCase("Corriente")){
 						mitabla.addRow(new Object[]{c.getTipo(),((Corriente)c).getCup(),"cup",horaCreada,fechaCreada,segundoTitular,beneficiario,"no",lineas});
 						lineas++;
 					}
 					if(c.getTipo().equalsIgnoreCase("MLC")){
+						
 						mitabla.addRow(new Object[]{c.getTipo(),((MLC)c).getMlc(),"mlc",horaCreada,fechaCreada,"no",beneficiario,"no",lineas});
 						lineas++;
 					}
@@ -792,6 +848,7 @@ public class Menu extends JFrame {
 					 
 			}
 			ElegirTransferencia();
+			ListaMovil();
 
 		}
 	}
@@ -810,10 +867,24 @@ public class Menu extends JFrame {
 		
 		ListaTranfer.revalidate();//estas dos lineas son para actualizar y pintar la lista
 		ListaTranfer.repaint();
+		
 	}
 		
 	
-	public void SeleccionTransferir(){
-		
+	public void ListaMovil(){
+		boolean noMlc=false;
+		while(lineasR<listaGrafica.getSize()){
+			for(int j=0;j<9;j++){
+			if(listaGrafica.get(lineasR).equals("MLC" + "-" + j)){
+				noMlc=true;
+			}
+			}
+			if(!noMlc){
+			listaMovil.addElement(listaGrafica.get(lineasR));
+			}
+			lineasR++;
+		}
+		ListaMovilRecarga.revalidate();//estas dos lineas son para actualizar y pintar la lista
+		ListaMovilRecarga.repaint();
 	}
 }
