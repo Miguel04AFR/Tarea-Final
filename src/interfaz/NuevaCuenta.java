@@ -262,6 +262,7 @@ public class NuevaCuenta extends JFrame {
 		contentPane.add(lblNewLabel_2);
 		
 		textField = new JTextField();
+		textField.setFont(new Font("Segoe UI", Font.BOLD, 16));
 		textField.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent c) {
@@ -293,6 +294,7 @@ public class NuevaCuenta extends JFrame {
 		contentPane.add(lblCorreoElectronico);
 		
 		textField_1 = new JTextField();
+		textField_1.setFont(new Font("Segoe UI", Font.BOLD, 16));
 		textField_1.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent v) {
@@ -317,6 +319,7 @@ public class NuevaCuenta extends JFrame {
 		contentPane.add(lblContrase);
 		
 		textField_2 = new JTextField();
+		textField_2.setFont(new Font("Segoe UI", Font.BOLD, 16));
 		textField_2.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent n) {
@@ -369,6 +372,7 @@ public class NuevaCuenta extends JFrame {
 		contentPane.add(lblNombreCompleto);
 		
 		textField_3 = new JTextField();
+		textField_3.setFont(new Font("Segoe UI", Font.BOLD, 16));
 		textField_3.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent b) {
@@ -407,6 +411,7 @@ public class NuevaCuenta extends JFrame {
 		contentPane.add(lblCi);
 		
 		textField_4 = new JTextField();
+		textField_4.setFont(new Font("Segoe UI", Font.BOLD, 16));
 		textField_4.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent m) {
@@ -436,6 +441,7 @@ public class NuevaCuenta extends JFrame {
 		contentPane.add(lblDosPasos);
 		
 		textField_5 = new JTextField();
+		textField_5.setFont(new Font("Segoe UI", Font.BOLD, 16));
 		textField_5.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent s) {
@@ -456,6 +462,7 @@ public class NuevaCuenta extends JFrame {
 		contentPane.add(lblDeCelular);
 		
 		textField_6 = new JTextField();
+		textField_6.setFont(new Font("Segoe UI", Font.BOLD, 16));
 		textField_6.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent d) {
@@ -487,6 +494,7 @@ public class NuevaCuenta extends JFrame {
 		contentPane.add(lblNumeroDeTelefono);
 		
 		textField_7 = new JTextField();
+		textField_7.setFont(new Font("Segoe UI", Font.BOLD, 16));
 		textField_7.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent f) {
@@ -517,6 +525,7 @@ public class NuevaCuenta extends JFrame {
 		contentPane.add(lblDireecion);
 		
 		textField_8 = new JTextField();
+		textField_8.setFont(new Font("Segoe UI", Font.BOLD, 16));
 		textField_8.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent g) {

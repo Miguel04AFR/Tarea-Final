@@ -224,6 +224,7 @@ public class Lobby extends JFrame {
 		
 		
 		txtEscribaAqui = new JTextField();
+		txtEscribaAqui.setFont(new Font("Segoe UI", Font.BOLD, 16));
 		txtEscribaAqui.addKeyListener(new KeyAdapter() {
 			@Override
 			
@@ -253,7 +254,7 @@ public class Lobby extends JFrame {
             }
         });
 		txtEscribaAqui.setText("Escriba aqu\u00ED...");
-		txtEscribaAqui.setBounds(151, 300, 290, 30);
+		txtEscribaAqui.setBounds(151, 300, 290, 32);
 		contentPane.add(txtEscribaAqui);
 		txtEscribaAqui.setColumns(10);
 		
@@ -271,6 +272,7 @@ public class Lobby extends JFrame {
 		contentPane.add(lblContra);
 		
 		passwordField_1 = new JPasswordField();
+		passwordField_1.setFont(new Font("Segoe UI", Font.BOLD, 16));
 		passwordField_1.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent x) {
@@ -280,7 +282,7 @@ public class Lobby extends JFrame {
 					btnmcnAx.requestFocus();
 			}
 		});
-		passwordField_1.setBounds(151, 386, 290, 30);
+		passwordField_1.setBounds(151, 386, 290, 32);
 		contentPane.add(passwordField_1);
 		
 	     AvatarCircular avatarCircular = new AvatarCircular();

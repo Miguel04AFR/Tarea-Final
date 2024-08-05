@@ -113,6 +113,7 @@ public class CuentaPerdida extends JFrame {
 		contentPane.add(lblNewLabel_1);
 		
 		textField = new JTextField();
+		textField.setFont(new Font("Segoe UI", Font.BOLD, 16));
 		textField.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent arg0) {
@@ -130,7 +131,7 @@ public class CuentaPerdida extends JFrame {
 		});
 		textField.setText("Escriba aqui...");
 		textField.setColumns(10);
-		textField.setBounds(124, 319, 290, 30);
+		textField.setBounds(124, 319, 290, 32);
 		contentPane.add(textField);
 		
 		BotonAnimacion botonAnimacion = new BotonAnimacion();

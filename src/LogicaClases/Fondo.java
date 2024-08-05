@@ -17,7 +17,7 @@ public class Fondo extends CuentaBancaria implements IdepositarEntidad,Iinterese
 		this.cup = cup;
 	}
 	
-	public float DepositarEntidad(){
+	public float DepositarEntidad(float salarioEstatal){
 		
 		
 		
@@ -28,6 +28,17 @@ public class Fondo extends CuentaBancaria implements IdepositarEntidad,Iinterese
 		return (cup / 5) * 0.75;
 	}
 
-	
+	public boolean AumentoSalario(float aumento,float salarioEstatal){
+		Random random=new Random();
+		float diferencia=salarioEstatal-aumento;
+		boolean aumentar=false;
+		 //aumentar = !(diferencia < 0 || diferencia > 900); Programacion oscura XDD
+		if(diferencia<0 && diferencia>800){
+			aumentar=false;
+		}
+		else
+			aumentar=true;
+		return aumentar==true ? random.nextBoolean() : false;
+	}
 
 }

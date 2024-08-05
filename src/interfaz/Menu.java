@@ -5,6 +5,7 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.Graphics;
+import java.awt.Image;
 
 import Inicio.elmain;
 import LogicaClases.*;
@@ -27,6 +28,7 @@ import javax.swing.JList;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JMenu;
+import javax.swing.JOptionPane;
 
 import com.formdev.flatlaf.FlatDarculaLaf;
 
@@ -46,6 +48,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.IconView;
 
 import java.awt.CardLayout;
 
@@ -67,6 +70,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.InputEvent;
 import java.awt.Cursor;
 import java.util.Date;
+import java.util.TimerTask;
 
 import javax.swing.JScrollPane;
 import javax.swing.JScrollBar;
@@ -122,23 +126,28 @@ public class Menu extends JFrame {
 	private Banco banco=Banco.getInstancia();
 	private int lineas=0;//de la tabla
 	private int lineast=0;//de la transferencia
-	private int lineasR=0;//estas son para la lista de recargar
+	private int lineasE=0;//de la lista de envio
+	private int lineasR=0;//estas son para la lista de recargar movil
+	private int lineasRC=0;//de recargar la cuenta
 	private DefaultTableModel miTabla=new DefaultTableModel();
 	private String fechaCreada;
 	private String horaCreada;
+	private float salarioEstatal;
 	private Usuario usuario=banco.getUsuarios().get(pos);
 	private DefaultListModel<String> listaTranferencia= new DefaultListModel();
 	private JList<String> ListaTranfer=new JList<>(listaTranferencia);
-	private DefaultListModel<String> listaTranferenciaEnvio=listaTranferencia;
+	private DefaultListModel<String> listaTranferenciaEnvio=new DefaultListModel();
 	private JList<String> ListaEnvioG=new JList<>(listaTranferenciaEnvio);
 	private DefaultListModel<String> listaMovil= new DefaultListModel();
 	private JList<String> ListaMovilRecargaG=new JList<>(listaMovil);
 	private DefaultListModel<String> listaRecargaCuenta= new DefaultListModel();
 	private JList<String> ListaRecargaCuentaG=new JList<>(listaRecargaCuenta);
-	
+	private boolean tiempoInteres=false;
+	private boolean negocios=false;
 	private JTextField textField_1;
 	private JLabel lblNewLabel_8;
 	private int cambioPos=0;//la posicion del saldo que transfiere ,la posicion del enviado esta en el evento de el boton Acaptar
+	private int fondoA=0;
 	private JLabel label_2;
 	private JLabel lblNewLabel_9;
 	private JTextField textField;
@@ -147,6 +156,14 @@ public class Menu extends JFrame {
 	private JLabel lblMovil_1;
 	private JLabel label_11;
 	private JTextField textField_3;
+	private BotonAnimacion botonAnimacion_6;
+	private Timer timerst;
+	private Timer timerd;//depositar estatal
+	private BotonAnimacion botonAnimacion_10;
+	private JTextField textField_4;
+	private JLabel lblNewLabel_10;
+	private BotonAnimacion botonAnimacion_14;
+	
 
 	/**
 	 * Launch the application.
@@ -323,11 +340,23 @@ public class Menu extends JFrame {
 		botonAnimacion_9.setBounds(69, 188, 48, 54);
 		panel.add(botonAnimacion_9);
 		
-		BotonAnimacion botonAnimacion_10 = new BotonAnimacion();
+		botonAnimacion_10 = new BotonAnimacion();
+		botonAnimacion_10.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				if(!negocios){
+					NotificacionesModernas.getInstancia().show(Tipo.ERROR, 5000, "No tiene todavia ninguna cuenta de Fondo");
+				}
+				else
+				lblNewLabel_10.setText(String.valueOf(SalarioFondo()));
+				
+			}
+		});
 		botonAnimacion_10.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				CardLayout card =(CardLayout) panel_1.getLayout();
-				card.show(panel_1, "InteresAhorro");
+				card.show(panel_1, "Negocios");
+				
 				
 			}
 		});
@@ -335,6 +364,7 @@ public class Menu extends JFrame {
 		botonAnimacion_10.setForeground((Color) null);
 		botonAnimacion_10.setBackground((Color) null);
 		botonAnimacion_10.setBounds(61, 129, 56, 54);
+		botonAnimacion_10.setEnabled(false);
 		panel.add(botonAnimacion_10);
 		
 				JMenuBar menuBar = new JMenuBar();
@@ -522,12 +552,49 @@ public class Menu extends JFrame {
 		lblCuentaDeBanco.setBounds(536, 305, 116, 37);
 		panelope.add(lblCuentaDeBanco);
 		
-		BotonAnimacion botonAnimacion_6 = new BotonAnimacion();
+		botonAnimacion_6 = new BotonAnimacion();
+		botonAnimacion_6.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				if(!tiempoInteres){
+					NotificacionesModernas.getInstancia().show(Tipo.ERROR, 5000, "No tiene todavia ningun interes");
+				}
+			}
+		});
+		botonAnimacion_6.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent arg0) {
+				CardLayout card =(CardLayout) panel_1.getLayout();
+				card.show(panel_1, "Intereses");
+				
+				
+			}
+		});
+		 timerst = new Timer(10 * 1000, new ActionListener(){
+			  public void actionPerformed(ActionEvent e) {
+				  for(int i=0;i<usuario.getCuentas().size();i++){
+					  if(usuario.getCuentas().get(i) instanceof Iintereses || usuario.getCuentas().get(i) instanceof PlazoFijo){
+						  tiempoInteres=true;
+						  botonAnimacion_6.setEnabled(true);
+							timerst.setRepeats(false);//Asegurarse de que el Timer no se repita
+							i=usuario.getCuentas().size();
+							
+					  }
+				  }
+				 
+	            }
+	        });
+		timerst.setRepeats(true); // Asegurarse de que el Timer  se repita
+        timerst.start();
+	
 		botonAnimacion_6.setIcon(new ImageIcon(Menu.class.getResource("/iconos/money-bills-stack-1_icon-icons.com_56168.png")));
 		botonAnimacion_6.setBackground(new Color(50, 205, 50));
 		botonAnimacion_6.setBounds(446, 131, 78, 78);
 		panelope.add(botonAnimacion_6);
+		botonAnimacion_6.setEnabled(tiempoInteres);
 		
+
+	        
 		JLabel lblRecargarSaldo = new JLabel("Extraer intereses");
 		lblRecargarSaldo.setFont(new Font("Segoe UI", Font.BOLD, 15));
 		lblRecargarSaldo.setBounds(551, 131, 129, 37);
@@ -545,6 +612,12 @@ public class Menu extends JFrame {
 		panelope.add(label);
 		
 		BotonAnimacion btnmcnRecargarCuenta = new BotonAnimacion();
+		btnmcnRecargarCuenta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				CardLayout card =(CardLayout) panel_1.getLayout();
+				card.show(panel_1, "Recargar");
+			}
+		});
 		btnmcnRecargarCuenta.setText("Recargar Cuenta");
 		btnmcnRecargarCuenta.setForeground(Color.BLACK);
 		btnmcnRecargarCuenta.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
@@ -617,7 +690,7 @@ public class Menu extends JFrame {
 		    miTabla.addColumn("Cuenta");
 	        miTabla.addColumn("Saldo");
 	        miTabla.addColumn("Moneda");
-	        miTabla.addColumn("Interes");
+	        miTabla.addColumn("Intereses");
 	        miTabla.addColumn("Hora creada");
 	        miTabla.addColumn("Creado");
 	        miTabla.addColumn("2do Titular");
@@ -689,7 +762,7 @@ public class Menu extends JFrame {
 						if(ListaTranfer.getSelectedIndex()>-1){
 							for(int lil=0;lil<miTabla.getRowCount();lil++){//las lineas
 								String cuenta= miTabla.getValueAt(lil, 0).toString();//getValueAt(lil, 0) es para coger el valor en la tabla y toString para convertir ese valor a String completamente
-								String numeroCuenta= miTabla.getValueAt(lil, 9).toString();
+								String numeroCuenta= miTabla.getValueAt(lil, 10).toString();
 								String saldo="";
 								if(ListaTranfer.getSelectedValue().equalsIgnoreCase(cuenta + "-" + numeroCuenta) && ListaTranfer.getSelectedValue()!=null){
 								if(cuenta.equalsIgnoreCase("Corriente"))
@@ -700,7 +773,7 @@ public class Menu extends JFrame {
 										saldo=String.valueOf(((MLC)usuario.getCuentas().get(lil)).getMlc());
 								else if(cuenta.equalsIgnoreCase("PlazoFijo"))
 										saldo=String.valueOf(((PlazoFijo)usuario.getCuentas().get(lil)).getCup());
-								else if(cuenta.equalsIgnoreCase("Fondos"))
+								else if(cuenta.equalsIgnoreCase("Fondo"))
 									saldo=String.valueOf(((Fondo)usuario.getCuentas().get(lil)).getCup());
 								lblNewLabel_8.setText(saldo);
 									cambioPos=lil;
@@ -738,7 +811,7 @@ public class Menu extends JFrame {
 					if(ListaEnvioG.getSelectedIndex()>-1){
 						for(int lil=0;lil<miTabla.getRowCount();lil++){//las lineas
 							String cuenta= miTabla.getValueAt(lil, 0).toString();//getValueAt(lil, 0) es para coger el valor en la tabla y toString para convertir ese valor a String completamente
-							String numeroCuenta= miTabla.getValueAt(lil, 9).toString();
+							String numeroCuenta= miTabla.getValueAt(lil, 10).toString();
 							String saldo="";
 							if(ListaEnvioG.getSelectedValue().equalsIgnoreCase(cuenta + "-" + numeroCuenta) && ListaEnvioG.getSelectedValue()!=null){
 								if(cuenta.equalsIgnoreCase("Corriente"))
@@ -749,7 +822,7 @@ public class Menu extends JFrame {
 											saldo=String.valueOf(((MLC)usuario.getCuentas().get(lil)).getMlc());
 									else if(cuenta.equalsIgnoreCase("PlazoFijo"))
 											saldo=String.valueOf(((PlazoFijo)usuario.getCuentas().get(lil)).getCup());
-									else if(cuenta.equalsIgnoreCase("Fondos"))
+									else if(cuenta.equalsIgnoreCase("Fondo"))
 										saldo=String.valueOf(((Fondo)usuario.getCuentas().get(lil)).getCup());
 								label_2.setText(saldo);
 								
@@ -860,7 +933,7 @@ public class Menu extends JFrame {
 					if(ListaMovilRecargaG.getSelectedIndex()>-1){
 						for(int lil=0;lil<miTabla.getRowCount();lil++){
 							String cuenta= miTabla.getValueAt(lil, 0).toString();
-							String numeroCuenta= miTabla.getValueAt(lil, 9).toString();
+							String numeroCuenta= miTabla.getValueAt(lil, 10).toString();
 							String saldo="";
 							if(ListaMovilRecargaG.getSelectedValue().equalsIgnoreCase(cuenta + "-" + numeroCuenta) && ListaMovilRecargaG.getSelectedValue()!=null){
 								if(cuenta.equalsIgnoreCase("Corriente"))
@@ -871,7 +944,7 @@ public class Menu extends JFrame {
 									saldo=String.valueOf(((MLC)usuario.getCuentas().get(lil)).getMlc());
 								else if(cuenta.equalsIgnoreCase("PlazoFijo"))
 									saldo=String.valueOf(((PlazoFijo)usuario.getCuentas().get(lil)).getCup());
-								else if(cuenta.equalsIgnoreCase("Fondos"))
+								else if(cuenta.equalsIgnoreCase("Fondo"))
 									saldo=String.valueOf(((Fondo)usuario.getCuentas().get(lil)).getCup());	
 								lblNewLabel_9 .setText(saldo);
 								cambioPos=lil;
@@ -887,23 +960,23 @@ public class Menu extends JFrame {
 		JScrollPane scrollPane_3 = new JScrollPane(ListaMovilRecargaG);
 		scrollPane_3.setBounds(77, 112, 265, 116);
 		panelMovil.add(scrollPane_3);
-		
+
 		JLabel lblRecargarSaldoMovil = new JLabel("Recargar Saldo Movil");
 		lblRecargarSaldoMovil.setFont(new Font("Segoe UI", Font.BOLD, 20));
 		lblRecargarSaldoMovil.setBackground(Color.BLACK);
 		lblRecargarSaldoMovil.setBounds(243, 13, 208, 27);
 		panelMovil.add(lblRecargarSaldoMovil);
-		
+
 		lblNewLabel_9 = new JLabel(".");
 		lblNewLabel_9.setFont(new Font("Segoe UI Black", Font.BOLD, 16));
 		lblNewLabel_9.setBounds(200, 241, 56, 16);
 		panelMovil.add(lblNewLabel_9);
-		
+
 		textField = new JTextField();
 		textField.setColumns(10);
 		textField.setBounds(130, 289, 140, 38);
 		panelMovil.add(textField);
-		
+
 		textField_2 = new JTextField();
 		textField_2.addKeyListener(new KeyAdapter() {
 			@Override
@@ -916,98 +989,98 @@ public class Menu extends JFrame {
 		textField_2.setColumns(10);
 		textField_2.setBounds(495, 289, 140, 38);
 		panelMovil.add(textField_2);
-		
-		BotonAnimacion botonAnimacion_11 = new BotonAnimacion();
-		botonAnimacion_11.addActionListener(new ActionListener() {
+
+		BotonAnimacion btnmcnRecargar = new BotonAnimacion();
+		btnmcnRecargar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(ListaMovilRecargaG.getSelectedIndex()>-1){
 					float restaSaldo=Float.parseFloat(textField.getText());
 					float saldoTrans=0;
 					if(usuario.getCuentas().get(cambioPos) instanceof Corriente){
-					saldoTrans=((Corriente)usuario.getCuentas().get(cambioPos)).getCup()-restaSaldo;
-					((Corriente)usuario.getCuentas().get(cambioPos)).setCup(saldoTrans);
+						saldoTrans=((Corriente)usuario.getCuentas().get(cambioPos)).getCup()-restaSaldo;
+						((Corriente)usuario.getCuentas().get(cambioPos)).setCup(saldoTrans);
 					}else if(usuario.getCuentas().get(cambioPos) instanceof Fondo){
 						saldoTrans=((Fondo)usuario.getCuentas().get(cambioPos)).getCup()-restaSaldo;
-					((Fondo)usuario.getCuentas().get(cambioPos)).setCup(saldoTrans);
+						((Fondo)usuario.getCuentas().get(cambioPos)).setCup(saldoTrans);
 					}else if(usuario.getCuentas().get(cambioPos) instanceof MLC){
 						saldoTrans=((MLC)usuario.getCuentas().get(cambioPos)).getMlc()-restaSaldo;
-					((MLC)usuario.getCuentas().get(cambioPos)).setMlc(saldoTrans);
+						((MLC)usuario.getCuentas().get(cambioPos)).setMlc(saldoTrans);
 					}else if(usuario.getCuentas().get(cambioPos) instanceof PlazoFijo){
 						saldoTrans=((PlazoFijo)usuario.getCuentas().get(cambioPos)).getCup()-restaSaldo;
-					((PlazoFijo)usuario.getCuentas().get(cambioPos)).setCup(saldoTrans);
+						((PlazoFijo)usuario.getCuentas().get(cambioPos)).setCup(saldoTrans);
 					}else if(usuario.getCuentas().get(cambioPos) instanceof Ahorro){
 						saldoTrans=((Ahorro)usuario.getCuentas().get(cambioPos)).getCup()-restaSaldo;
-					((Ahorro)usuario.getCuentas().get(cambioPos)).setCup(saldoTrans);
+						((Ahorro)usuario.getCuentas().get(cambioPos)).setCup(saldoTrans);
 					}
 					miTabla.setValueAt(saldoTrans, cambioPos, 1);
 
 				}
-				
+
 			}
 		});
-		botonAnimacion_11.setText("Aceptar");
-		botonAnimacion_11.setForeground(Color.BLACK);
-		botonAnimacion_11.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
-		botonAnimacion_11.setColorEfecto(Color.GREEN);
-		botonAnimacion_11.setBackground(new Color(0, 128, 0));
-		botonAnimacion_11.setBounds(218, 340, 290, 67);
-		panelMovil.add(botonAnimacion_11);
-		
+		btnmcnRecargar.setText("Recargar");
+		btnmcnRecargar.setForeground(Color.BLACK);
+		btnmcnRecargar.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
+		btnmcnRecargar.setColorEfecto(Color.GREEN);
+		btnmcnRecargar.setBackground(new Color(0, 128, 0));
+		btnmcnRecargar.setBounds(218, 340, 290, 67);
+		panelMovil.add(btnmcnRecargar);
+
 		JLabel lblSaldo = new JLabel("Saldo:");
 		lblSaldo.setFont(new Font("Segoe UI Black", Font.BOLD, 16));
 		lblSaldo.setBounds(144, 241, 56, 16);
 		panelMovil.add(lblSaldo);
-		
+
 		JLabel label_8 = new JLabel("Elija Cuenta de Envio:");
 		label_8.setFont(new Font("Segoe UI Black", Font.PLAIN, 18));
 		label_8.setBounds(77, 94, 230, 16);
 		panelMovil.add(label_8);
-		
+
 		JLabel label_9 = new JLabel("Monto a tranferir:");
 		label_9.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
 		label_9.setBounds(128, 255, 150, 37);
 		panelMovil.add(label_9);
-		
+
 		JLabel lblTelefono = new JLabel("Telefono");
 		lblTelefono.setFont(new Font("Segoe UI Black", Font.PLAIN, 18));
 		lblTelefono.setBounds(516, 248, 89, 16);
 		panelMovil.add(lblTelefono);
-		
+
 		JLabel lblARecargar = new JLabel("a recargar:");
 		lblARecargar.setFont(new Font("Segoe UI Black", Font.PLAIN, 18));
 		lblARecargar.setBounds(511, 260, 140, 27);
 		panelMovil.add(lblARecargar);
-		
+
 		JPanel panelAgencias = new JPanel();
 		panel_1.add(panelAgencias, "Agencia");
 		panelAgencias.setLayout(null);
-		
+
 		JLayeredPane panelAgenciaC = new JLayeredPane();
-		panelAgenciaC.setBounds(0, 59, 839, 377);
+		panelAgenciaC.setBounds(0, 50, 866, 386);
 		panelAgencias.add(panelAgenciaC);
 		panelAgenciaC.setLayout(new CardLayout(0, 0));
-		
+
 		JPanel panelA1 = new JPanel();
 		panelAgenciaC.add(panelA1, "Agencia1");
-		
+
 		JPanel panelA2 = new JPanel();
 		panelAgenciaC.add(panelA2, "Agencia2");
-		
+
 		JPanel panelA3 = new JPanel();
 		panelAgenciaC.add(panelA3, "Agencia3");
-		
+
 		JPanel panelA4 = new JPanel();
 		panelAgenciaC.add(panelA4, "Agencia4");
-		
+
 		JPanel panelA5 = new JPanel();
 		panelAgenciaC.add(panelA5, "Agencia5");
-		
+
 		JLabel lblAgenciasYCajeros = new JLabel("Agencias y Cajeros");
 		lblAgenciasYCajeros.setFont(new Font("Segoe UI", Font.BOLD, 20));
 		lblAgenciasYCajeros.setBackground(Color.BLACK);
-		lblAgenciasYCajeros.setBounds(230, 0, 288, 27);
+		lblAgenciasYCajeros.setBounds(236, 10, 288, 27);
 		panelAgencias.add(lblAgenciasYCajeros);
-		
+
 		JComboBox comboBox = new JComboBox();
 		comboBox.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
 		comboBox.setBounds(547, 6, 280, 40);
@@ -1018,22 +1091,22 @@ public class Menu extends JFrame {
 		comboBox.addItem("Banco Inversiones S.A. (Bancoi):");
 		comboBox.addItem("Banco Metropolitano S.A.:");
 
-		
-		JPanel panelInteresAhorro = new JPanel();
-		panel_1.add(panelInteresAhorro, "InteresAhorro");
-		
+
+		JPanel panelInteresPlazoFijo = new JPanel();
+		panel_1.add(panelInteresPlazoFijo, "InteresAhorro");
+
 		JPanel panelRecargar = new JPanel();
 		panel_1.add(panelRecargar, "Recargar");
 		panelRecargar.setLayout(null);
 		ListaRecargaCuentaG.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent z) {
 				if (!z.getValueIsAdjusting()) {
-					if(ListaMovilRecargaG.getSelectedIndex()>-1){
+					if(ListaRecargaCuentaG.getSelectedIndex()>-1){
 						for(int lil=0;lil<miTabla.getRowCount();lil++){
 							String cuenta= miTabla.getValueAt(lil, 0).toString();
-							String numeroCuenta= miTabla.getValueAt(lil, 9).toString();
+							String numeroCuenta= miTabla.getValueAt(lil, 10).toString();
 							String saldo="";
-							if(ListaMovilRecargaG.getSelectedValue().equalsIgnoreCase(cuenta + "-" + numeroCuenta) && ListaMovilRecargaG.getSelectedValue()!=null){
+							if(ListaRecargaCuentaG.getSelectedValue().equalsIgnoreCase(cuenta + "-" + numeroCuenta) && ListaRecargaCuentaG.getSelectedValue()!=null){
 								if(cuenta.equalsIgnoreCase("Corriente"))
 									saldo=String.valueOf(((Corriente)usuario.getCuentas().get(lil)).getCup());
 								else if(cuenta.equalsIgnoreCase("MLC"))
@@ -1042,7 +1115,7 @@ public class Menu extends JFrame {
 									saldo=String.valueOf(((MLC)usuario.getCuentas().get(lil)).getMlc());
 								else if(cuenta.equalsIgnoreCase("PlazoFijo"))
 									saldo=String.valueOf(((PlazoFijo)usuario.getCuentas().get(lil)).getCup());
-								else if(cuenta.equalsIgnoreCase("Fondos"))
+								else if(cuenta.equalsIgnoreCase("Fondo"))
 									saldo=String.valueOf(((Fondo)usuario.getCuentas().get(lil)).getCup());	
 								label_11.setText(saldo);
 								cambioPos=lil;
@@ -1055,43 +1128,51 @@ public class Menu extends JFrame {
 			}
 		});
 		ListaRecargaCuentaG.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
-		
+
 		JScrollPane scrollPane_4 = new JScrollPane(ListaRecargaCuentaG);
 		scrollPane_4.setBounds(233, 136, 265, 116);
 		panelRecargar.add(scrollPane_4);
-		
+
 		JLabel lblRecargarCuenta = new JLabel("Recargar Cuenta");
 		lblRecargarCuenta.setFont(new Font("Segoe UI", Font.BOLD, 20));
 		lblRecargarCuenta.setBackground(Color.BLACK);
 		lblRecargarCuenta.setBounds(253, 0, 288, 27);
 		panelRecargar.add(lblRecargarCuenta);
-		
+
 		JLabel lblElijaCuentaPara = new JLabel("Elija Cuenta para Recargar:");
 		lblElijaCuentaPara.setFont(new Font("Segoe UI Black", Font.PLAIN, 18));
 		lblElijaCuentaPara.setBounds(233, 109, 265, 27);
 		panelRecargar.add(lblElijaCuentaPara);
-		
+
 		JLabel label_10 = new JLabel("Saldo :");
 		label_10.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
 		label_10.setBounds(286, 247, 78, 37);
 		panelRecargar.add(label_10);
-		
+
 		label_11 = new JLabel(".");
 		label_11.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
 		label_11.setBounds(341, 247, 85, 38);
 		panelRecargar.add(label_11);
-		
+
 		JLabel label_12 = new JLabel("Monto a tranferir:");
 		label_12.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
 		label_12.setBounds(307, 274, 150, 37);
 		panelRecargar.add(label_12);
-		
+
 		textField_3 = new JTextField();
 		textField_3.setColumns(10);
 		textField_3.setBounds(307, 311, 140, 38);
 		panelRecargar.add(textField_3);
-		
+
 		BotonAnimacion botonAnimacion_12 = new BotonAnimacion();
+		botonAnimacion_12.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				float SaldoAntiguo=((Corriente)usuario.getCuentas().get(cambioPos)).getCup();
+				float recarga=Float.parseFloat(textField_3.getText());
+				((Corriente)usuario.getCuentas().get(cambioPos)).setCup(SaldoAntiguo+recarga);
+				miTabla.setValueAt(SaldoAntiguo+recarga, cambioPos, 1);
+			}
+		});
 		botonAnimacion_12.setText("Aceptar");
 		botonAnimacion_12.setForeground(Color.BLACK);
 		botonAnimacion_12.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
@@ -1099,33 +1180,204 @@ public class Menu extends JFrame {
 		botonAnimacion_12.setBackground(new Color(0, 128, 0));
 		botonAnimacion_12.setBounds(233, 362, 290, 67);
 		panelRecargar.add(botonAnimacion_12);
+
+		JPanel panelIntereses = new JPanel();
+		panel_1.add(panelIntereses, "Intereses");
+		panelIntereses.setLayout(null);
+
+		BotonAnimacion botonAnimacion_11 = new BotonAnimacion();
+		botonAnimacion_11.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		botonAnimacion_11.setText("    ");
+		botonAnimacion_11.setIcon(new ImageIcon(Menu.class.getResource("/iconos/donacion.png")));
+		botonAnimacion_11.setBackground(new Color(50, 205, 50));
+		botonAnimacion_11.setBounds(109, 178, 231, 78);
+		panelIntereses.add(botonAnimacion_11);
+
+		BotonAnimacion botonAnimacion_13 = new BotonAnimacion();
+		botonAnimacion_13.setIcon(new ImageIcon(Menu.class.getResource("/iconos/application_project_scheme_planning_fundraising_icon_251233.png")));
+		botonAnimacion_13.setBackground(new Color(50, 205, 50));
+		botonAnimacion_13.setBounds(473, 178, 231, 78);
+		panelIntereses.add(botonAnimacion_13);
+
+		JLabel lblIntereses = new JLabel("Intereses");
+		lblIntereses.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
+		lblIntereses.setBounds(176, 148, 108, 27);
+		panelIntereses.add(lblIntereses);
+
+		JLabel lblCorrienteODe = new JLabel("Corriente o de Fondo");
+		lblCorrienteODe.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCorrienteODe.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
+		lblCorrienteODe.setBounds(109, 269, 231, 27);
+		panelIntereses.add(lblCorrienteODe);
+
+		JLabel label_13 = new JLabel("Intereses");
+		label_13.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
+		label_13.setBounds(542, 148, 108, 27);
+		panelIntereses.add(label_13);
+
+		JLabel lblPlazoFijo = new JLabel("Plazo fijo");
+		lblPlazoFijo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblPlazoFijo.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
+		lblPlazoFijo.setBounds(473, 269, 231, 27);
+		panelIntereses.add(lblPlazoFijo);
+
+		JPanel panelNegociosFondo = new JPanel();
+		panel_1.add(panelNegociosFondo, "Negocios");
+		panelNegociosFondo.setLayout(null);
+
+		JLabel lblNewLabel_7 = new JLabel("Salario Estatal Actual:");
+		lblNewLabel_7.setFont(new Font("Segoe UI Black", Font.PLAIN, 18));
+		lblNewLabel_7.setBounds(40, 144, 196, 77);
+		panelNegociosFondo.add(lblNewLabel_7);
+
+		lblNewLabel_10 = new JLabel(".");
+		lblNewLabel_10.setFont(new Font("Segoe UI Black", Font.BOLD, 16));
+		lblNewLabel_10.setBounds(242, 144, 110, 77);
+		panelNegociosFondo.add(lblNewLabel_10);
+
+		JLabel lblEstoEsEl = new JLabel("Esto es el comercio de la agencia bancaria.Aqu\u00ED valoraran si merece");
+		lblEstoEsEl.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
+		lblEstoEsEl.setBounds(30, 0, 740, 61);
+		panelNegociosFondo.add(lblEstoEsEl);
+
+		JLabel lblUnAumentodeterminandoSu = new JLabel("un aumento,determinando su rendimiento y el aumento que solicite.");
+		lblUnAumentodeterminandoSu.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
+		lblUnAumentodeterminandoSu.setBounds(30, 23, 754, 61);
+		panelNegociosFondo.add(lblUnAumentodeterminandoSu);
+
+		JLabel lblIngreseLaCantidad = new JLabel("Ingrese la cantidad que considere apropiada.(Tenga en cuenta que la ");
+		lblIngreseLaCantidad.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
+		lblIngreseLaCantidad.setBounds(30, 45, 766, 61);
+		panelNegociosFondo.add(lblIngreseLaCantidad);
+
+		JLabel lbltengaEnCuenta = new JLabel("cifra que ingrese se le suma a su salario actual).");
+		lbltengaEnCuenta.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
+		lbltengaEnCuenta.setBounds(30, 70, 740, 61);
+		panelNegociosFondo.add(lbltengaEnCuenta);
+
+		textField_4 = new JTextField();
+		textField_4.setFont(new Font("Segoe UI Black", Font.BOLD, 16));
+		textField_4.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				if(textField_4.getText().length()>5){
+					e.consume();
+				}
+			}
+		});
+		textField_4.setBounds(217, 256, 209, 44);
+		panelNegociosFondo.add(textField_4);
+		textField_4.setColumns(10);
+
+		JLabel lblAumentoDeseado = new JLabel("Aumento deseado:");
+		lblAumentoDeseado.setFont(new Font("Segoe UI Black", Font.PLAIN, 18));
+		lblAumentoDeseado.setBounds(217, 205, 196, 77);
+		panelNegociosFondo.add(lblAumentoDeseado);
 		
-		
-		
-		
-		
-		
-		
+		botonAnimacion_14 = new BotonAnimacion();
+		botonAnimacion_14.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				float aumentar=Float.parseFloat(textField_4.getText());
+				boolean aumento=((Fondo)usuario.getCuentas().get(fondoA)).AumentoSalario(aumentar, salarioEstatal);
+				ImageIcon icono=new ImageIcon("/iconos/aprobacion-de-documento.png");
+				if(aumento){
+					salarioEstatal+=aumentar;
+					JOptionPane.showMessageDialog(null, "¡Felicidades! Se ha aprobado un aumento de salario, ahora cobrará: " + salarioEstatal, "Aumento de Salario", JOptionPane.INFORMATION_MESSAGE, icono);
+				}
+				else{
+					JOptionPane.showMessageDialog(null, "Lo siento,lamentablemente no se ha aprobado el aumento de salario.");
+				}
+				
+			}
+		});
+		botonAnimacion_14.setText("Aceptar");
+		botonAnimacion_14.setForeground(Color.BLACK);
+		botonAnimacion_14.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
+		botonAnimacion_14.setColorEfecto(Color.GREEN);
+		botonAnimacion_14.setBackground(new Color(0, 128, 0));
+		botonAnimacion_14.setBounds(174, 313, 290, 67);
+		panelNegociosFondo.add(botonAnimacion_14);
+
+
+
+
+		ActionListener Intereses = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int i=0;
+				double interesActual=0;
+				double interesAgg=0;
+				String fechaIniPlazoFijo="";
+				String fechaFinPlazoFijo="";
+				for (CuentaBancaria c : usuario.getCuentas()) {
+
+					if(c instanceof Iintereses){ 
+						interesAgg=((Iintereses)c).CalcularInteres();
+						interesActual=Double.parseDouble(miTabla.getValueAt(i, 3).toString());//el toString es para convertirlo en String ua que esta en la tabla
+						miTabla.setValueAt(interesActual + interesAgg, i, 3);
+					}
+					if(c instanceof PlazoFijo){
+						interesActual=Double.parseDouble(miTabla.getValueAt(i, 3).toString());
+						fechaIniPlazoFijo=miTabla.getValueAt(i, 4).toString();
+						fechaFinPlazoFijo=miTabla.getValueAt(i, 8).toString();
+						interesAgg=((PlazoFijo)c).CalcularInteres(fechaFinPlazoFijo,fechaIniPlazoFijo);
+						miTabla.setValueAt(interesActual + interesAgg, i, 3);
+					}
+
+					i++;
+				}
+
+			}
+		};
+		// Programar la tarea para que se ejecute cada segundos que pongas en el primer parametro
+		Timer timers = new Timer(120 * 1000, Intereses);
+		timers.setInitialDelay(120 * 1000); // Para que la tarea se ejecute inmediatamente al inicio
+		timers.start();
+
+		ActionListener PagarEstatal= new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try{
+				float depositarSalario=0;
+				for(int i=0;i<usuario.getCuentas().size();i++){
+					if(usuario.getCuentas().get(i)instanceof Fondo){
+						depositarSalario=((Fondo)usuario.getCuentas().get(i)).getCup();
+						((Fondo)usuario.getCuentas().get(i)).setCup(depositarSalario + salarioEstatal);
+						miTabla.setValueAt(depositarSalario+salarioEstatal, i, 1);
+					}
+				}
+		}
+				catch(Exception ex) {
+		            ex.printStackTrace();
+				}
+			}
+		};
+		timerd =new Timer(200 * 1000,PagarEstatal);
+		timerd.setInitialDelay(0);
+		timerd.start();
 		
 		if(pos!=-1){
-			 PerfilIniciado();
+			PerfilIniciado();
 		}
 	}
 	public void CambiarAvatar(){
-	if(banco.getUsuarios().get(pos).getSexo()=='O'){
-		avatarCircular.setAvatar(new ImageIcon(Menu.class.getResource("/iconos/woman_female_girl_people_avatar_icon_131275 (5).png")));
-		lblNewLabel_4.setText("Sexo:Otro");
+		if(banco.getUsuarios().get(pos).getSexo()=='O'){
+			avatarCircular.setAvatar(new ImageIcon(Menu.class.getResource("/iconos/woman_female_girl_people_avatar_icon_131275 (5).png")));
+			lblNewLabel_4.setText("Sexo:Otro");
+		}
+		else if(banco.getUsuarios().get(pos).getSexo()=='M'){
+			avatarCircular.setAvatar(new ImageIcon(Menu.class.getResource("/iconos/people_avatar_boy_child_person_icon_131264 (3).png")));
+			lblNewLabel_4.setText("Sexo:Masculino");
+		}
+		else if(banco.getUsuarios().get(pos).getSexo()=='F'){
+			avatarCircular.setAvatar(new ImageIcon(Menu.class.getResource("/iconos/avatar_woman_female_girl_people_icon_131282 (2) - copia.png")));
+			lblNewLabel_4.setText("Sexo:Femenino");
+		}
 	}
-	else if(banco.getUsuarios().get(pos).getSexo()=='M'){
-		avatarCircular.setAvatar(new ImageIcon(Menu.class.getResource("/iconos/people_avatar_boy_child_person_icon_131264 (3).png")));
-		lblNewLabel_4.setText("Sexo:Masculino");
-	}
-	else if(banco.getUsuarios().get(pos).getSexo()=='F'){
-		avatarCircular.setAvatar(new ImageIcon(Menu.class.getResource("/iconos/avatar_woman_female_girl_people_icon_131282 (2) - copia.png")));
-		lblNewLabel_4.setText("Sexo:Femenino");
-	}
-	}
-	
+
 	public void PerfilIniciado(){
 		lblNombre.setText("Nombre:" + usuario.getNombreCompleto());
 		lblNewLabel_5.setText("Direccion:" +  usuario.getDireccion());
@@ -1136,106 +1388,110 @@ public class Menu extends JFrame {
 		CambiarAvatar();
 	}
 	public void VerCuenta(){
-	if(pos!=-1 && banco.getUsuarios().get(pos).getCuentas().size()>2){
-		
+		if(pos!=-1 && banco.getUsuarios().get(pos).getCuentas().size()>2){
+
+		}
 	}
-	}
-	
+
 	public void AñadirCuentaTabla(DefaultTableModel mitabla){
-		
+
 		int i=0;
 		if(pos!=-1){//para que no se parta sino inicialice 
 			if(lineas==0){
 				lineas++;
-		for(CuentaBancaria c : usuario.getCuentas()){//cuentas de prueba
-			
-			String beneficiario="";
-			if(beneficiario.equalsIgnoreCase("")){
-				beneficiario="no";
-			}
-			if(c.getTipo().equalsIgnoreCase("Corriente")){
-			mitabla.addRow(new Object[]{c.getTipo(),((Corriente)c).getCup(),"cup","12","07:23:10 PM","18-feb-2024","no",beneficiario,"no","no",lineas});
-			lineas++;
-			
-			}
-			if(c.getTipo().equalsIgnoreCase("MLC")){
-				mitabla.addRow(new Object[]{c.getTipo(),((MLC)c).getMlc(),"mlc","no","09:47:20 PM","18-ene-2024","no",beneficiario,"no",lineas});
-				lineas++;
+				for(CuentaBancaria c : usuario.getCuentas()){//cuentas de prueba
+
+					String beneficiario="";
+					if(beneficiario.equalsIgnoreCase("")){
+						beneficiario="no";
+					}
+					if(c.getTipo().equalsIgnoreCase("Corriente")){
+						mitabla.addRow(new Object[]{c.getTipo(),((Corriente)c).getCup(),"cup","12","07:23:10 PM","18-feb-2024","no",beneficiario,"no","no",lineas});
+						lineas++;
+
+					}
+					if(c.getTipo().equalsIgnoreCase("MLC")){
+						mitabla.addRow(new Object[]{c.getTipo(),((MLC)c).getMlc(),"mlc","no","09:47:20 PM","18-ene-2024","no",beneficiario,"no",lineas});
+						lineas++;
+					}
+					if(c.getTipo().equalsIgnoreCase("PlazoFijo")){
+						mitabla.addRow(new Object[]{"PlazoFijo",((PlazoFijo)c).getCup(),"cup","12","12:50:30 PM","18-oct-2024","no",beneficiario,"18-oct-2025","no",lineas});
+						lineas++;
+					}
+					if(c.getTipo().equalsIgnoreCase("Ahorro")){
+						mitabla.addRow(new Object[]{c.getTipo(),((PlazoFijo)c).getCup(),"cup","no","12:50:30 PM","18-oct-2024","no",beneficiario,"no","no",lineas});
+						lineas++;
+					}
+					if(c.getTipo().equalsIgnoreCase("Fondo")){
+						mitabla.addRow(new Object[]{c.getTipo(),((PlazoFijo)c).getCup(),"cup","12","12:50:30 PM","18-oct-2024","no",beneficiario,"no","si",lineas});
+						lineas++;
+					}
+
 				}
-			if(c.getTipo().equalsIgnoreCase("PlazoFijo")){
-				mitabla.addRow(new Object[]{"PlazoFijo",((PlazoFijo)c).getCup(),"cup","12","12:50:30 PM","18-oct-2024","no",beneficiario,"18-oct-2025","no",lineas});
-				lineas++;
-			}
-			if(c.getTipo().equalsIgnoreCase("Ahorro")){
-				mitabla.addRow(new Object[]{c.getTipo(),((PlazoFijo)c).getCup(),"cup","no","12:50:30 PM","18-oct-2024","no",beneficiario,"no","no",lineas});
-				lineas++;
-			}
-			if(c.getTipo().equalsIgnoreCase("Fondos")){
-				mitabla.addRow(new Object[]{"Fondos",((PlazoFijo)c).getCup(),"cup","12","12:50:30 PM","18-oct-2024","no",beneficiario,"no","si",lineas});
-				lineas++;
-			}
-			 
-		}
 
 			}
 			else{
-				
+
 				fechaCreada=CrearCuenta.fechaCreada;
 				horaCreada=CrearCuenta.horaCreada;
 				fechaPlazo=CrearCuenta.fechaPlazo;
 				Estatal=CrearCuenta.Estatal;
-					while(lineas< usuario.getCuentas().size()+1){
-						CuentaBancaria c= usuario.getCuentas().get(lineas-1);
-						String beneficiario=c.getBeneficiario();
-						
-						if(beneficiario.equalsIgnoreCase("")){
-							beneficiario="no";
-						}
-						
+				while(lineas< usuario.getCuentas().size()+1){
+					CuentaBancaria c= usuario.getCuentas().get(lineas-1);
+					String beneficiario=c.getBeneficiario();
+
+					if(beneficiario.equalsIgnoreCase("")){
+						beneficiario="no";
+					}
+
 					if(c.getTipo().equalsIgnoreCase("Corriente")){
 						String segundoTitular=((Corriente)c).getTiturales();
 						if(segundoTitular.equalsIgnoreCase("")){
 							segundoTitular="no";
 						}
-						mitabla.addRow(new Object[]{c.getTipo(),((Corriente)c).getCup(),"cup",((Corriente)c).CalcularInteres(),horaCreada,fechaCreada,segundoTitular,beneficiario,"no","no",lineas});
+						mitabla.addRow(new Object[]{c.getTipo(),((Corriente)c).getCup(),"cup","0",horaCreada,fechaCreada,segundoTitular,beneficiario,"no","no",lineas});
 						lineas++;
 					}
 					if(c.getTipo().equalsIgnoreCase("MLC")){
-						
+
 						mitabla.addRow(new Object[]{c.getTipo(),((MLC)c).getMlc(),"mlc","no",horaCreada,fechaCreada,"no",beneficiario,"no","no",lineas});
 						lineas++;
 					}
 					if(c.getTipo().equalsIgnoreCase("PlazoFijo")){
-						mitabla.addRow(new Object[]{"PlazoFijo",((PlazoFijo)c).getCup(),"cup",((PlazoFijo)c).CalcularInteres(fechaPlazo,fechaCreada),horaCreada,fechaCreada,"no",beneficiario,fechaPlazo,"no",lineas});
+						mitabla.addRow(new Object[]{"PlazoFijo",((PlazoFijo)c).getCup(),"cup","0",horaCreada,fechaCreada,"no",beneficiario,fechaPlazo,"no",lineas});
 						lineas++;
 					}
 					if(c.getTipo().equalsIgnoreCase("Ahorro")){
 						if(((Ahorro)c).getCup()!=-1 && ((Ahorro)c).getMlc()==-1){
-						mitabla.addRow(new Object[]{c.getTipo(),((Ahorro)c).getCup(),"cup","no",horaCreada,fechaCreada,"no",beneficiario,"no",Estatal,lineas});
-						lineas++;
+							mitabla.addRow(new Object[]{c.getTipo(),((Ahorro)c).getCup(),"cup","no",horaCreada,fechaCreada,"no",beneficiario,"no",Estatal,lineas});
+							lineas++;
 						}
 						else{
 							mitabla.addRow(new Object[]{c.getTipo(),((Ahorro)c).getMlc(),"mlc","no",horaCreada,fechaCreada,"no",beneficiario,"no",Estatal,lineas});
 							lineas++;
 						}
 					}
-					if(c.getTipo().equalsIgnoreCase("Fondos")){
-						mitabla.addRow(new Object[]{"Fondos",((Fondo)c).getCup(),"cup",((Fondo)c).CalcularInteres(),horaCreada,fechaCreada,"no",beneficiario,"no","si",lineas});
+					if(c.getTipo().equalsIgnoreCase("Fondo")){
+						salarioEstatal=CrearCuenta.salarioEstatal;
+						mitabla.addRow(new Object[]{c.getTipo(),((Fondo)c).getCup(),"cup","0",horaCreada,fechaCreada,"no",beneficiario,"no","si",lineas});
 						lineas++;
 					}
-					}
-					 
+				}
+
 			}
 			ElegirTransferencia();
+			ListaEnvioIni();
 			ListaMovil();
+			ListaRecarCuenta();
+			Habilitar();
 
 		}
 	}
 	public void ElegirTransferencia(){  //recordar t debe ser t-1;
 		if(lineast==0){
-		for(lineast=1;lineast<usuario.getCuentas().size()+1;lineast++){		
-			listaTranferencia.addElement(usuario.getCuentas().get(lineast-1).getTipo() + "-" + lineast);	
-		}
+			for(lineast=1;lineast<usuario.getCuentas().size()+1;lineast++){		
+				listaTranferencia.addElement(usuario.getCuentas().get(lineast-1).getTipo() + "-" + lineast);	
+			}
 		}
 		else{
 			while(lineast<usuario.getCuentas().size()+1){
@@ -1243,27 +1499,77 @@ public class Menu extends JFrame {
 				lineast++;
 			}
 		}
-		
+
 		ListaTranfer.revalidate();//estas dos lineas son para actualizar y pintar la lista
 		ListaTranfer.repaint();
-		
+
 	}
-		
-	
+
+	public void ListaEnvioIni(){
+		while(lineasE<listaTranferencia.getSize()){
+			if(!(listaTranferencia.get(lineasE).contains("Fondo"))){
+				listaTranferenciaEnvio.addElement(listaTranferencia.get(lineasE));
+			}
+			lineasE++;
+		}
+		ListaEnvioG.revalidate();
+		ListaEnvioG.repaint();
+	}
+
+
 	public void ListaMovil(){
 		boolean noMlc=false;
 		while(lineasR<listaTranferencia.getSize()){
 			for(int j=0;j<9;j++){
-			if(listaTranferencia.get(lineasR).equals("MLC" + "-" + j)){
-				noMlc=true;
-			}
+				if(listaTranferencia.get(lineasR).equals("MLC" + "-" + j)){
+					noMlc=true;
+				}
 			}
 			if(!noMlc){
-			listaMovil.addElement(listaTranferencia.get(lineasR));
+				listaMovil.addElement(listaTranferencia.get(lineasR));
 			}
 			lineasR++;
 		}
 		ListaMovilRecargaG.revalidate();//estas dos lineas son para actualizar y pintar la lista
 		ListaMovilRecargaG.repaint();
 	}
+
+	public void ListaRecarCuenta(){
+		while(lineasRC<miTabla.getRowCount()){
+			if(miTabla.getValueAt(lineasRC, 9).equals("no")){
+				listaRecargaCuenta.addElement(listaTranferencia.get(lineasRC));
+			}
+			lineasRC++;
+
+		}
+		ListaRecargaCuentaG.revalidate();
+		ListaRecargaCuentaG.repaint();
+
+	}
+	public void Habilitar(){
+		for(int i=0;i<usuario.getCuentas().size();i++){
+			if(usuario.getCuentas().get(i) instanceof  Fondo){
+				negocios=true;
+				botonAnimacion_10.setEnabled(true);
+			}
+		}
+	}
+	public float SalarioFondo(){
+		float salario=0;
+		int i;
+		for(i=0;i<usuario.getCuentas().size();i++){
+			if(usuario.getCuentas().get(i) instanceof Fondo){
+				fondoA=i;
+				salario=((Fondo)usuario.getCuentas().get(i)).getCup();
+				i=usuario.getCuentas().size();
+			}
+			
+		}
+		
+		return salario;
+		
+	
+
+	}
 }
+
