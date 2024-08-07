@@ -279,14 +279,14 @@ public class CrearCuenta extends JDialog {
 		textField_9.setBounds(42, 186, 330, 46);
 		panelFondo.add(textField_9);
 		
-		JLabel lblEscribaAquEl_2 = new JLabel("Escriba aqu\u00ED el monto inicial de la entidad que le deposita.");
+		JLabel lblEscribaAquEl_2 = new JLabel("Escriba aqu\u00ED el salario fijo que la entidad que le paga le proporcione.");
 		lblEscribaAquEl_2.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
-		lblEscribaAquEl_2.setBounds(42, 231, 434, 33);
+		lblEscribaAquEl_2.setBounds(42, 231, 513, 33);
 		panelFondo.add(lblEscribaAquEl_2);
 		
-		JLabel lblDebeSerMayor_2 = new JLabel("Debe ser mayor de 30 cup(pueden ingresar kilos con un punto '.').");
+		JLabel lblDebeSerMayor_2 = new JLabel("(pueden ingresar kilos con un punto '.').");
 		lblDebeSerMayor_2.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
-		lblDebeSerMayor_2.setBounds(42, 247, 513, 33);
+		lblDebeSerMayor_2.setBounds(42, 279, 513, 33);
 		panelFondo.add(lblDebeSerMayor_2);
 		
 		JLabel label_18 = new JLabel("Advertencia");
@@ -314,6 +314,16 @@ public class CrearCuenta extends JDialog {
 		lblVecesAlAo.setFont(new Font("Segoe UI Black", Font.BOLD, 18));
 		lblVecesAlAo.setBounds(386, 192, 270, 33);
 		panelFondo.add(lblVecesAlAo);
+		
+		JLabel lblSeLeIngresara = new JLabel("Se le ingresara el 10% de su saldo.Aunque puede cambiarlo a travez");
+		lblSeLeIngresara.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
+		lblSeLeIngresara.setBounds(42, 247, 513, 33);
+		panelFondo.add(lblSeLeIngresara);
+		
+		JLabel lblSeLeIngresara_1 = new JLabel("del comercio de la Agencia Bancaria.Debe ser mayor de 30 cup.");
+		lblSeLeIngresara_1.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
+		lblSeLeIngresara_1.setBounds(42, 263, 513, 33);
+		panelFondo.add(lblSeLeIngresara_1);
 		
 		final JPanel panelCorriente = new JPanel();
 		panel_1.add(panelCorriente, "Corriente");
@@ -786,12 +796,12 @@ public class CrearCuenta extends JDialog {
 		}else
 		if(comboBox.getSelectedItem().equals("Ahorro")){
 			if(textField_7.getText().equals("") && !(textField_6.getText().equalsIgnoreCase(""))){
-			Ahorro p=new Ahorro(usuario.getIdU(),textField_5.getText(),Float.parseFloat(textField_6.getText()),-1);
+			Ahorro p=new Ahorro(usuario.getIdU(),textField_5.getText(),-1,Float.parseFloat(textField_6.getText()));
 			banco.getUsuarios().get(pos).getCuentas().add(p);
 			}
 			else{
 				if(!(textField_7.getText().equals("")) && textField_6.getText().equalsIgnoreCase("")){
-					Ahorro p=new Ahorro(usuario.getIdU(),textField_5.getText(),-1,Float.parseFloat(textField_7.getText()));
+					Ahorro p=new Ahorro(usuario.getIdU(),textField_5.getText(),Float.parseFloat(textField_7.getText()),-1);
 					banco.getUsuarios().get(pos).getCuentas().add(p);
 				}
 				
@@ -801,7 +811,7 @@ public class CrearCuenta extends JDialog {
 			if(MoF){
 				MoF=false;
 				salarioEstatal=Float.parseFloat(textField_9.getText());
-			Fondo p=new Fondo(usuario.getIdU(),textField_8.getText(),Float.parseFloat(textField_9.getText()));
+			Fondo p=new Fondo(usuario.getIdU(),textField_8.getText(),salarioEstatal * 10 / 100);
 			banco.getUsuarios().get(pos).getCuentas().add(p);
 			}
 			

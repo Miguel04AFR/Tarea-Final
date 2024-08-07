@@ -92,7 +92,7 @@ public class PlazoFijo extends CuentaBancaria {
 			interes=(cup-2 +totalMeses) * 0.0003 ;
 		}
 		else{
-			interes=(mesF - mesI) * 0.025 + cup-2;
+			interes=(mesF - mesI) * 0.025 + getCup()-2;
 		}
 		return interes;
 	}
