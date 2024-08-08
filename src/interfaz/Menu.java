@@ -726,19 +726,45 @@ public class Menu extends JFrame {
 		BotonAnimacion btnmcnAsd = new BotonAnimacion();
 		btnmcnAsd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String numRemover=txtNumero.getText();
-				for(int i=miTabla.getRowCount()-1;i>=0;i--){
-					if(miTabla.getValueAt(i, 10).toString().equalsIgnoreCase(numRemover)){
-						usuario.getCuentas().remove(numRemover);
-						miTabla.removeRow(i);
-						txtNumero.setText("");
-							for(int j=i;j<miTabla.getRowCount();j++){
-								if(j>=i){
-						miTabla.setValueAt(j+1, j, 10);
-								}
-						}
-					}
-				}
+			    String numRemover = txtNumero.getText();
+			    String cuenta="";
+			    for (int i = miTabla.getRowCount() - 1; i >= 0; i--) {
+			        if (miTabla.getValueAt(i, 10).toString().equalsIgnoreCase(numRemover)) {
+			        	cuenta=miTabla.getValueAt(i, 0).toString();
+			        	
+			            usuario.getCuentas().remove(i);
+			            miTabla.removeRow(i);
+			            txtNumero.setText("");
+			            lineas--;
+			            lineasCF=0;
+			            lineasE=0;
+			            lineasIA=0;
+			            lineasPF=0;
+			            lineasR=0;
+			            lineasRC=0;
+			            lineast=0;
+			            listaTranferencia.clear();
+			            listaInteresCF.clear();
+			            listaInteresPF.clear();
+			            listaIngresarInteresAhorro.clear();
+			            listaMovil.clear();
+			            listaRecargaCuenta.clear();
+			            listaTranferenciaEnvio.clear();
+			            
+			            
+			            for (int j=i; j< miTabla.getRowCount();j++) {
+			                miTabla.setValueAt(j + 1, j, 10);
+			            }
+			            ElegirTransferencia();
+			            ListaEnvioIni();
+						ListaMovil();
+						ListaRecarCuenta();
+						Habilitar();
+						ListaInteresesCF();
+						ListaInteresesPF();
+						ListaIngresarInteresAhorro();
+			        }
+			    }
 			}
 		});
 		btnmcnAsd.setColorEfecto(new Color(0, 128, 0));
@@ -748,7 +774,26 @@ public class Menu extends JFrame {
 		btnmcnAsd.setBounds(685, 91, 85, 29);
 		paneldatos.add(btnmcnAsd);
 		
-		
+		/*for (int k = listaTranferencia.getSize() - 1; k >= 0; k--) {
+            if (k < listaIngresarInteresAhorro.getSize() && listaIngresarInteresAhorro.get(k).equalsIgnoreCase(cuenta + "-" + numRemover)) {
+                listaIngresarInteresAhorro.remove(k);
+            }
+            if (k < listaInteresCF.getSize() && listaInteresCF.get(k).equalsIgnoreCase(cuenta + "-" + numRemover)) {
+                listaInteresCF.remove(k);
+            }
+            if (k < listaInteresPF.getSize() && listaInteresPF.get(k).equalsIgnoreCase(cuenta + "-" + numRemover)) {
+                listaInteresPF.remove(k);
+            }
+            if (k < listaMovil.getSize() && listaMovil.get(k).equalsIgnoreCase(cuenta + "-" + numRemover)) {
+                listaMovil.remove(k);
+            }
+            if (k < listaRecargaCuenta.getSize() && listaRecargaCuenta.get(k).equalsIgnoreCase(cuenta + "-" + numRemover)) {
+                listaRecargaCuenta.remove(k);
+            }
+            if (k < listaTranferenciaEnvio.getSize() && listaTranferenciaEnvio.get(k).equalsIgnoreCase(cuenta + "-" + numRemover)) {
+                listaTranferenciaEnvio.remove(k);
+            }
+        }*/
 		
 		
 		
@@ -1223,10 +1268,6 @@ public class Menu extends JFrame {
 		comboBox.addItem("Banco Inversiones S.A. (Bancoi):");
 		comboBox.addItem("Banco Metropolitano S.A.:");
 
-
-		JPanel panelInteresPlazoFijo = new JPanel();
-		panel_1.add(panelInteresPlazoFijo, "InteresAhorro");
-
 		JPanel panelRecargar = new JPanel();
 		panel_1.add(panelRecargar, "Recargar");
 		panelRecargar.setLayout(null);
@@ -1591,6 +1632,17 @@ public class Menu extends JFrame {
 		btnmcnExtraer.setBounds(448, 315, 290, 67);
 		panelInteresCF.add(btnmcnExtraer);
 		
+		JLabel lblElijaCuentaPara_1 = new JLabel("Elija Cuenta para los Intereses:");
+		lblElijaCuentaPara_1.setFont(new Font("Segoe UI Black", Font.PLAIN, 18));
+		lblElijaCuentaPara_1.setBounds(265, 56, 280, 27);
+		panelInteresCF.add(lblElijaCuentaPara_1);
+		
+		JLabel lblOperacionesDeInteresescuenta = new JLabel("Operaciones de Intereses,cuenta Corriente y Fondo");
+		lblOperacionesDeInteresescuenta.setFont(new Font("Segoe UI", Font.BOLD, 20));
+		lblOperacionesDeInteresescuenta.setBackground(Color.BLACK);
+		lblOperacionesDeInteresescuenta.setBounds(150, 0, 481, 45);
+		panelInteresCF.add(lblOperacionesDeInteresescuenta);
+		
 		JPanel panelInteresesPF = new JPanel();
 		panelInteresesPF.setLayout(null);
 		panel_1.add(panelInteresesPF, "InteresPF");
@@ -1751,6 +1803,22 @@ public class Menu extends JFrame {
 		label_21.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
 		label_21.setBounds(621, 214, 153, 16);
 		panelInteresesPF.add(label_21);
+		
+		JLabel lblOperacionesDeIntereses = new JLabel("Operaciones de Intereses, de cuenta Plazo Fijo ");
+		lblOperacionesDeIntereses.setFont(new Font("Segoe UI", Font.BOLD, 20));
+		lblOperacionesDeIntereses.setBackground(Color.BLACK);
+		lblOperacionesDeIntereses.setBounds(147, 0, 481, 45);
+		panelInteresesPF.add(lblOperacionesDeIntereses);
+		
+		JLabel label_22 = new JLabel("Elija Cuenta para los Intereses:");
+		label_22.setFont(new Font("Segoe UI Black", Font.PLAIN, 18));
+		label_22.setBounds(50, 58, 280, 27);
+		panelInteresesPF.add(label_22);
+		
+		JLabel lblElijaCuentaDe = new JLabel("Elija Cuenta de Ahorro a operar:");
+		lblElijaCuentaDe.setFont(new Font("Segoe UI Black", Font.PLAIN, 18));
+		lblElijaCuentaDe.setBounds(523, 58, 292, 27);
+		panelInteresesPF.add(lblElijaCuentaDe);
 		
 
 		ActionListener Intereses = new ActionListener() {
