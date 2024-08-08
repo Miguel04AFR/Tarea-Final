@@ -350,7 +350,7 @@ public class Lobby extends JFrame {
 	        contentPane.add(lblInversionMax);
 	        
 	        lblNewLabel_4 = new JLabel("Ha olvidado su contrase\u00F1a?.");
-	        lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 15));
+	        lblNewLabel_4.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
 	        lblNewLabel_4.addMouseListener(new MouseAdapter() {
 	        	@Override
 	        	public void mouseEntered(MouseEvent arg0) {
@@ -373,11 +373,11 @@ public class Lobby extends JFrame {
 	        		Perdida();
 	        	}
 	        });
-	        lblNewLabel_4.setBounds(151, 413, 184, 16);
+	        lblNewLabel_4.setBounds(151, 417, 214, 16);
 	        contentPane.add(lblNewLabel_4);
 	        
 	        lblNewLabel_5 = new JLabel("Crear cuenta?");
-	        lblNewLabel_5.setFont(new Font("Tahoma", Font.PLAIN, 15));
+	        lblNewLabel_5.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
 	        lblNewLabel_5.addMouseListener(new MouseAdapter() {
 	        	public void mouseEntered(MouseEvent arg0) {
 	        		lblNewLabel_5.setForeground(Color.BLUE);
@@ -401,7 +401,7 @@ public class Lobby extends JFrame {
 	        	
 	        });
 	        
-	        lblNewLabel_5.setBounds(334, 413, 95, 16);
+	        lblNewLabel_5.setBounds(356, 417, 104, 16);
 	        contentPane.add(lblNewLabel_5);
 	        
 	        lblModoClaro = new JLabel("Modo claro:");

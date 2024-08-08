@@ -564,7 +564,7 @@ public class CrearCuenta extends JDialog {
 			}
 			
 		});
-		buttonEstatal.setBounds(130, 349, 127, 25);
+		buttonEstatal.setBounds(130, 349, 69, 25);
 		panelAhorro.add(buttonEstatal);
 		
 		buttonPersonal = new JRadioButton("Personal");
@@ -773,6 +773,17 @@ public class CrearCuenta extends JDialog {
 		lblSoloPuedeElegir.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
 		lblSoloPuedeElegir.setBounds(42, 316, 500, 33);
 		panelAhorro.add(lblSoloPuedeElegir);
+		
+		JLabel lblAdvertencia_1 = new JLabel("Advertencia");
+		lblAdvertencia_1.setForeground(Color.RED);
+		lblAdvertencia_1.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
+		lblAdvertencia_1.setBounds(199, 344, 88, 33);
+		panelAhorro.add(lblAdvertencia_1);
+		
+		JLabel lblsiEsEstatal = new JLabel(":Si es estatal el usuario no podra eliminarla");
+		lblsiEsEstatal.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
+		lblsiEsEstatal.setBounds(287, 344, 317, 33);
+		panelAhorro.add(lblsiEsEstatal);
 		
 	}
 	
