@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.FlowLayout;
 import java.awt.Dialog.ModalityType;
+import java.awt.Frame;
 
 import LogicaClases.*;
 import interfaz.*;
@@ -13,12 +14,15 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import componentesVisuales.BotonAnimacion;
+import componentesVisuales.NotificacionesModernas;
+import componentesVisuales.NotificacionesModernas.Tipo;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -76,7 +80,6 @@ public class Cajero extends JDialog {
 	 */
 	public Cajero(DefaultTableModel miTabla,Agencia agencia,Usuario usuario,DefaultTableModel ultiOpeTabla,int cajero) {
 
-
 		getRootPane().setBorder(new LineBorder(Color.BLACK, 3));//poner bordes al Jdialog
 
 		setResizable(false);//para que no sea responsiva
@@ -132,11 +135,20 @@ public class Cajero extends JDialog {
 											((Ahorro)usuarioC.getCuentas().get(cambioPos)).setCup(saldo-monto);
 										ultiTabla.addRow(new Object[]{"Extraccion por cajero",tablaCajero.getValueAt(cambioPos,0).toString(),monto,hora.getText(),fecha.getText()});
 										tablaCajero.setValueAt(saldo-monto, cambioPos, 1);
-										
+										textField.setText("");
+										table.clearSelection();
 									}
+									else
+										JOptionPane.showMessageDialog(null, "Ahora mismo no contamos con billetes para el monto requerido,vuelva mas tarde o pida otro monto");
 								}
+								else
+									JOptionPane.showMessageDialog(null, "Su saldo es inferior al monto que desea extraer");
 							}
+							else
+								JOptionPane.showMessageDialog(null, "El cajero no tiene suficiente dinero,vuelva mas tarde");
 						}
+						else
+							JOptionPane.showMessageDialog(null, "No existen billetes de kilos");
 					}
 				});
 				btnmcnExtraer.setText("Extraer");
@@ -145,13 +157,15 @@ public class Cajero extends JDialog {
 				btnmcnExtraer.setColorEfecto(Color.GREEN);
 				btnmcnExtraer.setBorder(new CompoundBorder(null, new LineBorder(new Color(25, 25, 112), 6)));
 				btnmcnExtraer.setBackground(new Color(25, 25, 112));
-				btnmcnExtraer.setBounds(49, 8, 197, 40);
+				btnmcnExtraer.setBounds(49, 6, 197, 40);
 				panel.add(btnmcnExtraer);
 			}
 			{
 				btnmcnSalir = new BotonAnimacion();
 				btnmcnSalir.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
+						textField.setText("");
+						table.clearSelection();
 						dispose();
 					}
 				});
@@ -161,7 +175,7 @@ public class Cajero extends JDialog {
 				btnmcnSalir.setColorEfecto(Color.GREEN);
 				btnmcnSalir.setBorder(new CompoundBorder(null, new LineBorder(new Color(25, 25, 112), 6)));
 				btnmcnSalir.setBackground(new Color(25, 25, 112));
-				btnmcnSalir.setBounds(400, 8, 197, 40);
+				btnmcnSalir.setBounds(400, 6, 197, 40);
 				panel.add(btnmcnSalir);
 			}
 		}

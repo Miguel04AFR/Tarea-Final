@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.BevelBorder;
+import javax.swing.border.LineBorder;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.plaf.basic.BasicComboBoxUI.ComboBoxLayoutManager;
 
@@ -70,6 +71,7 @@ import raven.datetime.component.time.TimePicker;
 import componentesVisuales.JLabelHora;
 import componentes.JHora;
 import componentes.JFecha;
+
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 
@@ -136,7 +138,7 @@ public class CrearCuenta extends JDialog {
 	public CrearCuenta() {
 		setBounds(100, 100, 656, 518);
 		getContentPane().setLayout(null);
-		
+		getRootPane().setBorder(new LineBorder(Color.BLACK, 3));//poner bordes al Jdialog
 		contentPanel.setBounds(0, 0, 656, 452);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel);

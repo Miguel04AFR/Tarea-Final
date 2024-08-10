@@ -1231,24 +1231,52 @@ public class Menu extends JFrame {
 		panelA1.add(botonAnimacion_17);
 		
 		BotonAnimacion botonAnimacion_18 = new BotonAnimacion();
+		botonAnimacion_18.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				cajero=2;
+				Cajero a=new Cajero(miTabla,agencia,usuario,ultiOpeTabla,cajero);
+				a.setVisible(true);
+			}
+		});
 		botonAnimacion_18.setIcon(new ImageIcon(Menu.class.getResource("/iconos/cajero-automatico (3).png")));
 		botonAnimacion_18.setBackground((Color) null);
 		botonAnimacion_18.setBounds(343, 67, 149, 139);
 		panelA1.add(botonAnimacion_18);
 		
 		BotonAnimacion botonAnimacion_19 = new BotonAnimacion();
+		botonAnimacion_19.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				cajero=3;
+				Cajero a=new Cajero(miTabla,agencia,usuario,ultiOpeTabla,cajero);
+				a.setVisible(true);
+			}
+		});
 		botonAnimacion_19.setIcon(new ImageIcon(Menu.class.getResource("/iconos/cajero-automatico (3).png")));
 		botonAnimacion_19.setBackground((Color) null);
 		botonAnimacion_19.setBounds(673, 67, 149, 139);
 		panelA1.add(botonAnimacion_19);
 		
 		BotonAnimacion botonAnimacion_20 = new BotonAnimacion();
+		botonAnimacion_20.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				cajero=4;
+				Cajero a=new Cajero(miTabla,agencia,usuario,ultiOpeTabla,cajero);
+				a.setVisible(true);
+			}
+		});
 		botonAnimacion_20.setIcon(new ImageIcon(Menu.class.getResource("/iconos/cajero-automatico (3).png")));
 		botonAnimacion_20.setBackground((Color) null);
 		botonAnimacion_20.setBounds(182, 186, 149, 139);
 		panelA1.add(botonAnimacion_20);
 		
 		BotonAnimacion botonAnimacion_21 = new BotonAnimacion();
+		botonAnimacion_21.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				cajero=5;
+				Cajero a=new Cajero(miTabla,agencia,usuario,ultiOpeTabla,cajero);
+				a.setVisible(true);
+			}
+		});
 		botonAnimacion_21.setIcon(new ImageIcon(Menu.class.getResource("/iconos/cajero-automatico (3).png")));
 		botonAnimacion_21.setBackground((Color) null);
 		botonAnimacion_21.setBounds(512, 186, 149, 139);
@@ -1265,6 +1293,36 @@ public class Menu extends JFrame {
 		lblDireccion.setBounds(12, 357, 697, 29);
 		panelA1.add(lblDireccion);
 		
+		JLabel label_23 = new JLabel("1");
+		label_23.setHorizontalAlignment(SwingConstants.CENTER);
+		label_23.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
+		label_23.setBounds(77, 195, 32, 43);
+		panelA1.add(label_23);
+		
+		JLabel label_24 = new JLabel("2");
+		label_24.setHorizontalAlignment(SwingConstants.CENTER);
+		label_24.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
+		label_24.setBounds(395, 195, 32, 43);
+		panelA1.add(label_24);
+		
+		JLabel label_25 = new JLabel("3");
+		label_25.setHorizontalAlignment(SwingConstants.CENTER);
+		label_25.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
+		label_25.setBounds(725, 195, 32, 43);
+		panelA1.add(label_25);
+		
+		JLabel label_26 = new JLabel("4");
+		label_26.setHorizontalAlignment(SwingConstants.CENTER);
+		label_26.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
+		label_26.setBounds(233, 314, 32, 43);
+		panelA1.add(label_26);
+		
+		JLabel label_27 = new JLabel("5");
+		label_27.setHorizontalAlignment(SwingConstants.CENTER);
+		label_27.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
+		label_27.setBounds(563, 314, 32, 43);
+		panelA1.add(label_27);
+		
 
 		final JPanel panelA2 = new JPanel();
 		panelAgenciaC.add(panelA2, "Agencia2");
@@ -1273,44 +1331,205 @@ public class Menu extends JFrame {
 		BotonAnimacion botonAnimacion_22 = new BotonAnimacion();
 		botonAnimacion_22.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				cajero=1;
 				Cajero a=new Cajero(miTabla,agencia,usuario,ultiOpeTabla,cajero);
 				a.setVisible(true);
 			}
 		});
 		botonAnimacion_22.setIcon(new ImageIcon(Menu.class.getResource("/iconos/cajero-automatico (3).png")));
 		botonAnimacion_22.setBackground((Color) null);
-		botonAnimacion_22.setBounds(26, 67, 149, 139);
+		botonAnimacion_22.setBounds(38, 54, 149, 139);
 		panelA2.add(botonAnimacion_22);
 		
 		BotonAnimacion botonAnimacion_23 = new BotonAnimacion();
+		botonAnimacion_23.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				cajero=2;
+				Cajero a=new Cajero(miTabla,agencia,usuario,ultiOpeTabla,cajero);
+				a.setVisible(true);
+			}
+		});
 		botonAnimacion_23.setIcon(new ImageIcon(Menu.class.getResource("/iconos/cajero-automatico (3).png")));
 		botonAnimacion_23.setBackground((Color) null);
-		botonAnimacion_23.setBounds(343, 67, 149, 139);
+		botonAnimacion_23.setBounds(355, 54, 149, 139);
 		panelA2.add(botonAnimacion_23);
 		
 		BotonAnimacion botonAnimacion_24 = new BotonAnimacion();
 		botonAnimacion_24.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				cajero=3;
+				Cajero a=new Cajero(miTabla,agencia,usuario,ultiOpeTabla,cajero);
+				a.setVisible(true);
 			}
 		});
 		botonAnimacion_24.setIcon(new ImageIcon(Menu.class.getResource("/iconos/cajero-automatico (3).png")));
 		botonAnimacion_24.setBackground((Color) null);
-		botonAnimacion_24.setBounds(673, 67, 149, 139);
+		botonAnimacion_24.setBounds(685, 54, 149, 139);
 		panelA2.add(botonAnimacion_24);
+		
+		JLabel label_28 = new JLabel("1");
+		label_28.setHorizontalAlignment(SwingConstants.CENTER);
+		label_28.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
+		label_28.setBounds(89, 182, 32, 43);
+		panelA2.add(label_28);
+		
+		JLabel label_29 = new JLabel("2");
+		label_29.setHorizontalAlignment(SwingConstants.CENTER);
+		label_29.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
+		label_29.setBounds(406, 182, 32, 43);
+		panelA2.add(label_29);
+		
+		JLabel label_30 = new JLabel("3");
+		label_30.setHorizontalAlignment(SwingConstants.CENTER);
+		label_30.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
+		label_30.setBounds(738, 182, 32, 43);
+		panelA2.add(label_30);
 		
 
 		final JPanel panelA3 = new JPanel();
 		panelAgenciaC.add(panelA3, "Agencia3");
 		panelA3.setLayout(null);
+		
+		BotonAnimacion botonAnimacion_25 = new BotonAnimacion();
+		botonAnimacion_25.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				cajero=1;
+				Cajero a=new Cajero(miTabla,agencia,usuario,ultiOpeTabla,cajero);
+				a.setVisible(true);
+			}
+		});
+		botonAnimacion_25.setIcon(new ImageIcon(Menu.class.getResource("/iconos/cajero-automatico (3).png")));
+		botonAnimacion_25.setBackground((Color) null);
+		botonAnimacion_25.setBounds(38, 54, 149, 139);
+		panelA3.add(botonAnimacion_25);
+		
+		BotonAnimacion botonAnimacion_26 = new BotonAnimacion();
+		botonAnimacion_26.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				cajero=2;
+				Cajero a=new Cajero(miTabla,agencia,usuario,ultiOpeTabla,cajero);
+				a.setVisible(true);
+			}
+		});
+		botonAnimacion_26.setIcon(new ImageIcon(Menu.class.getResource("/iconos/cajero-automatico (3).png")));
+		botonAnimacion_26.setBackground((Color) null);
+		botonAnimacion_26.setBounds(355, 54, 149, 139);
+		panelA3.add(botonAnimacion_26);
+		
+		BotonAnimacion botonAnimacion_27 = new BotonAnimacion();
+		botonAnimacion_27.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				cajero=3;
+				Cajero a=new Cajero(miTabla,agencia,usuario,ultiOpeTabla,cajero);
+				a.setVisible(true);
+			}
+		});
+		botonAnimacion_27.setIcon(new ImageIcon(Menu.class.getResource("/iconos/cajero-automatico (3).png")));
+		botonAnimacion_27.setBackground((Color) null);
+		botonAnimacion_27.setBounds(685, 54, 149, 139);
+		panelA3.add(botonAnimacion_27);
+		
+		JLabel label_31 = new JLabel("1");
+		label_31.setHorizontalAlignment(SwingConstants.CENTER);
+		label_31.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
+		label_31.setBounds(89, 182, 32, 43);
+		panelA3.add(label_31);
+		
+		JLabel label_32 = new JLabel("2");
+		label_32.setHorizontalAlignment(SwingConstants.CENTER);
+		label_32.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
+		label_32.setBounds(406, 182, 32, 43);
+		panelA3.add(label_32);
+		
+		JLabel label_33 = new JLabel("3");
+		label_33.setHorizontalAlignment(SwingConstants.CENTER);
+		label_33.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
+		label_33.setBounds(738, 182, 32, 43);
+		panelA3.add(label_33);
 
 		final JPanel panelA4 = new JPanel();
 		panelAgenciaC.add(panelA4, "Agencia4");
 		panelA4.setLayout(null);
+		
+		BotonAnimacion botonAnimacion_28 = new BotonAnimacion();
+		botonAnimacion_28.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				cajero=1;
+				Cajero a=new Cajero(miTabla,agencia,usuario,ultiOpeTabla,cajero);
+				a.setVisible(true);
+			}
+		});
+		botonAnimacion_28.setIcon(new ImageIcon(Menu.class.getResource("/iconos/cajero-automatico (3).png")));
+		botonAnimacion_28.setBackground((Color) null);
+		botonAnimacion_28.setBounds(150, 58, 149, 139);
+		panelA4.add(botonAnimacion_28);
+		
+		BotonAnimacion botonAnimacion_29 = new BotonAnimacion();
+		botonAnimacion_29.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				cajero=2;
+				Cajero a=new Cajero(miTabla,agencia,usuario,ultiOpeTabla,cajero);
+				a.setVisible(true);
+			}
+		});
+		botonAnimacion_29.setIcon(new ImageIcon(Menu.class.getResource("/iconos/cajero-automatico (3).png")));
+		botonAnimacion_29.setBackground((Color) null);
+		botonAnimacion_29.setBounds(537, 58, 149, 139);
+		panelA4.add(botonAnimacion_29);
+		
+		JLabel label_34 = new JLabel("1");
+		label_34.setHorizontalAlignment(SwingConstants.CENTER);
+		label_34.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
+		label_34.setBounds(200, 186, 32, 43);
+		panelA4.add(label_34);
+		
+		JLabel label_35 = new JLabel("2");
+		label_35.setHorizontalAlignment(SwingConstants.CENTER);
+		label_35.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
+		label_35.setBounds(590, 186, 32, 43);
+		panelA4.add(label_35);
 
 		final JPanel panelA5 = new JPanel();
 		panelAgenciaC.add(panelA5, "Agencia5");
 		panelA5.setLayout(null);
+		
+		BotonAnimacion botonAnimacion_30 = new BotonAnimacion();
+		botonAnimacion_30.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				cajero=1;
+				Cajero a=new Cajero(miTabla,agencia,usuario,ultiOpeTabla,cajero);
+				a.setVisible(true);
+			}
+		});
+		botonAnimacion_30.setIcon(new ImageIcon(Menu.class.getResource("/iconos/cajero-automatico (3).png")));
+		botonAnimacion_30.setBackground((Color) null);
+		botonAnimacion_30.setBounds(150, 58, 149, 139);
+		panelA5.add(botonAnimacion_30);
+		
+		BotonAnimacion botonAnimacion_31 = new BotonAnimacion();
+		botonAnimacion_31.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				cajero=2;
+				Cajero a=new Cajero(miTabla,agencia,usuario,ultiOpeTabla,cajero);
+				a.setVisible(true);
+			}
+		});
+		botonAnimacion_31.setIcon(new ImageIcon(Menu.class.getResource("/iconos/cajero-automatico (3).png")));
+		botonAnimacion_31.setBackground((Color) null);
+		botonAnimacion_31.setBounds(537, 58, 149, 139);
+		panelA5.add(botonAnimacion_31);
+		
+		JLabel label_36 = new JLabel("1");
+		label_36.setHorizontalAlignment(SwingConstants.CENTER);
+		label_36.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
+		label_36.setBounds(200, 186, 32, 43);
+		panelA5.add(label_36);
+		
+		JLabel label_37 = new JLabel("2");
+		label_37.setHorizontalAlignment(SwingConstants.CENTER);
+		label_37.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
+		label_37.setBounds(590, 186, 32, 43);
+		panelA5.add(label_37);
 
 		JLabel lblAgenciasYCajeros = new JLabel("Agencias y Cajeros");
 		lblAgenciasYCajeros.setFont(new Font("Segoe UI", Font.BOLD, 20));
@@ -1989,6 +2208,32 @@ public class Menu extends JFrame {
 		timerd.setInitialDelay(70);
 		timerd.start();
 		
+		ActionListener MantenimientoCajero = new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				int uno=20;
+				int tres=20;
+				int cinco=20;
+				int dies=30;
+				int veinte=30;
+				int cincuenta=20;
+				int cien=10;
+				int doscientos=5;
+				int quinientos=4;
+				int mil=4;
+				
+				
+				
+				
+			}
+		};
+		timerd =new Timer(70 * 1000,MantenimientoCajero);
+		timerd.setInitialDelay(70);
+		timerd.start();
+		
+		
+		
 		if(pos!=-1){
 			PerfilIniciado();
 		}
@@ -2293,11 +2538,6 @@ public class Menu extends JFrame {
 	        }
 	    }
 	}
-	
-	
-	
-	
-	
 }
 
 
