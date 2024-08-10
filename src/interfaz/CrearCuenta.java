@@ -80,7 +80,6 @@ public class CrearCuenta extends JDialog {
 	private JTextField textField;
 	private JTextField txtDejeLaCelda;
 	private JTextField textField_1;
-	private String tipoCuenta;
 	private JComboBox comboBox;
 	private JTextField textField_2;
 	private JTextField textField_3;
@@ -142,7 +141,7 @@ public class CrearCuenta extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel);
 		contentPanel.setLayout(null);
-		setResizable(false);//para que no sea recursiva
+		setResizable(false);//para que no sea responsiva
 		setUndecorated(true);//esto es lo de quitar la cruz de cerrar
 		setLocation(40, 50);
 		setLocationRelativeTo(null);//esto es lo que hace que se centre
@@ -660,7 +659,6 @@ public class CrearCuenta extends JDialog {
 		comboBox.addItem("Ahorro");
 		comboBox.addItem("Corriente");
 		comboBox.addItem("Fondo");
-		tipoCuenta=((String)comboBox.getSelectedItem());
 		comboBox.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				//cambiar de panel			

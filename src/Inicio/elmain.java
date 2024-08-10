@@ -9,6 +9,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+import LogicaClases.Agencia;
 import LogicaClases.Banco;
 import LogicaClases.Corriente;
 import LogicaClases.CuentaBancaria;
@@ -32,6 +33,19 @@ public class elmain {
 		PlazoFijo b=new PlazoFijo("usuario", null, 50);
 		primer.getCuentas().add(b);
 		banco.getUsuarios().add(primer);
+	    Agencia a=new Agencia("Banco Central de Cuba","Joaquín Alonso Vázquez","Cuba #402 e/ Lamparilla y Amargura, Habana Vieja, La Habana");
+		Agencia w=new Agencia("Banco Nacional de Cuba","Joscelín Rio Álvarez","Aguiar 456 e/ Amargura y Lamparilla, Habana Vieja, La Habana");
+		Agencia c=new Agencia("Banco Popular de Ahorro (BPA)","Alejandro Martínez López","Calle 16 No. 306 e/ 3ra y 5ta, Miramar, Municipio Playa, La Habana");
+		Agencia x=new Agencia("Banco Inversiones S.A. (Bancoi)","Marlie León Simón","Avenida 5taA, Plaza de la Revolución, La Habana, Cuba");
+		Agencia z=new Agencia("Banco Metropolitano S.A.","Luis Majin Gamboa","Cuba #225 Esquina A O’reilly, La Habana Vieja, La Habana");
+		Inicializar agencias=new Inicializar();
+		agencias.InicializarAgencia(a, w, c, x, z);
+		banco.getAgencias().add(a);
+		banco.getAgencias().add(w);
+		banco.getAgencias().add(c);
+		banco.getAgencias().add(x);
+		banco.getAgencias().add(z);
+		
 		FlatDarculaLaf.setup();
 		Lobby p=new Lobby();
 		p.setVisible(true);

@@ -22,6 +22,9 @@ import componentesVisuales.NotificacionesModernas.Localizacion;
 import componentesVisuales.NotificacionesModernas.Tipo;
 import componentesVisuales.PanelGradiente;
 
+
+
+
 import javax.swing.DefaultListModel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -92,6 +95,8 @@ import javax.swing.table.TableModel;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.CompoundBorder;
 import javax.swing.ListModel;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 
 
@@ -138,7 +143,7 @@ public class Menu extends JFrame {
 	private int lineasCF=0;//de intereses corriente y fondo
 	private int lineasPF=0;//de intereses plazofijo
 	private int lineasIA=0;//de ingresar Ahorro
-	private DefaultTableModel miTabla=new DefaultTableModel();//se utiliza para la table,es una tabla default
+	private DefaultTableModel miTabla;//se utiliza para la table,es una tabla default,mas abajo esta la instancia  en la linea 767,tuve que cambiarlo para cambiar un metodo
 	private DefaultTableModel ultiOpeTabla=new DefaultTableModel();
 	private String fechaCreada;
 	private String horaCreada;
@@ -193,6 +198,13 @@ public class Menu extends JFrame {
 	private JLabel label_21;
 	private BotonAnimacion botonAnimacion_11;
 	private JTextField txtNumero;
+	private JLayeredPane panelAgenciaC;
+	private JComboBox comboBox;
+	private Agencia agencia;
+	private JLabel lblNewLabel_1;
+	private JLabel lblDireccion;
+	private BotonAnimacion btnmcnAsd;
+	private int cajero=0;
 	
 
 	/**
@@ -219,6 +231,8 @@ public class Menu extends JFrame {
 	 */
 
 	public Menu() {
+		
+		 
 		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Menu.class.getResource("/iconos/iconfinder-481-university-bank-campus-court-4212926_114964.png")));
 		setTitle("Mi banco");
@@ -723,78 +737,26 @@ public class Menu extends JFrame {
 		paneldatos.add(txtNumero);
 		txtNumero.setColumns(10);
 		
-		BotonAnimacion btnmcnAsd = new BotonAnimacion();
-		btnmcnAsd.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			    String numRemover = txtNumero.getText();
-			    String cuenta="";
-			    for (int i = miTabla.getRowCount() - 1; i >= 0; i--) {
-			        if (miTabla.getValueAt(i, 10).toString().equalsIgnoreCase(numRemover)) {
-			        	cuenta=miTabla.getValueAt(i, 0).toString();
-			        	
-			            usuario.getCuentas().remove(i);
-			            miTabla.removeRow(i);
-			            txtNumero.setText("");
-			            lineas--;
-			            lineasCF=0;
-			            lineasE=0;
-			            lineasIA=0;
-			            lineasPF=0;
-			            lineasR=0;
-			            lineasRC=0;
-			            lineast=0;
-			            listaTranferencia.clear();
-			            listaInteresCF.clear();
-			            listaInteresPF.clear();
-			            listaIngresarInteresAhorro.clear();
-			            listaMovil.clear();
-			            listaRecargaCuenta.clear();
-			            listaTranferenciaEnvio.clear();
-			            
-			            
-			            for (int j=i; j< miTabla.getRowCount();j++) {
-			                miTabla.setValueAt(j + 1, j, 10);
-			            }
-			            ElegirTransferencia();
-			            ListaEnvioIni();
-						ListaMovil();
-						ListaRecarCuenta();
-						Habilitar();
-						ListaInteresesCF();
-						ListaInteresesPF();
-						ListaIngresarInteresAhorro();
-			        }
-			    }
+		btnmcnAsd = new BotonAnimacion();
+		btnmcnAsd.addMouseListener(new MouseAdapter() {
+
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				btnmcnAsd.doClick();
 			}
 		});
-		btnmcnAsd.setColorEfecto(new Color(0, 128, 0));
-		btnmcnAsd.setBackground(Color.GREEN);
+		btnmcnAsd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				BorrarCuenta();
+			    
+			}
+		});
+		btnmcnAsd.setColorEfecto(new Color(0, 255, 0));
+		btnmcnAsd.setBackground(new Color(0, 128, 0));
 		btnmcnAsd.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
 		btnmcnAsd.setText("Eliminar");
 		btnmcnAsd.setBounds(685, 91, 85, 29);
 		paneldatos.add(btnmcnAsd);
-		
-		/*for (int k = listaTranferencia.getSize() - 1; k >= 0; k--) {
-            if (k < listaIngresarInteresAhorro.getSize() && listaIngresarInteresAhorro.get(k).equalsIgnoreCase(cuenta + "-" + numRemover)) {
-                listaIngresarInteresAhorro.remove(k);
-            }
-            if (k < listaInteresCF.getSize() && listaInteresCF.get(k).equalsIgnoreCase(cuenta + "-" + numRemover)) {
-                listaInteresCF.remove(k);
-            }
-            if (k < listaInteresPF.getSize() && listaInteresPF.get(k).equalsIgnoreCase(cuenta + "-" + numRemover)) {
-                listaInteresPF.remove(k);
-            }
-            if (k < listaMovil.getSize() && listaMovil.get(k).equalsIgnoreCase(cuenta + "-" + numRemover)) {
-                listaMovil.remove(k);
-            }
-            if (k < listaRecargaCuenta.getSize() && listaRecargaCuenta.get(k).equalsIgnoreCase(cuenta + "-" + numRemover)) {
-                listaRecargaCuenta.remove(k);
-            }
-            if (k < listaTranferenciaEnvio.getSize() && listaTranferenciaEnvio.get(k).equalsIgnoreCase(cuenta + "-" + numRemover)) {
-                listaTranferenciaEnvio.remove(k);
-            }
-        }*/
-		
 		
 		
 		JPanel paneltabla = new JPanel();
@@ -803,6 +765,13 @@ public class Menu extends JFrame {
 		paneltabla.setLayout(null);
 		
 
+		miTabla=new DefaultTableModel(){
+		    @Override
+		    public boolean isCellEditable(int row, int column) {
+		        return false; // Todas las celdas no son editables
+		    }
+		};
+		
 		
 		    miTabla.addColumn("Cuenta");
 	        miTabla.addColumn("Saldo");
@@ -815,6 +784,8 @@ public class Menu extends JFrame {
 	        miTabla.addColumn("Plazo");
 	        miTabla.addColumn("Estatal");
 	        miTabla.addColumn("#Cuenta");
+	        
+
 		
 		
 		/*Object[][] datos = new Object[][] {
@@ -825,14 +796,18 @@ public class Menu extends JFrame {
 	    
 		table = new JTable(miTabla);
 		table.setFont(new Font("Segoe UI Black", Font.PLAIN, 12));
-		table.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
+		table.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));//cambia el cursor
 		table.setBounds(47, 38, 647, 229);
 		paneltabla.add(table);
-		table.setFillsViewportHeight(true);
+		table.setFillsViewportHeight(true);//para que todo sea visible
+		
 		
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setBounds(8, 3, 850, 269);
 		paneltabla.add(scrollPane);
+		
+		
+		
 		
 		JHora hora = new JHora(0);
 		hora.setFont(new Font("Segoe UI Black", Font.PLAIN, 13));
@@ -1232,25 +1207,110 @@ public class Menu extends JFrame {
 		panel_1.add(panelAgencias, "Agencia");
 		panelAgencias.setLayout(null);
 
-		JLayeredPane panelAgenciaC = new JLayeredPane();
+		panelAgenciaC = new JLayeredPane();
 		panelAgenciaC.setBounds(0, 50, 866, 386);
 		panelAgencias.add(panelAgenciaC);
 		panelAgenciaC.setLayout(new CardLayout(0, 0));
 
-		JPanel panelA1 = new JPanel();
+		final JPanel panelA1 = new JPanel();
 		panelAgenciaC.add(panelA1, "Agencia1");
+		panelA1.setLayout(null);
+		
+		BotonAnimacion botonAnimacion_17 = new BotonAnimacion();
+		botonAnimacion_17.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				cajero=1;
+				Cajero a=new Cajero(miTabla,agencia,usuario,ultiOpeTabla,cajero);
+				a.setVisible(true);
+				
+			}
+		});
+		botonAnimacion_17.setIcon(new ImageIcon(Menu.class.getResource("/iconos/cajero-automatico (3).png")));
+		botonAnimacion_17.setBackground(null);
+		botonAnimacion_17.setBounds(26, 67, 149, 139);
+		panelA1.add(botonAnimacion_17);
+		
+		BotonAnimacion botonAnimacion_18 = new BotonAnimacion();
+		botonAnimacion_18.setIcon(new ImageIcon(Menu.class.getResource("/iconos/cajero-automatico (3).png")));
+		botonAnimacion_18.setBackground((Color) null);
+		botonAnimacion_18.setBounds(343, 67, 149, 139);
+		panelA1.add(botonAnimacion_18);
+		
+		BotonAnimacion botonAnimacion_19 = new BotonAnimacion();
+		botonAnimacion_19.setIcon(new ImageIcon(Menu.class.getResource("/iconos/cajero-automatico (3).png")));
+		botonAnimacion_19.setBackground((Color) null);
+		botonAnimacion_19.setBounds(673, 67, 149, 139);
+		panelA1.add(botonAnimacion_19);
+		
+		BotonAnimacion botonAnimacion_20 = new BotonAnimacion();
+		botonAnimacion_20.setIcon(new ImageIcon(Menu.class.getResource("/iconos/cajero-automatico (3).png")));
+		botonAnimacion_20.setBackground((Color) null);
+		botonAnimacion_20.setBounds(182, 186, 149, 139);
+		panelA1.add(botonAnimacion_20);
+		
+		BotonAnimacion botonAnimacion_21 = new BotonAnimacion();
+		botonAnimacion_21.setIcon(new ImageIcon(Menu.class.getResource("/iconos/cajero-automatico (3).png")));
+		botonAnimacion_21.setBackground((Color) null);
+		botonAnimacion_21.setBounds(512, 186, 149, 139);
+		panelA1.add(botonAnimacion_21);
+		
+		
+		lblNewLabel_1 = new JLabel("Gerente:");
+		lblNewLabel_1.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
+		lblNewLabel_1.setBounds(12, 13, 273, 29);
+		panelA1.add(lblNewLabel_1);
+		
+		lblDireccion = new JLabel("Direccion:");
+		lblDireccion.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
+		lblDireccion.setBounds(12, 357, 697, 29);
+		panelA1.add(lblDireccion);
+		
 
-		JPanel panelA2 = new JPanel();
+		final JPanel panelA2 = new JPanel();
 		panelAgenciaC.add(panelA2, "Agencia2");
+		panelA2.setLayout(null);
+		
+		BotonAnimacion botonAnimacion_22 = new BotonAnimacion();
+		botonAnimacion_22.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				Cajero a=new Cajero(miTabla,agencia,usuario,ultiOpeTabla,cajero);
+				a.setVisible(true);
+			}
+		});
+		botonAnimacion_22.setIcon(new ImageIcon(Menu.class.getResource("/iconos/cajero-automatico (3).png")));
+		botonAnimacion_22.setBackground((Color) null);
+		botonAnimacion_22.setBounds(26, 67, 149, 139);
+		panelA2.add(botonAnimacion_22);
+		
+		BotonAnimacion botonAnimacion_23 = new BotonAnimacion();
+		botonAnimacion_23.setIcon(new ImageIcon(Menu.class.getResource("/iconos/cajero-automatico (3).png")));
+		botonAnimacion_23.setBackground((Color) null);
+		botonAnimacion_23.setBounds(343, 67, 149, 139);
+		panelA2.add(botonAnimacion_23);
+		
+		BotonAnimacion botonAnimacion_24 = new BotonAnimacion();
+		botonAnimacion_24.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		botonAnimacion_24.setIcon(new ImageIcon(Menu.class.getResource("/iconos/cajero-automatico (3).png")));
+		botonAnimacion_24.setBackground((Color) null);
+		botonAnimacion_24.setBounds(673, 67, 149, 139);
+		panelA2.add(botonAnimacion_24);
+		
 
-		JPanel panelA3 = new JPanel();
+		final JPanel panelA3 = new JPanel();
 		panelAgenciaC.add(panelA3, "Agencia3");
+		panelA3.setLayout(null);
 
-		JPanel panelA4 = new JPanel();
+		final JPanel panelA4 = new JPanel();
 		panelAgenciaC.add(panelA4, "Agencia4");
+		panelA4.setLayout(null);
 
-		JPanel panelA5 = new JPanel();
+		final JPanel panelA5 = new JPanel();
 		panelAgenciaC.add(panelA5, "Agencia5");
+		panelA5.setLayout(null);
 
 		JLabel lblAgenciasYCajeros = new JLabel("Agencias y Cajeros");
 		lblAgenciasYCajeros.setFont(new Font("Segoe UI", Font.BOLD, 20));
@@ -1258,15 +1318,64 @@ public class Menu extends JFrame {
 		lblAgenciasYCajeros.setBounds(236, 10, 288, 27);
 		panelAgencias.add(lblAgenciasYCajeros);
 
-		JComboBox comboBox = new JComboBox();
+		comboBox = new JComboBox();
+		comboBox.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent arg0) {//para cambiar los panales de las agencias
+				if(comboBox.getSelectedItem().equals("Banco Central de Cuba")){
+					CardLayout card =(CardLayout) panelAgenciaC.getLayout();
+					card.show(panelAgenciaC, "Agencia1");
+					agencia=banco.getAgencias().get(0);
+					panelA1.add(lblNewLabel_1);
+					panelA1.add(lblDireccion);
+				}
+				else
+				if(comboBox.getSelectedItem().equals("Banco Nacional de Cuba")){
+					CardLayout card =(CardLayout) panelAgenciaC.getLayout();
+					card.show(panelAgenciaC, "Agencia2");
+					agencia=banco.getAgencias().get(1);
+					panelA2.add(lblNewLabel_1);
+					panelA2.add(lblDireccion);
+				}
+				else
+				if(comboBox.getSelectedItem().equals("Banco Popular de Ahorro (BPA)")){
+					CardLayout card =(CardLayout) panelAgenciaC.getLayout();
+					card.show(panelAgenciaC, "Agencia3");
+					agencia=banco.getAgencias().get(2);
+					panelA3.add(lblNewLabel_1);
+					panelA3.add(lblDireccion);
+				}
+				else
+				if(comboBox.getSelectedItem().equals("Banco Inversiones S.A. (Bancoi)")){
+					CardLayout card =(CardLayout) panelAgenciaC.getLayout();
+					card.show(panelAgenciaC, "Agencia4");
+					agencia=banco.getAgencias().get(3);
+					panelA4.add(lblNewLabel_1);
+					panelA4.add(lblDireccion);
+				}
+				else
+				if(comboBox.getSelectedItem().equals("Banco Metropolitano S.A")){
+					CardLayout card =(CardLayout) panelAgenciaC.getLayout();
+					card.show(panelAgenciaC, "Agencia5");
+					agencia=banco.getAgencias().get(4);
+					panelA5.add(lblNewLabel_1);
+					panelA5.add(lblDireccion);
+				}
+				
+				lblNewLabel_1.setText("Gerente:" + agencia.getGerente());
+				lblDireccion.setText("Direccion:" + agencia.getDireccion());
+				}
+			
+		});
 		comboBox.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
 		comboBox.setBounds(547, 6, 280, 40);
 		panelAgencias.add(comboBox);
-		comboBox.addItem("Banco Central de Cuba:");
-		comboBox.addItem("Banco Nacional de Cuba:");
-		comboBox.addItem("Banco Popular de Ahorro (BPA):");
-		comboBox.addItem("Banco Inversiones S.A. (Bancoi):");
-		comboBox.addItem("Banco Metropolitano S.A.:");
+		comboBox.addItem("Banco Central de Cuba");
+		comboBox.addItem("Banco Nacional de Cuba");
+		comboBox.addItem("Banco Popular de Ahorro (BPA)");
+		comboBox.addItem("Banco Inversiones S.A. (Bancoi)");
+		comboBox.addItem("Banco Metropolitano S.A");
+		
+		
 
 		JPanel panelRecargar = new JPanel();
 		panel_1.add(panelRecargar, "Recargar");
@@ -2143,6 +2252,52 @@ public class Menu extends JFrame {
 		ListaIngresarInteresAhorroG.repaint();
 
 	}
+	public void BorrarCuenta(){
+		String numRemover = txtNumero.getText();
+	    String cuenta="";
+	    for (int i = miTabla.getRowCount() - 1; i >= 0; i--) {
+	        if (miTabla.getValueAt(i, 10).toString().equalsIgnoreCase(numRemover)) {
+	        	cuenta=miTabla.getValueAt(i, 0).toString();
+	        	
+	            usuario.getCuentas().remove(i);
+	            miTabla.removeRow(i);
+	            txtNumero.setText("");
+	            lineas--;
+	            lineasCF=0;
+	            lineasE=0;
+	            lineasIA=0;
+	            lineasPF=0;
+	            lineasR=0;
+	            lineasRC=0;
+	            lineast=0;
+	            listaTranferencia.clear();
+	            listaInteresCF.clear();
+	            listaInteresPF.clear();
+	            listaIngresarInteresAhorro.clear();
+	            listaMovil.clear();
+	            listaRecargaCuenta.clear();
+	            listaTranferenciaEnvio.clear();
+	            
+	            
+	            for (int j=i; j< miTabla.getRowCount();j++) {
+	                miTabla.setValueAt(j + 1, j, 10);
+	            }
+	            ElegirTransferencia();
+	            ListaEnvioIni();
+				ListaMovil();
+				ListaRecarCuenta();
+				Habilitar();
+				ListaInteresesCF();
+				ListaInteresesPF();
+				ListaIngresarInteresAhorro();
+	        }
+	    }
+	}
+	
+	
+	
+	
+	
 }
 
 
