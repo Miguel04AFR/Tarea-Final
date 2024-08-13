@@ -64,6 +64,8 @@ import logica.utilidades.logica.Validaciones;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -141,6 +143,8 @@ public class CrearCuenta extends JDialog {
 	private JLabel label_30;
 	private JLabel label_26;
 	private JLabel label_31;
+	private Date fechaUsuario;
+	private Date fechaActual;
 
 
 
@@ -746,11 +750,13 @@ public class CrearCuenta extends JDialog {
 		label_33.setFont(new Font("Segoe UI Black", Font.PLAIN, 14));
 		label_33.setBounds(8, 165, 366, 16);
 		panelPlazoFijo.add(label_33);
+		label_33.setVisible(false);
 		
 		label_34 = new JLabel(".");
 		label_34.setFont(new Font("Segoe UI Black", Font.PLAIN, 14));
 		label_34.setBounds(8, 271, 366, 16);
 		panelPlazoFijo.add(label_34);
+		label_34.setVisible(false);
 		
 		label_35 = new JLabel("");
 		label_35.addMouseListener(new MouseAdapter() {
@@ -978,28 +984,28 @@ public class CrearCuenta extends JDialog {
 				}
 				else
 					if(comboBox.getSelectedItem().equals("Fondo")){
-					if(ValidacionFondo()){
-					Menu.cuentaCreada=true;
-					AñadirCuenta();
-					dispose();
-					}
+						if(ValidacionFondo()){
+							Menu.cuentaCreada=true;
+							AñadirCuenta();
+							dispose();
+						}
 					}
 					else
 						if(comboBox.getSelectedItem().equals("Ahorro")){
 							if(ValidacionAhorro()){
-							Menu.cuentaCreada=true;
-							AñadirCuenta();
-							dispose();
+								Menu.cuentaCreada=true;
+								AñadirCuenta();
+								dispose();
 							}
-							}
+						}
 						else
-				if(comboBox.getSelectedItem().equals("PlazoFijo")){
-					if(ValidacionFondo()){
-					Menu.cuentaCreada=true;
-					AñadirCuenta();
-					dispose();
-					}
-					}
+							if(comboBox.getSelectedItem().equals("Plazo Fijo")){
+								if(ValidacionPlazoFijo()){
+									Menu.cuentaCreada=true;
+									AñadirCuenta();
+									dispose();
+								}
+							}
 
 			}
 		});
@@ -1490,7 +1496,7 @@ public class CrearCuenta extends JDialog {
 		return validoB==true && validoS==true ? true : false;
 
 	}
-	public void ValidacionPlazoFijo(){
+	public boolean ValidacionPlazoFijo(){
 		label_32.setText("");
 		label_33.setText("");
 		label_34.setText("");
@@ -1503,6 +1509,8 @@ public class CrearCuenta extends JDialog {
 		boolean validoB=false;//beneficiario
 		boolean validoS=false;//saldo
 		boolean validoF=false;//fecha
+		SimpleDateFormat fechaPrederteminada = new SimpleDateFormat("dd-MMM-yyyy");//verifica si un String puede ser una fecha con este modelo de fecha
+		fechaPrederteminada.setLenient(false);//Lenient es el modo de flexibilidad,si es true 32-ene-2024 va a ser 01-feb-2024,en false lanzara una exception de que no puede ser
 		if(!textField_2.getText().equals("")){
 			for(int i=0;i<banco.getUsuarios().size();i++){
 				if(textField_2.getText().equals(banco.getUsuarios().get(i).getIdU())){
@@ -1521,7 +1529,22 @@ public class CrearCuenta extends JDialog {
 		}
 
 		if(!textField_3.getText().isEmpty()){
-			if(textField_3.getText().length()==11){
+			if(ValidarFecha(textField_3.getText())){
+				if(fechaUsuario.after(fechaActual)){//existe el after que con eso podemos saber si una fecha es mas alante a otra y el before que es lo contrario
+					validoF=true;
+				}
+				else{
+					if(fechaUsuario.before(fechaActual)){
+					label_36.setVisible(true);
+					label_36.setEnabled(true);
+					label_33.setText("La fecha es anterior a la actual");
+					}
+					else{
+						label_36.setVisible(true);
+						label_36.setEnabled(true);
+						label_33.setText("La fecha coincide con la actual");
+					}
+				}
 				
 			}
 			else{
@@ -1561,6 +1584,8 @@ public class CrearCuenta extends JDialog {
 			label_37.setEnabled(true);
 			label_34.setText("Esta vacia la celda");
 		}
+		
+		return validoB==true && validoS==true && validoF==true ? true : false;
 	}
 	public boolean ValidacionMLC(){
 		lblNewLabel_6.setText("");
@@ -1745,5 +1770,21 @@ public class CrearCuenta extends JDialog {
 	
 		return validoB==true && validoS==true ? true : false;
 
+	}
+	
+	public boolean ValidarFecha(String fecha){
+		boolean sifecha=false;
+		SimpleDateFormat fechaPrederteminada = new SimpleDateFormat("dd-MMM-yyyy");//verifica si un String puede ser una fecha con este modelo de fecha
+		fechaPrederteminada.setLenient(false);//Lenient es el modo de flexibilidad,si es true 32-ene-2024 va a ser 01-feb-2024,en false lanzara una exception de que no puede ser
+		try{
+			 fechaUsuario = fechaPrederteminada.parse(fecha);
+			 fechaActual = fechaPrederteminada.parse(fchjul.getText());
+			sifecha=true;
+
+		}
+		catch(ParseException e) {
+			sifecha=false;
+		}
+		return sifecha;
 	}
 }
