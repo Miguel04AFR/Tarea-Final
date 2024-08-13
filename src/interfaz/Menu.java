@@ -240,7 +240,7 @@ public class Menu extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Menu.class.getResource("/iconos/iconfinder-481-university-bank-campus-court-4212926_114964.png")));
 		setTitle("Mi banco");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1002, 502);
+		setBounds(100, 100, 1001, 502);
 		NotificacionesModernas.getInstancia().setJFrame(this);
 		contentPane = new JPanel();
 		contentPane.setBorder(new CompoundBorder(new LineBorder(new Color(0, 128, 0), 3), new LineBorder(new Color(0, 128, 0), 6)));
@@ -315,13 +315,13 @@ public class Menu extends JFrame {
 		botonAnimacion.setBackground(null);
 		botonAnimacion.setForeground(null);
 		
-		lblNewLabel_2 = new JLabel("ultimas");
-		lblNewLabel_2.setBounds(1, 322, 56, 16);
+		lblNewLabel_2 = new JLabel("Ultimas");
+		lblNewLabel_2.setBounds(3, 322, 56, 16);
 		panel.add(lblNewLabel_2);
 		lblNewLabel_2.setFont(new Font("Segoe UI Black", Font.BOLD, 13));
 		
 		lblNewLabel_3 = new JLabel("operaciones");
-		lblNewLabel_3.setBounds(0, 340, 85, 16);
+		lblNewLabel_3.setBounds(3, 340, 85, 16);
 		panel.add(lblNewLabel_3);
 		lblNewLabel_3.setFont(new Font("Segoe UI Black", Font.PLAIN, 11));
 		
@@ -340,7 +340,7 @@ public class Menu extends JFrame {
 		
 		lblUsuario = new JLabel("Usuario");
 		lblUsuario.setFont(new Font("Segoe UI Black", Font.BOLD, 13));
-		lblUsuario.setBounds(0, 85, 56, 16);
+		lblUsuario.setBounds(3, 86, 56, 16);
 		panel.add(lblUsuario);
 		
 		botonAnimacion_3 = new BotonAnimacion();
@@ -358,7 +358,7 @@ public class Menu extends JFrame {
 		
 		lblOperaciones = new JLabel("Operaciones");
 		lblOperaciones.setFont(new Font("Segoe UI Black", Font.PLAIN, 11));
-		lblOperaciones.setBounds(1, 265, 69, 16);
+		lblOperaciones.setBounds(3, 265, 69, 16);
 		panel.add(lblOperaciones);
 		
 		BotonAnimacion botonAnimacion_8 = new BotonAnimacion();
@@ -414,6 +414,26 @@ public class Menu extends JFrame {
 		botonAnimacion_10.setBounds(61, 129, 56, 54);
 		botonAnimacion_10.setEnabled(false);
 		panel.add(botonAnimacion_10);
+		
+		JLabel lblInteresFondo = new JLabel("Interes");
+		lblInteresFondo.setFont(new Font("Segoe UI Black", Font.BOLD, 13));
+		lblInteresFondo.setBounds(3, 148, 56, 16);
+		panel.add(lblInteresFondo);
+		
+		JLabel lblCajeros = new JLabel("Cajeros");
+		lblCajeros.setFont(new Font("Segoe UI Black", Font.BOLD, 13));
+		lblCajeros.setBounds(3, 212, 56, 16);
+		panel.add(lblCajeros);
+		
+		JLabel lblInicio = new JLabel("Inicio");
+		lblInicio.setFont(new Font("Segoe UI Black", Font.BOLD, 13));
+		lblInicio.setBounds(14, 391, 56, 16);
+		panel.add(lblInicio);
+		
+		JLabel lblCerrar = new JLabel("Menu");
+		lblCerrar.setFont(new Font("Segoe UI Black", Font.BOLD, 13));
+		lblCerrar.setBounds(14, 441, 56, 16);
+		panel.add(lblCerrar);
 		
 				JMenuBar menuBar = new JMenuBar();
 				menuBar.setFont(new Font("Segoe UI", Font.PLAIN, 15));
