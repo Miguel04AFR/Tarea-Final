@@ -25,6 +25,7 @@ import componentesVisuales.PanelGradiente;
 
 
 
+
 import javax.swing.DefaultListModel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -95,6 +96,7 @@ import javax.swing.table.TableModel;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.CompoundBorder;
 import javax.swing.ListModel;
+
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 
@@ -205,6 +207,7 @@ public class Menu extends JFrame {
 	private JLabel lblDireccion;
 	private BotonAnimacion btnmcnAsd;
 	private int cajero=0;
+	public static int extraerFondo=0;
 	
 
 	/**
@@ -429,9 +432,6 @@ public class Menu extends JFrame {
 										JMenuItem mntmNewMenuItem_1 = new JMenuItem("cerrar sesion");
 										mntmNewMenuItem_1.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F2, InputEvent.ALT_MASK));
 										mnSalir.add(mntmNewMenuItem_1);
-										
-												JMenuItem mntmNewMenuItem_2 = new JMenuItem("no decidido");
-												mnSalir.add(mntmNewMenuItem_2);
 												mntmNewMenuItem_1.addActionListener(new ActionListener() {
 													public void actionPerformed(ActionEvent arg0) {
 														Lobby ellobby = new Lobby();
@@ -915,13 +915,21 @@ public class Menu extends JFrame {
 		panelTransferir.add(scrollPane_1);
 		
 		textField_1 = new JTextField();
+		textField_1.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				if(textField_1.getText().length()>8){
+					e.consume();
+				}
+			}
+		});
 		textField_1.setColumns(10);
 		textField_1.setBounds(300, 287, 140, 38);
 		panelTransferir.add(textField_1);
 		
 		lblNewLabel_8 = new JLabel(".");
 		lblNewLabel_8.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
-		lblNewLabel_8.setBounds(120, 237, 85, 38);
+		lblNewLabel_8.setBounds(120, 237, 150, 38);
 		panelTransferir.add(lblNewLabel_8);
 		ListaEnvioG.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
 		
@@ -962,22 +970,28 @@ public class Menu extends JFrame {
 			}
 		});
 		
-		BotonAnimacion botonAnimacion_7 = new BotonAnimacion();
-		botonAnimacion_7.addActionListener(new ActionListener() {
+		BotonAnimacion btnmcnTransferir = new BotonAnimacion();
+		btnmcnTransferir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(ListaTranfer.getSelectedIndex()>-1 && ListaEnvioG.getSelectedIndex()>-1 && ListaTranfer.getSelectedIndex()!=ListaEnvioG.getSelectedIndex()){
 					int enviar=ListaEnvioG.getSelectedIndex();//la posicion del nuevo Saldo
+					if(EsFloat(textField_1.getText())){
 					float restaSaldo=Float.parseFloat(textField_1.getText());
+					if(Float.parseFloat(miTabla.getValueAt(cambioPos, 1).toString())>restaSaldo){
 					float saldoTrans=0;
 					float SaldoEnvio=(float) miTabla.getValueAt(enviar,1)+restaSaldo;//el casting  es por el dato de las cosas en la tabla 
+					if(miTabla.getValueAt(cambioPos, 2).toString().equals(miTabla.getValueAt(enviar, 2).toString())){
 					if(usuario.getCuentas().get(cambioPos) instanceof Corriente){
 					saldoTrans=((Corriente)usuario.getCuentas().get(cambioPos)).getCup()-restaSaldo;
 					((Corriente)usuario.getCuentas().get(cambioPos)).setCup(saldoTrans);
 					}
 					else if(usuario.getCuentas().get(cambioPos) instanceof Fondo){
-						saldoTrans=((Fondo)usuario.getCuentas().get(cambioPos)).getCup()-restaSaldo;
-						((Fondo)usuario.getCuentas().get(cambioPos)).setCup(saldoTrans);
+						if(extraerFondo<4){
+							saldoTrans=((Fondo)usuario.getCuentas().get(cambioPos)).getCup()-restaSaldo;
+							((Fondo)usuario.getCuentas().get(cambioPos)).setCup(saldoTrans);
+							extraerFondo++;
 						}
+					}
 					else if(usuario.getCuentas().get(cambioPos) instanceof MLC){
 						saldoTrans=((MLC)usuario.getCuentas().get(cambioPos)).getMlc()-restaSaldo;
 						((MLC)usuario.getCuentas().get(cambioPos)).setMlc(saldoTrans);
@@ -999,9 +1013,9 @@ public class Menu extends JFrame {
 					if(usuario.getCuentas().get(enviar) instanceof Corriente){
 						((Corriente)usuario.getCuentas().get(enviar)).setCup(SaldoEnvio);
 						}
-						else if(usuario.getCuentas().get(enviar) instanceof Fondo){
+						/*else if(usuario.getCuentas().get(enviar) instanceof Fondo){
 							((Fondo)usuario.getCuentas().get(enviar)).setCup(SaldoEnvio);
-							}
+							}*/
 						else if(usuario.getCuentas().get(enviar) instanceof MLC){
 							((MLC)usuario.getCuentas().get(enviar)).setMlc(SaldoEnvio);
 							}
@@ -1014,6 +1028,8 @@ public class Menu extends JFrame {
 							else
 							((Ahorro)usuario.getCuentas().get(enviar)).setMlc(SaldoEnvio);
 							}
+					if((usuario.getCuentas().get(cambioPos) instanceof Fondo)){
+					if(extraerFondo<4){  
 					miTabla.setValueAt(saldoTrans, cambioPos, 1);
 					miTabla.setValueAt(SaldoEnvio, enviar, 1);
 					textField_1.setText("");
@@ -1021,16 +1037,41 @@ public class Menu extends JFrame {
 					ListaEnvioG.clearSelection();
 					ultiOpeTabla.addRow(new Object[]{"Extraccion de cuenta a cuenta",listaTranferencia.get(cambioPos),restaSaldo,hora_1.getText(),fecha_1.getText()});
 					ultiOpeTabla.addRow(new Object[]{"Ingreso de cuenta a cuenta",listaTranferencia.get(enviar),restaSaldo,hora_1.getText(),fecha_1.getText()});
+					}
+				else
+					NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "Ya no puede extraer mas en la cuenta de fondo hasta el proximo año");
+				}
+					else{
+							miTabla.setValueAt(saldoTrans, cambioPos, 1);
+							miTabla.setValueAt(SaldoEnvio, enviar, 1);
+							textField_1.setText("");
+							ListaTranfer.clearSelection();
+							ListaEnvioG.clearSelection();
+							ultiOpeTabla.addRow(new Object[]{"Extraccion de cuenta a cuenta",listaTranferencia.get(cambioPos),restaSaldo,hora_1.getText(),fecha_1.getText()});
+							ultiOpeTabla.addRow(new Object[]{"Ingreso de cuenta a cuenta",listaTranferencia.get(enviar),restaSaldo,hora_1.getText(),fecha_1.getText()});
+							}
+						
+					}
+				else
+					NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "No puedes tranferir si las cuentas son de diferentes monedas");
+				}
+					else
+						NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "El monto no puede ser mayor que el saldo de la cuenta a transferir");
+					}
+					
+					else
+						NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "Por favor introduzca numeros");
 				}
 			}
+				
 		});
-		botonAnimacion_7.setText("Aceptar");
-		botonAnimacion_7.setForeground(Color.BLACK);
-		botonAnimacion_7.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
-		botonAnimacion_7.setColorEfecto(Color.GREEN);
-		botonAnimacion_7.setBackground(new Color(0, 128, 0));
-		botonAnimacion_7.setBounds(230, 338, 290, 67);
-		panelTransferir.add(botonAnimacion_7);
+		btnmcnTransferir.setText("Transferir");
+		btnmcnTransferir.setForeground(Color.BLACK);
+		btnmcnTransferir.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
+		btnmcnTransferir.setColorEfecto(Color.GREEN);
+		btnmcnTransferir.setBackground(new Color(0, 128, 0));
+		btnmcnTransferir.setBounds(230, 338, 290, 67);
+		panelTransferir.add(btnmcnTransferir);
 		
 		label_2 = new JLabel(".");
 		label_2.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
@@ -1111,10 +1152,18 @@ public class Menu extends JFrame {
 
 		lblNewLabel_9 = new JLabel(".");
 		lblNewLabel_9.setFont(new Font("Segoe UI Black", Font.BOLD, 16));
-		lblNewLabel_9.setBounds(200, 241, 56, 16);
+		lblNewLabel_9.setBounds(200, 241, 142, 16);
 		panelMovil.add(lblNewLabel_9);
 
 		textField = new JTextField();
+		textField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				if(textField.getText().length()>8){
+					e.consume();
+				}
+			}
+		});
 		textField.setColumns(10);
 		textField.setBounds(130, 289, 140, 38);
 		panelMovil.add(textField);
@@ -1136,17 +1185,22 @@ public class Menu extends JFrame {
 		btnmcnRecargar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(ListaMovilRecargaG.getSelectedIndex()>-1){
+					if(EsFloat(textField.getText())){					
 					float restaSaldo=Float.parseFloat(textField.getText());
+					if(Float.parseFloat(miTabla.getValueAt(cambioPos, 1).toString())>restaSaldo){
 					float saldoTrans=0;
 					if(usuario.getCuentas().get(cambioPos) instanceof Corriente){
 						saldoTrans=((Corriente)usuario.getCuentas().get(cambioPos)).getCup()-restaSaldo;
 						((Corriente)usuario.getCuentas().get(cambioPos)).setCup(saldoTrans);
 					}else if(usuario.getCuentas().get(cambioPos) instanceof Fondo){
+						if(extraerFondo<4){
 						saldoTrans=((Fondo)usuario.getCuentas().get(cambioPos)).getCup()-restaSaldo;
 						((Fondo)usuario.getCuentas().get(cambioPos)).setCup(saldoTrans);
-					}else if(usuario.getCuentas().get(cambioPos) instanceof MLC){
+						extraerFondo++;
+						}
+					/*else if(usuario.getCuentas().get(cambioPos) instanceof MLC){
 						saldoTrans=((MLC)usuario.getCuentas().get(cambioPos)).getMlc()-restaSaldo;
-						((MLC)usuario.getCuentas().get(cambioPos)).setMlc(saldoTrans);
+						((MLC)usuario.getCuentas().get(cambioPos)).setMlc(saldoTrans);*/
 					}else if(usuario.getCuentas().get(cambioPos) instanceof PlazoFijo){
 						saldoTrans=((PlazoFijo)usuario.getCuentas().get(cambioPos)).getCup()-restaSaldo;
 						((PlazoFijo)usuario.getCuentas().get(cambioPos)).setCup(saldoTrans);
@@ -1161,13 +1215,32 @@ public class Menu extends JFrame {
 						}
 						
 					}
+					if(usuario.getCuentas().get(cambioPos) instanceof Fondo){
+					if(extraerFondo<4){
 					miTabla.setValueAt(saldoTrans, cambioPos, 1);
 					textField.setText("");
 					textField_2.setText("");
 					ultiOpeTabla.addRow(new Object[]{"Recarga Movil",listaMovil.get(cambioPos),restaSaldo,hora_1.getText(),fecha_1.getText()});
 					ListaMovilRecargaG.clearSelection();
+					}
+					else
+						NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "Ya no puede extraer mas en la cuenta de fondo hasta el proximo año");
 				}
+					else{
+						miTabla.setValueAt(saldoTrans, cambioPos, 1);
+						textField.setText("");
+						textField_2.setText("");
+						ultiOpeTabla.addRow(new Object[]{"Recarga Movil",listaMovil.get(cambioPos),restaSaldo,hora_1.getText(),fecha_1.getText()});
+						ListaMovilRecargaG.clearSelection();
+					}
+					}
+					else
+						NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "El monto no puede ser mayor que el saldo de la cuenta que recarga");
+					}
+					else
+						NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "Por favor,introduzca numeros");
 				
+			}
 			}
 		});
 		btnmcnRecargar.setText("Recargar");
@@ -1664,6 +1737,14 @@ public class Menu extends JFrame {
 		panelRecargar.add(label_12);
 
 		textField_3 = new JTextField();
+		textField_3.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				if(textField_3.getText().length()>8){
+					e.consume();
+				}
+			}
+		});
 		textField_3.setColumns(10);
 		textField_3.setBounds(307, 311, 140, 38);
 		panelRecargar.add(textField_3);
@@ -1672,11 +1753,16 @@ public class Menu extends JFrame {
 		botonAnimacion_12.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				float SaldoAntiguo=((Corriente)usuario.getCuentas().get(cambioPos)).getCup();
+				if(EsFloat(textField_3.getText())){
 				float recarga=Float.parseFloat(textField_3.getText());
 				if(usuario.getCuentas().get(cambioPos) instanceof Corriente)
 					((Corriente)usuario.getCuentas().get(cambioPos)).setCup(SaldoAntiguo+recarga);
-				else if(usuario.getCuentas().get(cambioPos) instanceof Fondo)
-					((Fondo)usuario.getCuentas().get(cambioPos)).setCup(SaldoAntiguo+recarga);
+				else if(usuario.getCuentas().get(cambioPos) instanceof Fondo){
+					if(extraerFondo<4){
+						((Fondo)usuario.getCuentas().get(cambioPos)).setCup(SaldoAntiguo+recarga);
+						extraerFondo++;
+					}
+				}
 				else if(usuario.getCuentas().get(cambioPos) instanceof MLC)
 					((MLC)usuario.getCuentas().get(cambioPos)).setMlc(SaldoAntiguo+recarga);
 				else if(usuario.getCuentas().get(cambioPos) instanceof PlazoFijo)
@@ -1686,11 +1772,21 @@ public class Menu extends JFrame {
 						((Ahorro)usuario.getCuentas().get(cambioPos)).setCup(SaldoAntiguo+recarga);
 					else
 						((Ahorro)usuario.getCuentas().get(cambioPos)).setMlc(SaldoAntiguo+recarga);
+				
+				if(extraerFondo<4){
 				miTabla.setValueAt(SaldoAntiguo+recarga, cambioPos, 1);
 				ultiOpeTabla.addRow(new Object[]{"Ingreso a cuenta",listaTranferencia.get(cambioPos),recarga,hora_1.getText(),fecha_1.getText()});
 				textField_3.setText("");
 				ListaRecargaCuentaG.clearSelection();
+				}
+				else	
+					NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "Ya no puede extraer mas en la cuenta de fondo hasta el proximo año");
 			}
+
+				else
+					NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "Por favor introduzca numeros");
+			
+		}
 		});
 		botonAnimacion_12.setText("Aceptar");
 		botonAnimacion_12.setForeground(Color.BLACK);
@@ -1780,7 +1876,7 @@ public class Menu extends JFrame {
 
 		lblNewLabel_10 = new JLabel(".");
 		lblNewLabel_10.setFont(new Font("Segoe UI Black", Font.BOLD, 16));
-		lblNewLabel_10.setBounds(188, 131, 110, 77);
+		lblNewLabel_10.setBounds(188, 131, 132, 77);
 		panelNegociosFondo.add(lblNewLabel_10);
 
 		JLabel lblEstoEsEl = new JLabel("Este es el comercio de la agencia bancaria.Aqu\u00ED puede cambiar");
@@ -1808,7 +1904,7 @@ public class Menu extends JFrame {
 		textField_4.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
-				if(textField_4.getText().length()>5){
+				if(textField_4.getText().length()>3){
 					e.consume();
 				}
 			}
@@ -1825,6 +1921,7 @@ public class Menu extends JFrame {
 		botonAnimacion_14 = new BotonAnimacion();
 		botonAnimacion_14.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				if(EsFloat(textField_4.getText())){
 				float aumentar=Float.parseFloat(textField_4.getText());
 				SalarioFondo();
 				ImageIcon icono=new ImageIcon("/iconos/aprobacion-de-documento.png");
@@ -1836,6 +1933,10 @@ public class Menu extends JFrame {
 					JOptionPane.showMessageDialog(null, "Lo siento,no puede tener ese porcentaje(%)");
 				}
 				textField_4.setText("");
+				}
+				else
+					NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "Por favor,introduzca numeros");
+					
 			}
 		});
 		botonAnimacion_14.setText("Aceptar");
@@ -1927,7 +2028,7 @@ public class Menu extends JFrame {
 		
 		lblNewLabel_12 = new JLabel(".");
 		lblNewLabel_12.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
-		lblNewLabel_12.setBounds(202, 248, 81, 16);
+		lblNewLabel_12.setBounds(202, 248, 131, 16);
 		panelInteresCF.add(lblNewLabel_12);
 		
 		JLabel lblInteres = new JLabel("Interes:");
@@ -2038,7 +2139,7 @@ public class Menu extends JFrame {
 		
 		label_17 = new JLabel(".");
 		label_17.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
-		label_17.setBounds(86, 248, 153, 16);
+		label_17.setBounds(86, 248, 165, 16);
 		panelInteresesPF.add(label_17);
 		
 		JLabel label_18 = new JLabel("Interes:");
@@ -2129,7 +2230,7 @@ public class Menu extends JFrame {
 		
 		label_21 = new JLabel(".");
 		label_21.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
-		label_21.setBounds(621, 214, 153, 16);
+		label_21.setBounds(621, 214, 182, 16);
 		panelInteresesPF.add(label_21);
 		
 		JLabel lblOperacionesDeIntereses = new JLabel("Operaciones de Intereses, de cuenta Plazo Fijo ");
@@ -2164,8 +2265,11 @@ public class Menu extends JFrame {
 						interesActual=Double.parseDouble(miTabla.getValueAt(i, 3).toString());//el toString es para convertirlo en String ua que esta en la tabla
 						miTabla.setValueAt(interesActual + interesAgg, i, 3);
 						contadorIntereses++;
-						if(contadorIntereses>=12)
+						if(contadorIntereses==12){
 						botonAnimacion_11.setEnabled(true);
+						contadorIntereses=0;
+						extraerFondo=0;
+						}
 					}
 					if(c instanceof PlazoFijo){
 						interesActual=Double.parseDouble(miTabla.getValueAt(i, 3).toString());
@@ -2212,24 +2316,13 @@ public class Menu extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				int uno=20;
-				int tres=20;
-				int cinco=20;
-				int dies=30;
-				int veinte=30;
-				int cincuenta=20;
-				int cien=10;
-				int doscientos=5;
-				int quinientos=4;
-				int mil=4;
-				
-				
-				
-				
+				for(Agencia a : banco.getAgencias())
+					for(CajeroAutomatico c : a.getCajeros())
+				c.RenovarBilletes();	
 			}
 		};
-		timerd =new Timer(70 * 1000,MantenimientoCajero);
-		timerd.setInitialDelay(70);
+		timerd =new Timer(40 * 1000,MantenimientoCajero);
+		timerd.setInitialDelay(40);
 		timerd.start();
 		
 		
@@ -2500,10 +2593,12 @@ public class Menu extends JFrame {
 	public void BorrarCuenta(){
 		String numRemover = txtNumero.getText();
 	    String cuenta="";
+	    String estatal="";
 	    for (int i = miTabla.getRowCount() - 1; i >= 0; i--) {
 	        if (miTabla.getValueAt(i, 10).toString().equalsIgnoreCase(numRemover)) {
 	        	cuenta=miTabla.getValueAt(i, 0).toString();
-	        	
+	        	estatal=miTabla.getValueAt(i, 9).toString();
+	        	if(!(estatal.equals("si") && cuenta.equals("Ahorro"))){
 	            usuario.getCuentas().remove(i);
 	            miTabla.removeRow(i);
 	            txtNumero.setText("");
@@ -2536,7 +2631,25 @@ public class Menu extends JFrame {
 				ListaInteresesPF();
 				ListaIngresarInteresAhorro();
 	        }
+	        	else{
+	        		NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "No puede borrar una cuenta de Ahorro estatal");
+	        		txtNumero.setText("");
+	        	}
 	    }
+	}
+	
+	
+	}
+	
+	public  static boolean EsFloat(String text) {
+		boolean sies;
+		try {
+			Float.parseFloat(text);
+			sies=true;
+		} catch (NumberFormatException e) {
+			sies=false;
+		}
+		return sies;
 	}
 }
 

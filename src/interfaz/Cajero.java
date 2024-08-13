@@ -127,28 +127,44 @@ public class Cajero extends JDialog {
 										tablaUsuario.setValueAt(saldo-monto, cambioPos, 1);
 										if(usuarioC.getCuentas().get(cambioPos) instanceof Corriente)
 											((Corriente)usuarioC.getCuentas().get(cambioPos)).setCup(saldo-monto);
-										else if(usuarioC.getCuentas().get(cambioPos) instanceof Fondo)
+										else if(usuarioC.getCuentas().get(cambioPos) instanceof Fondo){
+											if(Menu.extraerFondo<4){
 											((Fondo)usuarioC.getCuentas().get(cambioPos)).setCup(saldo-monto);
+											Menu.extraerFondo++;
+											}
+										}
 										else if(usuarioC.getCuentas().get(cambioPos) instanceof PlazoFijo)
 											((PlazoFijo)usuarioC.getCuentas().get(cambioPos)).setCup(saldo-monto);
 										else if(usuarioC.getCuentas().get(cambioPos) instanceof Ahorro)
 											((Ahorro)usuarioC.getCuentas().get(cambioPos)).setCup(saldo-monto);
+										if(usuarioC.getCuentas().get(cambioPos) instanceof Fondo){
+										if(Menu.extraerFondo<4){
 										ultiTabla.addRow(new Object[]{"Extraccion por cajero",tablaCajero.getValueAt(cambioPos,0).toString(),monto,hora.getText(),fecha.getText()});
 										tablaCajero.setValueAt(saldo-monto, cambioPos, 1);
 										textField.setText("");
 										table.clearSelection();
+										}
+										else
+											JOptionPane.showInputDialog(null, "Ya no puede extraer mas en la cuenta de fondo hasta el proximo año",JOptionPane.INFORMATION_MESSAGE);
+									}
+										else{
+											ultiTabla.addRow(new Object[]{"Extraccion por cajero",tablaCajero.getValueAt(cambioPos,0).toString(),monto,hora.getText(),fecha.getText()});
+											tablaCajero.setValueAt(saldo-monto, cambioPos, 1);
+											textField.setText("");
+											table.clearSelection();
+										}
 									}
 									else
-										JOptionPane.showMessageDialog(null, "Ahora mismo no contamos con billetes para el monto requerido,vuelva mas tarde o pida otro monto");
+										JOptionPane.showInputDialog(null, "Ahora mismo no contamos con billetes para el monto requerido,vuelva mas tarde o pida otro monto",JOptionPane.INFORMATION_MESSAGE);
 								}
 								else
-									JOptionPane.showMessageDialog(null, "Su saldo es inferior al monto que desea extraer");
+									JOptionPane.showInputDialog(null, "Su saldo es inferior al monto que desea extraer",JOptionPane.ERROR_MESSAGE);
 							}
 							else
 								JOptionPane.showMessageDialog(null, "El cajero no tiene suficiente dinero,vuelva mas tarde");
 						}
 						else
-							JOptionPane.showMessageDialog(null, "No existen billetes de kilos");
+							JOptionPane.showInputDialog(null, "No existen billetes de kilos",JOptionPane.INFORMATION_MESSAGE);
 					}
 				});
 				btnmcnExtraer.setText("Extraer");
@@ -284,6 +300,7 @@ public class Cajero extends JDialog {
 
 	}
 	public boolean SaldoSuficiente(){
-		return monto<Float.parseFloat(tablaCajero.getValueAt(cambioPos, 1).toString()) ? true : false;
+		return monto<=Float.parseFloat(tablaCajero.getValueAt(cambioPos, 1).toString()) ? true : false;
 	}
+	
 }
