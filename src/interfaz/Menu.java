@@ -690,7 +690,7 @@ public class Menu extends JFrame {
 		
 		lblNewLabel_4 = new JLabel("Genero:");
 		lblNewLabel_4.setFont(new Font("Segoe UI Black", Font.BOLD, 13));
-		lblNewLabel_4.setBounds(22, 96, 114, 16);
+		lblNewLabel_4.setBounds(22, 96, 149, 16);
 		paneldatos.add(lblNewLabel_4);
 		
 		lblNewLabel_5 = new JLabel("Direccion:");
@@ -700,7 +700,7 @@ public class Menu extends JFrame {
 		
 		lblUsuario_1 = new JLabel("Usuario:");
 		lblUsuario_1.setFont(new Font("Segoe UI Black", Font.BOLD, 13));
-		lblUsuario_1.setBounds(375, 13, 186, 16);
+		lblUsuario_1.setBounds(375, 13, 241, 16);
 		paneldatos.add(lblUsuario_1);
 		
 		lblgmail = new JLabel("@gmail:");
@@ -710,7 +710,7 @@ public class Menu extends JFrame {
 		
 		lblCi = new JLabel("CI:");
 		lblCi.setFont(new Font("Segoe UI Black", Font.BOLD, 13));
-		lblCi.setBounds(95, 71, 153, 16);
+		lblCi.setBounds(95, 71, 172, 16);
 		paneldatos.add(lblCi);
 		
 		lblMovil_1 = new JLabel("Movil:");
@@ -720,22 +720,22 @@ public class Menu extends JFrame {
 		
 		JLabel lblBorrarCuenta = new JLabel("Borrar Cuenta:");
 		lblBorrarCuenta.setFont(new Font("Segoe UI Black", Font.BOLD, 13));
-		lblBorrarCuenta.setBounds(594, 13, 186, 16);
+		lblBorrarCuenta.setBounds(628, 13, 186, 16);
 		paneldatos.add(lblBorrarCuenta);
 		
 		JLabel lblEscribaEl = new JLabel("Escriba el # de la cuenta");
 		lblEscribaEl.setFont(new Font("Segoe UI Black", Font.BOLD, 13));
-		lblEscribaEl.setBounds(594, 28, 248, 16);
+		lblEscribaEl.setBounds(628, 28, 248, 16);
 		paneldatos.add(lblEscribaEl);
 		
 		JLabel lblLaCuentaA = new JLabel("a eliminar:");
 		lblLaCuentaA.setFont(new Font("Segoe UI Black", Font.BOLD, 13));
-		lblLaCuentaA.setBounds(594, 42, 143, 16);
+		lblLaCuentaA.setBounds(628, 42, 143, 16);
 		paneldatos.add(lblLaCuentaA);
 		
 		txtNumero = new JTextField();
 		txtNumero.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
-		txtNumero.setBounds(685, 52, 85, 34);
+		txtNumero.setBounds(708, 52, 85, 34);
 		paneldatos.add(txtNumero);
 		txtNumero.setColumns(10);
 		
@@ -757,7 +757,7 @@ public class Menu extends JFrame {
 		btnmcnAsd.setBackground(new Color(0, 128, 0));
 		btnmcnAsd.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
 		btnmcnAsd.setText("Eliminar");
-		btnmcnAsd.setBounds(685, 91, 85, 29);
+		btnmcnAsd.setBounds(708, 91, 85, 29);
 		paneldatos.add(btnmcnAsd);
 		
 		
