@@ -672,11 +672,11 @@ public class Menu extends JFrame {
 		lblMovil.setBounds(551, 172, 116, 37);
 		panelope.add(lblMovil);
 		
-		JLabel label = new JLabel("Bienvenido a Inversion Max");
-		label.setFont(new Font("Segoe UI", Font.BOLD, 20));
-		label.setBackground(Color.BLACK);
-		label.setBounds(210, 13, 278, 45);
-		panelope.add(label);
+		JLabel lblOperaciones_1 = new JLabel("Operaciones");
+		lblOperaciones_1.setFont(new Font("Segoe UI", Font.BOLD, 22));
+		lblOperaciones_1.setBackground(Color.BLACK);
+		lblOperaciones_1.setBounds(264, 13, 278, 45);
+		panelope.add(lblOperaciones_1);
 		
 		BotonAnimacion btnmcnRecargarCuenta = new BotonAnimacion();
 		btnmcnRecargarCuenta.addActionListener(new ActionListener() {
@@ -942,6 +942,7 @@ public class Menu extends JFrame {
 		panelTransferir.add(scrollPane_1);
 		
 		textField_1 = new JTextField();
+		textField_1.setFont(new Font("Segoe UI Black", Font.PLAIN, 14));
 		textField_1.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -1040,9 +1041,7 @@ public class Menu extends JFrame {
 					if(usuario.getCuentas().get(enviar) instanceof Corriente){
 						((Corriente)usuario.getCuentas().get(enviar)).setCup(SaldoEnvio);
 						}
-						/*else if(usuario.getCuentas().get(enviar) instanceof Fondo){
-							((Fondo)usuario.getCuentas().get(enviar)).setCup(SaldoEnvio);
-							}*/
+						
 						else if(usuario.getCuentas().get(enviar) instanceof MLC){
 							((MLC)usuario.getCuentas().get(enviar)).setMlc(SaldoEnvio);
 							}
@@ -1064,6 +1063,7 @@ public class Menu extends JFrame {
 					ListaEnvioG.clearSelection();
 					ultiOpeTabla.addRow(new Object[]{"Extraccion de cuenta a cuenta",listaTranferencia.get(cambioPos),restaSaldo,hora_1.getText(),fecha_1.getText()});
 					ultiOpeTabla.addRow(new Object[]{"Ingreso de cuenta a cuenta",listaTranferencia.get(enviar),restaSaldo,hora_1.getText(),fecha_1.getText()});
+					NotificacionesModernas.getInstancia().show(Tipo.EXITO, 6000, "Su transferencia a sido un exito");
 					}
 				else
 					NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "Ya no puede extraer mas en la cuenta de fondo hasta el proximo año");
@@ -1076,7 +1076,8 @@ public class Menu extends JFrame {
 							ListaEnvioG.clearSelection();
 							ultiOpeTabla.addRow(new Object[]{"Extraccion de cuenta a cuenta",listaTranferencia.get(cambioPos),restaSaldo,hora_1.getText(),fecha_1.getText()});
 							ultiOpeTabla.addRow(new Object[]{"Ingreso de cuenta a cuenta",listaTranferencia.get(enviar),restaSaldo,hora_1.getText(),fecha_1.getText()});
-							}
+							NotificacionesModernas.getInstancia().show(Tipo.EXITO, 6000, "Su transferencia a sido un exito");
+					}
 						
 					}
 				else
@@ -1089,6 +1090,8 @@ public class Menu extends JFrame {
 					else
 						NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "Por favor introduzca numeros");
 				}
+				else
+					NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "Elija las cuentas");
 			}
 				
 		});
@@ -1183,6 +1186,7 @@ public class Menu extends JFrame {
 		panelMovil.add(lblNewLabel_9);
 
 		textField = new JTextField();
+		textField.setFont(new Font("Segoe UI Black", Font.PLAIN, 14));
 		textField.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -1196,10 +1200,11 @@ public class Menu extends JFrame {
 		panelMovil.add(textField);
 
 		textField_2 = new JTextField();
+		textField_2.setFont(new Font("Segoe UI Black", Font.PLAIN, 14));
 		textField_2.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent m) {
-				if(textField_2.getText().length()>8){
+				if(textField_2.getText().length()>7){
 					m.consume();
 				}
 			}
@@ -1212,7 +1217,9 @@ public class Menu extends JFrame {
 		btnmcnRecargar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(ListaMovilRecargaG.getSelectedIndex()>-1){
-					if(EsFloat(textField.getText())){					
+					if(EsFloat(textField.getText())){
+					char cinco=textField_2.getText().charAt(0);
+					if(textField_2.getText().length()==8 && Character.toString(cinco).equals("5")){//el character es el dato no primitivo de char estoy verificando si el primer numero es 5
 					float restaSaldo=Float.parseFloat(textField.getText());
 					if(Float.parseFloat(miTabla.getValueAt(cambioPos, 1).toString())>restaSaldo){
 					float saldoTrans=0;
@@ -1225,9 +1232,6 @@ public class Menu extends JFrame {
 						((Fondo)usuario.getCuentas().get(cambioPos)).setCup(saldoTrans);
 						extraerFondo++;
 						}
-					/*else if(usuario.getCuentas().get(cambioPos) instanceof MLC){
-						saldoTrans=((MLC)usuario.getCuentas().get(cambioPos)).getMlc()-restaSaldo;
-						((MLC)usuario.getCuentas().get(cambioPos)).setMlc(saldoTrans);*/
 					}else if(usuario.getCuentas().get(cambioPos) instanceof PlazoFijo){
 						saldoTrans=((PlazoFijo)usuario.getCuentas().get(cambioPos)).getCup()-restaSaldo;
 						((PlazoFijo)usuario.getCuentas().get(cambioPos)).setCup(saldoTrans);
@@ -1236,10 +1240,7 @@ public class Menu extends JFrame {
 						saldoTrans=((Ahorro)usuario.getCuentas().get(cambioPos)).getCup()-restaSaldo;
 						((Ahorro)usuario.getCuentas().get(cambioPos)).setCup(saldoTrans);
 						}
-						else{
-							saldoTrans=((Ahorro)usuario.getCuentas().get(cambioPos)).getMlc()-restaSaldo;
-							((Ahorro)usuario.getCuentas().get(cambioPos)).setMlc(saldoTrans);
-						}
+						
 						
 					}
 					if(usuario.getCuentas().get(cambioPos) instanceof Fondo){
@@ -1249,6 +1250,7 @@ public class Menu extends JFrame {
 					textField_2.setText("");
 					ultiOpeTabla.addRow(new Object[]{"Recarga Movil",listaMovil.get(cambioPos),restaSaldo,hora_1.getText(),fecha_1.getText()});
 					ListaMovilRecargaG.clearSelection();
+					NotificacionesModernas.getInstancia().show(Tipo.EXITO, 6000, "La operacion recarga movil a sido un exito");
 					}
 					else
 						NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "Ya no puede extraer mas en la cuenta de fondo hasta el proximo año");
@@ -1259,15 +1261,21 @@ public class Menu extends JFrame {
 						textField_2.setText("");
 						ultiOpeTabla.addRow(new Object[]{"Recarga Movil",listaMovil.get(cambioPos),restaSaldo,hora_1.getText(),fecha_1.getText()});
 						ListaMovilRecargaG.clearSelection();
+						NotificacionesModernas.getInstancia().show(Tipo.EXITO, 6000, "La operacion recarga movil a sido un exito");
 					}
 					}
 					else
 						NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "El monto no puede ser mayor que el saldo de la cuenta que recarga");
 					}
 					else
+						NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "Por favor,introduzca un numero movil cubano");
+					}
+					else
 						NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "Por favor,introduzca numeros");
 				
 			}
+				else
+					NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "Elija una cuenta");
 			}
 		});
 		btnmcnRecargar.setText("Recargar");
@@ -1764,6 +1772,7 @@ public class Menu extends JFrame {
 		panelRecargar.add(label_12);
 
 		textField_3 = new JTextField();
+		textField_3.setFont(new Font("Segoe UI Black", Font.PLAIN, 14));
 		textField_3.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -1779,17 +1788,12 @@ public class Menu extends JFrame {
 		BotonAnimacion botonAnimacion_12 = new BotonAnimacion();
 		botonAnimacion_12.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				if(ListaRecargaCuentaG.getSelectedIndex()>-1){
 				float SaldoAntiguo=((Corriente)usuario.getCuentas().get(cambioPos)).getCup();
 				if(EsFloat(textField_3.getText())){
 				float recarga=Float.parseFloat(textField_3.getText());
 				if(usuario.getCuentas().get(cambioPos) instanceof Corriente)
 					((Corriente)usuario.getCuentas().get(cambioPos)).setCup(SaldoAntiguo+recarga);
-				else if(usuario.getCuentas().get(cambioPos) instanceof Fondo){
-					if(extraerFondo<4){
-						((Fondo)usuario.getCuentas().get(cambioPos)).setCup(SaldoAntiguo+recarga);
-						extraerFondo++;
-					}
-				}
 				else if(usuario.getCuentas().get(cambioPos) instanceof MLC)
 					((MLC)usuario.getCuentas().get(cambioPos)).setMlc(SaldoAntiguo+recarga);
 				else if(usuario.getCuentas().get(cambioPos) instanceof PlazoFijo)
@@ -1800,20 +1804,21 @@ public class Menu extends JFrame {
 					else
 						((Ahorro)usuario.getCuentas().get(cambioPos)).setMlc(SaldoAntiguo+recarga);
 				
-				if(extraerFondo<4){
 				miTabla.setValueAt(SaldoAntiguo+recarga, cambioPos, 1);
 				ultiOpeTabla.addRow(new Object[]{"Ingreso a cuenta",listaTranferencia.get(cambioPos),recarga,hora_1.getText(),fecha_1.getText()});
 				textField_3.setText("");
 				ListaRecargaCuentaG.clearSelection();
+				NotificacionesModernas.getInstancia().show(Tipo.EXITO, 6000, "Su recarga a sido un exito");
 				}
-				else	
-					NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "Ya no puede extraer mas en la cuenta de fondo hasta el proximo año");
-			}
-
 				else
 					NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "Por favor introduzca numeros");
 			
 		}
+				else
+					NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "Elija una cuenta");
+			}
+			
+			
 		});
 		botonAnimacion_12.setText("Aceptar");
 		botonAnimacion_12.setForeground(Color.BLACK);
@@ -1994,6 +1999,7 @@ public class Menu extends JFrame {
 		BotonAnimacion btnmcnIngresarALa = new BotonAnimacion();
 		btnmcnIngresarALa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				if(ListaInteresCFG.getSelectedIndex()>-1){
 				float interes=Float.parseFloat(miTabla.getValueAt(cambioPos, 3).toString());
 				float saldo=Float.parseFloat(miTabla.getValueAt(cambioPos, 1).toString());
 				miTabla.setValueAt(saldo+interes, cambioPos, 1);
@@ -2009,6 +2015,10 @@ public class Menu extends JFrame {
 				lblNewLabel_12.setText(String.valueOf(saldo+interes));
 				label_15.setText("0");
 				ultiOpeTabla.addRow(new Object[]{"Ingresar a cuenta por intereses",listaTranferencia.get(cambioPos),interes,hora_1.getText(),fecha_1.getText()});
+				NotificacionesModernas.getInstancia().show(Tipo.EXITO, 6000, "La operacion ingresar intereses a sido un exito");
+			}
+				else
+					NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "Elija una cuenta");
 			}
 		});
 		btnmcnIngresarALa.setText("Ingresar a la cuenta");
@@ -2071,12 +2081,16 @@ public class Menu extends JFrame {
 		BotonAnimacion btnmcnExtraer = new BotonAnimacion();
 		btnmcnExtraer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				if(ListaInteresCFG.getSelectedIndex()>-1){
 				miTabla.setValueAt("0", cambioPos, 3);
 				ListaInteresCFG.setSelectedIndex(-1);
 				ListaInteresCFG.clearSelection();
 				ultiOpeTabla.addRow(new Object[]{"Extraccion de interes",listaTranferencia.get(cambioPos),label_15.getText(),hora_1.getText(),fecha_1.getText()});
 				label_15.setText("0");
-				
+				NotificacionesModernas.getInstancia().show(Tipo.EXITO, 6000, "La operacion extraccion de intereses a sido un exito");
+			}
+			else
+				NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "Elija una cuenta");
 				
 			}
 		});
@@ -2106,6 +2120,7 @@ public class Menu extends JFrame {
 		BotonAnimacion botonAnimacion_15 = new BotonAnimacion();
 		botonAnimacion_15.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				if(ListaInteresPFG.getSelectedIndex()>-1){
 				float interes=Float.parseFloat(miTabla.getValueAt(cambioPos, 3).toString());
 				float saldo=Float.parseFloat(miTabla.getValueAt(cambioPos, 1).toString());
 				miTabla.setValueAt(saldo+interes, cambioPos, 1);
@@ -2118,6 +2133,12 @@ public class Menu extends JFrame {
 				ultiOpeTabla.addRow(new Object[]{"Ingresar a cuenta por intereses",listaTranferencia.get(cambioPos),interes,hora_1.getText(),fecha_1.getText()});
 				label_17.setText(String.valueOf(saldo+interes));
 				label_19.setText("0");
+				NotificacionesModernas.getInstancia().show(Tipo.EXITO, 6000, "La operacion ingresar intereses a sido un exito");
+				
+			}
+				else
+					NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "Elija una cuenta");
+					
 			}
 		});
 		botonAnimacion_15.setText("Ingresar a la cuenta");
@@ -2182,13 +2203,19 @@ public class Menu extends JFrame {
 		BotonAnimacion botonAnimacion_16 = new BotonAnimacion();
 		botonAnimacion_16.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				if(ListaInteresPFG.getSelectedIndex()>-1){
 				miTabla.setValueAt("0", cambioPos, 3);
 				ListaInteresPFG.setSelectedIndex(-1);
 				ListaInteresPFG.clearSelection();
 				ultiOpeTabla.addRow(new Object[]{"Ingresar a cuenta por intereses",listaTranferencia.get(fondoA),label_19.getText(),hora_1.getText(),fecha_1.getText()});
 				label_19.setText("0");
+				NotificacionesModernas.getInstancia().show(Tipo.EXITO, 6000, "La operacion extraer intereses a sido un exito");
 				
 			}
+				else
+					NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "Elija una cuenta");
+			}
+					
 		});
 		botonAnimacion_16.setText("Extraer los intereses");
 		botonAnimacion_16.setForeground(Color.BLACK);
@@ -2201,6 +2228,7 @@ public class Menu extends JFrame {
 		BotonAnimacion btnmcnIngresarEnCuenta = new BotonAnimacion();
 		btnmcnIngresarEnCuenta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				if(ListaInteresPFG.getSelectedIndex()>-1 && ListaIngresarInteresAhorroG.getSelectedIndex()>-1){
 				float interes=Float.parseFloat(miTabla.getValueAt(cambioPos, 3).toString());
 				float saldo=Float.parseFloat(miTabla.getValueAt(fondoA, 1).toString());
 				miTabla.setValueAt(saldo+interes, fondoA, 1);
@@ -2209,12 +2237,15 @@ public class Menu extends JFrame {
 					((Ahorro)usuario.getCuentas().get(fondoA)).setCup(saldo+interes);
 				
 				ultiOpeTabla.addRow(new Object[]{"Ingresar a cuenta por intereses",listaTranferencia.get(fondoA),interes,hora_1.getText(),fecha_1.getText()});
-				
 				label_19.setText("0");
 				label_21.setText(String.valueOf(saldo+interes));
 				ListaInteresPFG.clearSelection();
 				ListaIngresarInteresAhorroG.clearSelection();
+				NotificacionesModernas.getInstancia().show(Tipo.EXITO, 6000, "La operacion ingresar intereses a sido un exito");
 				
+			}
+				else
+					NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "Elija las cuentas");
 			}
 		});
 		btnmcnIngresarEnCuenta.setText("Ingresar en cuenta de Ahorro");
@@ -2533,7 +2564,7 @@ public class Menu extends JFrame {
 		boolean noMlc=false;
 		while(lineasR<listaTranferencia.getSize()){
 			for(int j=0;j<9;j++){
-				if(listaTranferencia.get(lineasR).equals("MLC" + "-" + j)){
+				if(listaTranferencia.get(lineasR).equals("MLC" + "-" + j) || miTabla.getValueAt(lineasR, 2).toString().equals("mlc")){
 					noMlc=true;
 				}
 			}
