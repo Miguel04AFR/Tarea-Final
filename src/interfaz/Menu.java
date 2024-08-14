@@ -341,7 +341,7 @@ public class Menu extends JFrame {
 		panel.add(botonAnimacion_2);
 		
 		lblUsuario = new JLabel("Usuario");
-		lblUsuario.setFont(new Font("Segoe UI Black", Font.BOLD, 13));
+		lblUsuario.setFont(new Font("Segoe UI Black", Font.BOLD, 12));
 		lblUsuario.setBounds(0, 85, 56, 16);
 		panel.add(lblUsuario);
 		
@@ -416,6 +416,31 @@ public class Menu extends JFrame {
 		botonAnimacion_10.setBounds(61, 129, 56, 54);
 		botonAnimacion_10.setEnabled(false);
 		panel.add(botonAnimacion_10);
+		
+		JLabel lblComercio = new JLabel("Comercio");
+		lblComercio.setFont(new Font("Segoe UI Black", Font.BOLD, 11));
+		lblComercio.setBounds(1, 129, 116, 16);
+		panel.add(lblComercio);
+		
+		JLabel lblBancario = new JLabel("bancario");
+		lblBancario.setFont(new Font("Segoe UI Black", Font.BOLD, 11));
+		lblBancario.setBounds(1, 143, 116, 16);
+		panel.add(lblBancario);
+		
+		JLabel lblAgencia = new JLabel("Agencias");
+		lblAgencia.setFont(new Font("Segoe UI Black", Font.BOLD, 11));
+		lblAgencia.setBounds(5, 196, 116, 16);
+		panel.add(lblAgencia);
+		
+		JLabel lblYCajeros = new JLabel("y cajeros");
+		lblYCajeros.setFont(new Font("Segoe UI Black", Font.BOLD, 11));
+		lblYCajeros.setBounds(5, 213, 116, 16);
+		panel.add(lblYCajeros);
+		
+		JLabel lblInicio = new JLabel("Inicio");
+		lblInicio.setFont(new Font("Segoe UI Black", Font.BOLD, 13));
+		lblInicio.setBounds(12, 390, 56, 16);
+		panel.add(lblInicio);
 		
 				JMenuBar menuBar = new JMenuBar();
 				menuBar.setFont(new Font("Segoe UI", Font.PLAIN, 15));
@@ -612,7 +637,7 @@ public class Menu extends JFrame {
 				
 			}
 		});
-		 timerst = new Timer(1 * 1000, new ActionListener(){
+		 timerst = new Timer(1 * 1000, new ActionListener(){//botones de intereces
 			  public void actionPerformed(ActionEvent e) {
 				  for(int i=0;i<usuario.getCuentas().size();i++){
 					  if(usuario.getCuentas().get(i) instanceof Iintereses || usuario.getCuentas().get(i) instanceof PlazoFijo){
@@ -2287,8 +2312,8 @@ public class Menu extends JFrame {
 			}
 		};
 		// Programar la tarea para que se ejecute cada segundos que pongas en el primer parametro	
-		Timer timers = new Timer(1 * 1000, Intereses);
-		timers.setInitialDelay(1 * 1000); // Para que la tarea se ejecute inmediatamente al inicio
+		Timer timers = new Timer(60 * 1000, Intereses);
+		timers.setInitialDelay(10 * 1000); // Para que la tarea se ejecute inmediatamente al inicio
 		timers.start();
 
 		ActionListener PagarEstatal= new ActionListener(){
@@ -2653,7 +2678,6 @@ public class Menu extends JFrame {
 		}
 		return sies;
 	}
-	
 }
 
 
