@@ -341,13 +341,12 @@ public class Menu extends JFrame {
 		panel.add(botonAnimacion_2);
 		
 		lblUsuario = new JLabel("Usuario");
-<<<<<<< HEAD
+
 		lblUsuario.setFont(new Font("Segoe UI Black", Font.BOLD, 12));
 		lblUsuario.setBounds(0, 85, 56, 16);
-=======
+
 		lblUsuario.setFont(new Font("Segoe UI Black", Font.BOLD, 13));
 		lblUsuario.setBounds(3, 86, 56, 16);
->>>>>>> 913bc82676eaa378c43e4a45605a229765a029c0
 		panel.add(lblUsuario);
 		
 		botonAnimacion_3 = new BotonAnimacion();
@@ -422,7 +421,7 @@ public class Menu extends JFrame {
 		botonAnimacion_10.setEnabled(false);
 		panel.add(botonAnimacion_10);
 		
-<<<<<<< HEAD
+
 		JLabel lblComercio = new JLabel("Comercio");
 		lblComercio.setFont(new Font("Segoe UI Black", Font.BOLD, 11));
 		lblComercio.setBounds(1, 129, 116, 16);
@@ -438,38 +437,22 @@ public class Menu extends JFrame {
 		lblAgencia.setBounds(5, 196, 116, 16);
 		panel.add(lblAgencia);
 		
-		JLabel lblYCajeros = new JLabel("y cajeros");
-		lblYCajeros.setFont(new Font("Segoe UI Black", Font.BOLD, 11));
-		lblYCajeros.setBounds(5, 213, 116, 16);
-		panel.add(lblYCajeros);
-		
 		JLabel lblInicio = new JLabel("Inicio");
 		lblInicio.setFont(new Font("Segoe UI Black", Font.BOLD, 13));
 		lblInicio.setBounds(12, 390, 56, 16);
 		panel.add(lblInicio);
-		
-=======
-		JLabel lblInteresFondo = new JLabel("Interes");
-		lblInteresFondo.setFont(new Font("Segoe UI Black", Font.BOLD, 13));
-		lblInteresFondo.setBounds(3, 148, 56, 16);
-		panel.add(lblInteresFondo);
 		
 		JLabel lblCajeros = new JLabel("Cajeros");
 		lblCajeros.setFont(new Font("Segoe UI Black", Font.BOLD, 13));
 		lblCajeros.setBounds(3, 212, 56, 16);
 		panel.add(lblCajeros);
 		
-		JLabel lblInicio = new JLabel("Inicio");
-		lblInicio.setFont(new Font("Segoe UI Black", Font.BOLD, 13));
-		lblInicio.setBounds(14, 391, 56, 16);
-		panel.add(lblInicio);
-		
 		JLabel lblCerrar = new JLabel("Menu");
 		lblCerrar.setFont(new Font("Segoe UI Black", Font.BOLD, 13));
 		lblCerrar.setBounds(14, 441, 56, 16);
 		panel.add(lblCerrar);
 		
->>>>>>> 913bc82676eaa378c43e4a45605a229765a029c0
+
 				JMenuBar menuBar = new JMenuBar();
 				menuBar.setFont(new Font("Segoe UI", Font.PLAIN, 15));
 				menuBar.setBorderPainted(false);
@@ -852,7 +835,7 @@ public class Menu extends JFrame {
 		table = new JTable(miTabla);
 		table.setFont(new Font("Segoe UI Black", Font.PLAIN, 12));
 		table.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));//cambia el cursor
-		table.setBounds(47, 38, 647, 229);
+		table.setBounds(18, 29, 647, 229);
 		paneltabla.add(table);
 		table.setFillsViewportHeight(true);//para que todo sea visible
 		
@@ -2703,6 +2686,7 @@ public class Menu extends JFrame {
 	            listaMovil.clear();
 	            listaRecargaCuenta.clear();
 	            listaTranferenciaEnvio.clear();
+	            NotificacionesModernas.getInstancia().show(Tipo.EXITO, 6000, "La cuenta se ha eliminado exitosamente");
 	            
 	            
 	            for (int j=i; j< miTabla.getRowCount();j++) {

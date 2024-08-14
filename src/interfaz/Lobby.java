@@ -373,7 +373,7 @@ public class Lobby extends JFrame {
 	        		Perdida();
 	        	}
 	        });
-	        lblNewLabel_4.setBounds(151, 417, 214, 16);
+	        lblNewLabel_4.setBounds(198, 453, 214, 16);
 	        contentPane.add(lblNewLabel_4);
 	        
 	        lblNewLabel_5 = new JLabel("Crear cuenta?");
@@ -401,7 +401,7 @@ public class Lobby extends JFrame {
 	        	
 	        });
 	        
-	        lblNewLabel_5.setBounds(356, 417, 104, 16);
+	        lblNewLabel_5.setBounds(249, 424, 104, 16);
 	        contentPane.add(lblNewLabel_5);
 	        
 	        lblModoClaro = new JLabel("Modo claro:");

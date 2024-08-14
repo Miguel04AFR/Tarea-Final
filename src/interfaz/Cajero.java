@@ -144,33 +144,33 @@ public class Cajero extends JDialog {
 										tablaCajero.setValueAt(saldo-monto, cambioPos, 1);
 										textField.setText("");
 										table.clearSelection();
-										JOptionPane.showInputDialog(null, "La extraccion a sido un exito",JOptionPane.INFORMATION_MESSAGE);
+										JOptionPane.showMessageDialog(null, "La extraccion ha sido un exito");
 										}
 										else
-											JOptionPane.showInputDialog(null, "Ya no puede extraer mas en la cuenta de fondo hasta el proximo año",JOptionPane.INFORMATION_MESSAGE);
+											JOptionPane.showMessageDialog(null, "Ya no puede extraer mas en la cuenta de fondo hasta el proximo año");
 									}
 										else{
 											ultiTabla.addRow(new Object[]{"Extraccion por cajero",tablaCajero.getValueAt(cambioPos,0).toString(),monto,hora.getText(),fecha.getText()});
 											tablaCajero.setValueAt(saldo-monto, cambioPos, 1);
 											textField.setText("");
 											table.clearSelection();
-											JOptionPane.showInputDialog(null, "La extraccion a sido un exito");
+											JOptionPane.showMessageDialog(null, "La extraccion a sido un exito");
 										}
 									}
 									else
-										JOptionPane.showInputDialog(null, "Ahora mismo no contamos con billetes para el monto requerido,vuelva mas tarde o pida otro monto");
+										JOptionPane.showMessageDialog(null, "Ahora mismo no contamos con billetes para el monto requerido,vuelva mas tarde o pida otro monto");
 								}
 								else
-									JOptionPane.showInputDialog(null, "Su saldo es inferior al monto que desea extraer");
+									JOptionPane.showMessageDialog(null, "Su saldo es inferior al monto que desea extraer");
 							}
 							else
-								JOptionPane.showInputDialog(null, "El cajero no tiene suficiente dinero,vuelva mas tarde");
+								JOptionPane.showMessageDialog(null, "El cajero no tiene suficiente dinero,vuelva mas tarde");
 						}
 						else
-							JOptionPane.showInputDialog(null, "No existen billetes de kilos");
+							JOptionPane.showMessageDialog(null, "No existen billetes de kilos");
 					}
 						else
-							JOptionPane.showInputDialog(null, "Por favor,elija una cuenta en la tabla");
+							JOptionPane.showMessageDialog(null, "Por favor,elija una cuenta en la tabla");
 					}
 				});
 				btnmcnExtraer.setText("Extraer");

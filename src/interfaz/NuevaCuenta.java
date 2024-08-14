@@ -434,7 +434,7 @@ public class NuevaCuenta extends JFrame {
 		textField_4.setBounds(8, 394, 290, 30);
 		contentPane.add(textField_4);
 		
-		lblDosPasos = new JLabel("Dos pasos :Una pista de");
+		lblDosPasos = new JLabel("Dos pasos :Una pista para");
 		lblDosPasos.setHorizontalAlignment(SwingConstants.LEFT);
 		lblDosPasos.setFont(new Font("Segoe UI Black", Font.PLAIN, 22));
 		lblDosPasos.setBounds(615, 128, 293, 37);
@@ -677,7 +677,7 @@ public class NuevaCuenta extends JFrame {
 		label_1.setBounds(376, 319, 137, 23);
 		contentPane.add(label_1);
 		
-		lblSiSeLe = new JLabel("olvidarse su contrase\u00F1a");
+		lblSiSeLe = new JLabel("recordar su contrase\u00F1a");
 		lblSiSeLe.setHorizontalAlignment(SwingConstants.LEFT);
 		lblSiSeLe.setFont(new Font("Segoe UI Black", Font.PLAIN, 22));
 		lblSiSeLe.setBounds(615, 155, 293, 37);

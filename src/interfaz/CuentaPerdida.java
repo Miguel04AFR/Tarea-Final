@@ -199,7 +199,7 @@ public class CuentaPerdida extends JFrame {
 		
 		
 		lblVolverAlLobby.setFont(new Font("Segoe UI", Font.BOLD, 17));
-		lblVolverAlLobby.setBounds(124, 352, 147, 16);
+		lblVolverAlLobby.setBounds(198, 374, 147, 16);
 		contentPane.add(lblVolverAlLobby);
 		
 		lblOSuCorreo = new JLabel("o su correo electronico:");

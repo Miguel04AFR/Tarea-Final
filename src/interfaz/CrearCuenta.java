@@ -106,7 +106,6 @@ public class CrearCuenta extends JDialog {
 	public static String fechaPlazo="";
 	public static String Estatal="";
 	public static float salarioEstatal=0;
-	private boolean MoF=true;
 	private JFecha fchjul;
 	private JTextField textField_8;
 	private JTextField textField_9;
@@ -343,7 +342,7 @@ public class CrearCuenta extends JDialog {
 		textField_9.setBounds(42, 186, 330, 46);
 		panelFondo.add(textField_9);
 
-		JLabel lblEscribaAquEl_2 = new JLabel("Escriba aqu\u00ED el salario fijo de la entidad que le paga le proporciona.");
+		JLabel lblEscribaAquEl_2 = new JLabel("Escriba aqu\u00ED el salario fijo de la entidad que le paga.");
 		lblEscribaAquEl_2.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
 		lblEscribaAquEl_2.setBounds(42, 231, 513, 33);
 		panelFondo.add(lblEscribaAquEl_2);
@@ -379,7 +378,7 @@ public class CrearCuenta extends JDialog {
 		lblVecesAlAo.setBounds(386, 192, 270, 33);
 		panelFondo.add(lblVecesAlAo);
 
-		JLabel lblSeLeIngresara = new JLabel("Se le ingresara el 10% de su saldo.Aunque puede cambiarlo a travez");
+		JLabel lblSeLeIngresara = new JLabel("Se le ingresara el 10% de su saldo.Aunque puede cambiarlo a traves");
 		lblSeLeIngresara.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
 		lblSeLeIngresara.setBounds(42, 250, 513, 33);
 		panelFondo.add(lblSeLeIngresara);
@@ -975,37 +974,37 @@ public class CrearCuenta extends JDialog {
 					}
 				}
 				else
-				if(comboBox.getSelectedItem().equals("MLC")){
-				if(ValidacionMLC()){
-				Menu.cuentaCreada=true;
-				AñadirCuenta();
-				dispose();
-				}
-				}
-				else
-					if(comboBox.getSelectedItem().equals("Fondo")){
-						if(ValidacionFondo()){
-							Menu.cuentaCreada=true;
-							AñadirCuenta();
-							dispose();
-						}
-					}
-					else
-						if(comboBox.getSelectedItem().equals("Ahorro")){
-							if(ValidacionAhorro()){
+					if(comboBox.getSelectedItem().equals("MLC")){
+						if(ValidacionMLC()){
 								Menu.cuentaCreada=true;
 								AñadirCuenta();
 								dispose();
+						}
+					}
+					else
+						if(comboBox.getSelectedItem().equals("Fondo")){
+							if(ValidacionFondo()){
+									Menu.cuentaCreada=true;
+									AñadirCuenta();
+									dispose();
 							}
 						}
 						else
-							if(comboBox.getSelectedItem().equals("Plazo Fijo")){
-								if(ValidacionPlazoFijo()){
+							if(comboBox.getSelectedItem().equals("Ahorro")){
+								if(ValidacionAhorro()){
 									Menu.cuentaCreada=true;
 									AñadirCuenta();
 									dispose();
 								}
 							}
+							else
+								if(comboBox.getSelectedItem().equals("Plazo Fijo")){
+									if(ValidacionPlazoFijo()){
+										Menu.cuentaCreada=true;
+										AñadirCuenta();
+										dispose();
+									}
+								}
 
 			}
 		});
@@ -1342,25 +1341,13 @@ public class CrearCuenta extends JDialog {
 				}
 			}else
 				if(comboBox.getSelectedItem().equals("Fondo")){
-					if(MoF){
-						MoF=false;
 						salarioEstatal=Float.parseFloat(textField_9.getText());
 						Fondo p=new Fondo(usuario.getIdU(),textField_8.getText(),salarioEstatal * 10 / 100);
 						banco.getUsuarios().get(pos).getCuentas().add(p);
-					}
-					else
-						JOptionPane.showInputDialog(null, "Ya tiene una cuenta de Fondo o MLC", JOptionPane.ERROR_MESSAGE);
-
-
 				}else
 					if(comboBox.getSelectedItem().equals("MLC")){
-						if(MoF){
-							MoF=false;
 							MLC p=new MLC(usuario.getIdU(),textField_11.getText(),Float.parseFloat(textField_13.getText()));
 							banco.getUsuarios().get(pos).getCuentas().add(p);
-							}
-						else
-							JOptionPane.showInputDialog(null, "Ya tiene una cuenta de Fondo o MLC", JOptionPane.ERROR_MESSAGE);
 					}else
 						if(comboBox.getSelectedItem().equals("Plazo Fijo")){
 							PlazoFijo p=new PlazoFijo(usuario.getIdU(),textField_2.getText(),Float.parseFloat(textField_4.getText()));
@@ -1596,6 +1583,7 @@ public class CrearCuenta extends JDialog {
 		lblNewLabel_5.setEnabled(false);
 		boolean validoB=false;//beneficiario
 		boolean validoS=false;//saldo
+		boolean MoF=false;
 		if(!textField_11.getText().equals("")){
 			for(int i=0;i<banco.getUsuarios().size();i++){
 				if(textField_11.getText().equals(banco.getUsuarios().get(i).getIdU())){
@@ -1629,6 +1617,16 @@ public class CrearCuenta extends JDialog {
 					lblNewLabel_5.setEnabled(true);
 					lblNewLabel_6.setText("No se aceptan letras");
 				}
+				
+				for(int i=0;i<usuario.getCuentas().size();i++){
+					if(usuario.getCuentas().get(i) instanceof Fondo || usuario.getCuentas().get(i) instanceof MLC){
+					MoF=true;
+					i=usuario.getCuentas().size();
+					}
+				}
+					if(MoF){
+							JOptionPane.showMessageDialog(null, "Ya tiene una cuenta de Fondo o MLC");
+					}
 			}
 			else{
 				lblNewLabel_5.setVisible(true);
@@ -1639,7 +1637,7 @@ public class CrearCuenta extends JDialog {
 
 			
 
-		return validoB==true && validoS==true ? true : false;
+		return validoB==true && validoS==true && MoF==false? true : false;
 
 	}
 	public boolean ValidacionCorriente(){
@@ -1728,6 +1726,7 @@ public class CrearCuenta extends JDialog {
 		
 		boolean validoB=false;//beneficiario
 		boolean validoS=false;//saldo
+		boolean MoF=false;
 		if(!textField_8.getText().equals("")){
 			for(int i=0;i<banco.getUsuarios().size();i++){
 				if(textField_8.getText().equals(banco.getUsuarios().get(i).getIdU())){
@@ -1767,8 +1766,18 @@ public class CrearCuenta extends JDialog {
 				label_25.setEnabled(true);
 				label_21.setText("Esta vacia la celda");
 			}
+			
+			for(int i=0;i<usuario.getCuentas().size();i++){
+				if(usuario.getCuentas().get(i) instanceof Fondo || usuario.getCuentas().get(i) instanceof MLC){
+				MoF=true;
+				i=usuario.getCuentas().size();
+				}
+			}
+				if(MoF){
+						JOptionPane.showMessageDialog(null, "Ya tiene una cuenta de Fondo o MLC");
+				}
 	
-		return validoB==true && validoS==true ? true : false;
+		return validoB==true && validoS==true && MoF==false? true : false;
 
 	}
 	
