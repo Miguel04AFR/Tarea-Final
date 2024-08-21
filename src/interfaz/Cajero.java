@@ -145,6 +145,7 @@ public class Cajero extends JDialog {
 										textField.setText("");
 										table.clearSelection();
 										JOptionPane.showMessageDialog(null, "La extraccion ha sido un exito");
+										Menu.SonidoExito();
 										}
 										else
 											JOptionPane.showMessageDialog(null, "Ya no puede extraer mas en la cuenta de fondo hasta el proximo año");
@@ -155,6 +156,7 @@ public class Cajero extends JDialog {
 											textField.setText("");
 											table.clearSelection();
 											JOptionPane.showMessageDialog(null, "La extraccion a sido un exito");
+											Menu.SonidoExito();
 										}
 									}
 									else

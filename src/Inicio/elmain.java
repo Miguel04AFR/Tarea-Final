@@ -23,7 +23,7 @@ import LogicaClases.Banco;
 import interfaz.Lobby;
 public class elmain {
 	public static Banco banco=Banco.getInstancia();
-	public static String sonidoExito = "D:/Proyectos/Java/tarea-final/sonidos/success-1-6297.mp3"; 
+	public static String sonidoExito = "sonidos/success-1-6297.mp3"; 
 
 	public static void main(String[] args) {
 		Usuario primer=new Usuario("usuario","usuario","Alfredo Lopez","41y48","52334463","usuario@gmail.com",'M',"04040534681","perfil","77234398");

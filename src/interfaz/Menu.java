@@ -625,6 +625,7 @@ public class Menu extends JFrame {
 				p.setVisible(true);
 				VerCuenta();
 				AñadirCuentaTabla(miTabla);
+				SonidoExito();
 
 
 				if(cuentaCreada){
@@ -1124,6 +1125,7 @@ public class Menu extends JFrame {
 					label_2.setText(String.valueOf(SaldoEnvio));
 					ultiOpeTabla.addRow(new Object[]{"Extraccion de cuenta a cuenta",listaTranferencia.get(cambioPos),restaSaldo,hora_1.getText(),fecha_1.getText()});
 					ultiOpeTabla.addRow(new Object[]{"Ingreso de cuenta a cuenta",listaTranferencia.get(enviar),restaSaldo,hora_1.getText(),fecha_1.getText()});
+					SonidoExito();
 					NotificacionesModernas.getInstancia().show(Tipo.EXITO, 6000, "Su transferencia a sido un exito");
 					}
 				else
@@ -1139,6 +1141,7 @@ public class Menu extends JFrame {
 							label_2.setText(String.valueOf(SaldoEnvio));
 							ultiOpeTabla.addRow(new Object[]{"Extraccion de cuenta a cuenta",listaTranferencia.get(cambioPos),restaSaldo,hora_1.getText(),fecha_1.getText()});
 							ultiOpeTabla.addRow(new Object[]{"Ingreso de cuenta a cuenta",listaTranferencia.get(enviar),restaSaldo,hora_1.getText(),fecha_1.getText()});
+							SonidoExito();
 							NotificacionesModernas.getInstancia().show(Tipo.EXITO, 6000, "Su transferencia a sido un exito");
 					}
 						
@@ -1314,8 +1317,9 @@ public class Menu extends JFrame {
 					ultiOpeTabla.addRow(new Object[]{"Recarga Movil",listaMovil.get(cambioPos),restaSaldo,hora_1.getText(),fecha_1.getText()});
 					ListaMovilRecargaG.clearSelection();
 					lblNewLabel_9.setText(String.valueOf(saldoTrans));
-					NotificacionesModernas.getInstancia().show(Tipo.EXITO, 6000, "La operacion recarga movil a sido un exito");
 					SonidoExito();
+					NotificacionesModernas.getInstancia().show(Tipo.EXITO, 6000, "La operacion recarga movil a sido un exito");
+					
 					}
 					else
 						NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "Ya no puede extraer mas en la cuenta de fondo hasta el proximo año");
@@ -1327,8 +1331,9 @@ public class Menu extends JFrame {
 						ultiOpeTabla.addRow(new Object[]{"Recarga Movil",listaMovil.get(cambioPos),restaSaldo,hora_1.getText(),fecha_1.getText()});
 						ListaMovilRecargaG.clearSelection();
 						lblNewLabel_9.setText(String.valueOf(saldoTrans));
-						NotificacionesModernas.getInstancia().show(Tipo.EXITO, 6000, "La operacion recarga movil a sido un exito");
 						SonidoExito();
+						NotificacionesModernas.getInstancia().show(Tipo.EXITO, 6000, "La operacion recarga movil a sido un exito");
+						
 					}
 					}
 					else
@@ -1875,7 +1880,9 @@ public class Menu extends JFrame {
 				ultiOpeTabla.addRow(new Object[]{"Ingreso a cuenta",listaTranferencia.get(cambioPos),recarga,hora_1.getText(),fecha_1.getText()});
 				textField_3.setText("");
 				ListaRecargaCuentaG.clearSelection();
+				SonidoExito();
 				NotificacionesModernas.getInstancia().show(Tipo.EXITO, 6000, "Su recarga a sido un exito");
+				
 				}
 				else
 					NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "Por favor introduzca numeros");
@@ -2082,6 +2089,7 @@ public class Menu extends JFrame {
 				lblNewLabel_12.setText(String.valueOf(saldo+interes));
 				label_15.setText("0");
 				ultiOpeTabla.addRow(new Object[]{"Ingresar a cuenta por intereses",listaTranferencia.get(cambioPos),interes,hora_1.getText(),fecha_1.getText()});
+				SonidoExito();
 				NotificacionesModernas.getInstancia().show(Tipo.EXITO, 6000, "La operacion ingresar intereses a sido un exito");
 			}
 				else
@@ -2154,6 +2162,7 @@ public class Menu extends JFrame {
 				ListaInteresCFG.clearSelection();
 				ultiOpeTabla.addRow(new Object[]{"Extraccion de interes",listaTranferencia.get(cambioPos),label_15.getText(),hora_1.getText(),fecha_1.getText()});
 				label_15.setText("0");
+				SonidoExito();
 				NotificacionesModernas.getInstancia().show(Tipo.EXITO, 6000, "La operacion extraccion de intereses a sido un exito");
 			}
 			else
@@ -2200,6 +2209,7 @@ public class Menu extends JFrame {
 				ultiOpeTabla.addRow(new Object[]{"Ingresar a cuenta por intereses",listaTranferencia.get(cambioPos),interes,hora_1.getText(),fecha_1.getText()});
 				label_17.setText(String.valueOf(saldo+interes));
 				label_19.setText("0");
+				SonidoExito();
 				NotificacionesModernas.getInstancia().show(Tipo.EXITO, 6000, "La operacion ingresar intereses a sido un exito");
 				
 			}
@@ -2276,6 +2286,7 @@ public class Menu extends JFrame {
 				ListaInteresPFG.clearSelection();
 				ultiOpeTabla.addRow(new Object[]{"Ingresar a cuenta por intereses",listaTranferencia.get(fondoA),label_19.getText(),hora_1.getText(),fecha_1.getText()});
 				label_19.setText("0");
+				SonidoExito();
 				NotificacionesModernas.getInstancia().show(Tipo.EXITO, 6000, "La operacion extraer intereses a sido un exito");
 				
 			}
@@ -2308,6 +2319,7 @@ public class Menu extends JFrame {
 				label_21.setText(String.valueOf(saldo+interes));
 				ListaInteresPFG.clearSelection();
 				ListaIngresarInteresAhorroG.clearSelection();
+				SonidoExito();
 				NotificacionesModernas.getInstancia().show(Tipo.EXITO, 6000, "La operacion ingresar intereses a sido un exito");
 				
 			}
