@@ -11,6 +11,11 @@ import Inicio.elmain;
 import LogicaClases.*;
 import interfaz.*;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -21,6 +26,17 @@ import componentesVisuales.NotificacionesModernas;
 import componentesVisuales.NotificacionesModernas.Localizacion;
 import componentesVisuales.NotificacionesModernas.Tipo;
 import componentesVisuales.PanelGradiente;
+import javazoom.jl.decoder.JavaLayerException;
+import javazoom.jl.player.Player;//el jl es el Jlayer sirve para reproducir sonidos en mp3
+
+
+
+
+
+
+
+
+
 
 
 
@@ -101,6 +117,13 @@ import javax.swing.ListModel;
 
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
+import java.awt.Checkbox;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import javax.swing.JInternalFrame;
 
 
 
@@ -210,6 +233,7 @@ public class Menu extends JFrame {
 	private BotonAnimacion btnmcnAsd;
 	private int cajero=0;
 	public static int extraerFondo=0;
+	private JComboBox comboBox_1;
 	
 
 	/**
@@ -796,6 +820,30 @@ public class Menu extends JFrame {
 		btnmcnAsd.setBounds(708, 91, 85, 29);
 		paneldatos.add(btnmcnAsd);
 		
+		JLabel lblFiltrar = new JLabel("Filtrar:");
+		lblFiltrar.setFont(new Font("Segoe UI Black", Font.BOLD, 13));
+		lblFiltrar.setBounds(243, 93, 61, 16);
+		paneldatos.add(lblFiltrar);
+		
+		comboBox_1 = new JComboBox();
+		
+		comboBox_1.setFont(new Font("Segoe UI", Font.BOLD, 17));
+		comboBox_1.setBounds(301, 90, 120, 30);
+		comboBox_1.addItem("Todo");
+		comboBox_1.addItem("MLC");
+		comboBox_1.addItem("PlazoFijo");
+		comboBox_1.addItem("Ahorro");
+		comboBox_1.addItem("Corriente");
+		comboBox_1.addItem("Fondo");
+		paneldatos.add(comboBox_1);
+		comboBox_1.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent arg0) {
+				if(comboBox_1.getSelectedItem().equals("Todo"))
+					table.setModel(miTabla);
+				else
+				FiltrarCuentas();
+			}
+		});
 		
 		JPanel paneltabla = new JPanel();
 		paneltabla.setBounds(0, 122, 866, 317);
@@ -1072,6 +1120,8 @@ public class Menu extends JFrame {
 					textField_1.setText("");
 					ListaTranfer.clearSelection();
 					ListaEnvioG.clearSelection();
+					lblNewLabel_8.setText(String.valueOf(saldoTrans));
+					label_2.setText(String.valueOf(SaldoEnvio));
 					ultiOpeTabla.addRow(new Object[]{"Extraccion de cuenta a cuenta",listaTranferencia.get(cambioPos),restaSaldo,hora_1.getText(),fecha_1.getText()});
 					ultiOpeTabla.addRow(new Object[]{"Ingreso de cuenta a cuenta",listaTranferencia.get(enviar),restaSaldo,hora_1.getText(),fecha_1.getText()});
 					NotificacionesModernas.getInstancia().show(Tipo.EXITO, 6000, "Su transferencia a sido un exito");
@@ -1085,6 +1135,8 @@ public class Menu extends JFrame {
 							textField_1.setText("");
 							ListaTranfer.clearSelection();
 							ListaEnvioG.clearSelection();
+							lblNewLabel_8.setText(String.valueOf(saldoTrans));
+							label_2.setText(String.valueOf(SaldoEnvio));
 							ultiOpeTabla.addRow(new Object[]{"Extraccion de cuenta a cuenta",listaTranferencia.get(cambioPos),restaSaldo,hora_1.getText(),fecha_1.getText()});
 							ultiOpeTabla.addRow(new Object[]{"Ingreso de cuenta a cuenta",listaTranferencia.get(enviar),restaSaldo,hora_1.getText(),fecha_1.getText()});
 							NotificacionesModernas.getInstancia().show(Tipo.EXITO, 6000, "Su transferencia a sido un exito");
@@ -1261,7 +1313,9 @@ public class Menu extends JFrame {
 					textField_2.setText("");
 					ultiOpeTabla.addRow(new Object[]{"Recarga Movil",listaMovil.get(cambioPos),restaSaldo,hora_1.getText(),fecha_1.getText()});
 					ListaMovilRecargaG.clearSelection();
+					lblNewLabel_9.setText(String.valueOf(saldoTrans));
 					NotificacionesModernas.getInstancia().show(Tipo.EXITO, 6000, "La operacion recarga movil a sido un exito");
+					SonidoExito();
 					}
 					else
 						NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "Ya no puede extraer mas en la cuenta de fondo hasta el proximo año");
@@ -1272,7 +1326,9 @@ public class Menu extends JFrame {
 						textField_2.setText("");
 						ultiOpeTabla.addRow(new Object[]{"Recarga Movil",listaMovil.get(cambioPos),restaSaldo,hora_1.getText(),fecha_1.getText()});
 						ListaMovilRecargaG.clearSelection();
+						lblNewLabel_9.setText(String.valueOf(saldoTrans));
 						NotificacionesModernas.getInstancia().show(Tipo.EXITO, 6000, "La operacion recarga movil a sido un exito");
+						SonidoExito();
 					}
 					}
 					else
@@ -2721,6 +2777,93 @@ public class Menu extends JFrame {
 		}
 		return sies;
 	}
+	
+	public void FiltrarCuentas(){
+		DefaultTableModel filtrarTabla =new DefaultTableModel(){ 
+			public boolean isCellEditable(int row, int column) {
+	        return false; // Todas las celdas no son editables
+	    }
+	};
+	
+	filtrarTabla.addColumn("Cuenta");
+	filtrarTabla.addColumn("Saldo");
+	filtrarTabla.addColumn("Moneda");
+	filtrarTabla.addColumn("Intereses");
+	filtrarTabla.addColumn("Hora creada");
+	filtrarTabla.addColumn("Creado");
+	filtrarTabla.addColumn("2do Titular");
+	filtrarTabla.addColumn("Beneficiario");
+    filtrarTabla.addColumn("Plazo");
+    filtrarTabla.addColumn("Estatal");
+    filtrarTabla.addColumn("#Cuenta");
+	
+	
+		table.setModel(filtrarTabla);
+		if(comboBox_1.getSelectedItem().equals("Corriente"))
+		for(int i=0;i<miTabla.getRowCount();i++){
+			if(miTabla.getValueAt(i, 0).toString().equals("Corriente"))
+				filtrarTabla.addRow(new Object[]{miTabla.getValueAt(i, 0),miTabla.getValueAt(i, 1),miTabla.getValueAt(i, 2),miTabla.getValueAt(i, 3),miTabla.getValueAt(i, 4),miTabla.getValueAt(i, 5),miTabla.getValueAt(i, 6),miTabla.getValueAt(i, 7),miTabla.getValueAt(i, 8),miTabla.getValueAt(i, 9),miTabla.getValueAt(i, 10)});
+		}
+			else 
+				if(comboBox_1.getSelectedItem().equals("MLC")){
+					for(int i=0;i<miTabla.getRowCount();i++){
+			if(miTabla.getValueAt(i, 0).toString().equals("MLC"))
+				filtrarTabla.addRow(new Object[]{miTabla.getValueAt(i, 0),miTabla.getValueAt(i, 1),miTabla.getValueAt(i, 2),miTabla.getValueAt(i, 3),miTabla.getValueAt(i, 4),miTabla.getValueAt(i, 5),miTabla.getValueAt(i, 6),miTabla.getValueAt(i, 7),miTabla.getValueAt(i, 8),miTabla.getValueAt(i, 9),miTabla.getValueAt(i, 10)});
+			}
+				}
+			else 
+				if(comboBox_1.getSelectedItem().equals("PlazoFijo"))
+					for(int i=0;i<miTabla.getRowCount();i++){
+				if(miTabla.getValueAt(i, 0).toString().equals("PlazoFijo"))
+					filtrarTabla.addRow(new Object[]{miTabla.getValueAt(i, 0),miTabla.getValueAt(i, 1),miTabla.getValueAt(i, 2),miTabla.getValueAt(i, 3),miTabla.getValueAt(i, 4),miTabla.getValueAt(i, 5),miTabla.getValueAt(i, 6),miTabla.getValueAt(i, 7),miTabla.getValueAt(i, 8),miTabla.getValueAt(i, 9),miTabla.getValueAt(i, 10)});
+				}
+				else 
+					if(comboBox_1.getSelectedItem().equals("Ahorro"))
+						for(int i=0;i<miTabla.getRowCount();i++){
+					if(miTabla.getValueAt(i, 0).toString().equals("Ahorro"))
+						filtrarTabla.addRow(new Object[]{miTabla.getValueAt(i, 0),miTabla.getValueAt(i, 1),miTabla.getValueAt(i, 2),miTabla.getValueAt(i, 3),miTabla.getValueAt(i, 4),miTabla.getValueAt(i, 5),miTabla.getValueAt(i, 6),miTabla.getValueAt(i, 7),miTabla.getValueAt(i, 8),miTabla.getValueAt(i, 9),miTabla.getValueAt(i, 10)});
+					}
+					else
+						if(comboBox_1.getSelectedItem().equals("Fondo"))
+							for(int i=0;i<miTabla.getRowCount();i++){
+							if(miTabla.getValueAt(i, 0).toString().equals("Fondo"))
+								filtrarTabla.addRow(new Object[]{miTabla.getValueAt(i, 0),miTabla.getValueAt(i, 1),miTabla.getValueAt(i, 2),miTabla.getValueAt(i, 3),miTabla.getValueAt(i, 4),miTabla.getValueAt(i, 5),miTabla.getValueAt(i, 6),miTabla.getValueAt(i, 7),miTabla.getValueAt(i, 8),miTabla.getValueAt(i, 9),miTabla.getValueAt(i, 10)});
+							}
+	}
+	
+	
+	/*public static void SonidoExito(){
+		String sonidoExito=elmain.sonidoExito;
+		File file = new File(sonidoExito);
+		
+	 if (file.exists()) {
+         System.out.println("El archivo existe.");
+	 }
+	 else
+		 System.out.println("no archivo existe");
+		 
+	 if(file.canRead())
+		 System.out.println("se puede leer.");
+	 else
+		 System.out.println("no se puede leer.");
+	 
+	}*/
+		public static void SonidoExito(){
+			try{
+			String sonidoExito=elmain.sonidoExito;
+			 FileInputStream fis = new FileInputStream(sonidoExito);
+	            Player player = new Player(fis);
+	            player.play();
+			}
+			catch (FileNotFoundException e){
+				System.out.println("archivo no encontrado");
+			}
+			catch (JavaLayerException e){
+				System.out.println("Error al reproducir");
+			}
+
+		}
+		
 }
 
 

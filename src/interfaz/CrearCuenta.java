@@ -182,7 +182,7 @@ public class CrearCuenta extends JDialog {
 		setLocation(40, 50);
 		setLocationRelativeTo(null);//esto es lo que hace que se centre
 		setModalityType(ModalityType.APPLICATION_MODAL); //esto es lo que hace que solo puedas interactuar con esta ventana
-		
+
 
 		final JLayeredPane panel_1 = new JLayeredPane();
 		panel_1.setBounds(0, 69, 656, 383);
@@ -302,7 +302,7 @@ public class CrearCuenta extends JDialog {
 			public void keyTyped(KeyEvent x) {
 				if(textField_8.getText().length()>UsuarioTam()){
 					x.consume();
-			}
+				}
 			}
 		});
 		textField_8.setFont(new Font("Segoe UI Black", Font.PLAIN, 18));
@@ -387,13 +387,13 @@ public class CrearCuenta extends JDialog {
 		lblSeLeIngresara_1.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
 		lblSeLeIngresara_1.setBounds(42, 269, 513, 33);
 		panelFondo.add(lblSeLeIngresara_1);
-		
+
 		lblNewLabel_8 = new JLabel(".");
 		lblNewLabel_8.setFont(new Font("Segoe UI Black", Font.PLAIN, 14));
 		lblNewLabel_8.setBounds(12, 62, 362, 16);
 		panelFondo.add(lblNewLabel_8);
 		lblNewLabel_8.setVisible(false);
-		
+
 		label_17 = new JLabel("");
 		label_17.addMouseListener(new MouseAdapter() {
 
@@ -413,13 +413,13 @@ public class CrearCuenta extends JDialog {
 		panelFondo.add(label_17);
 		label_17.setVisible(false);
 		label_17.setEnabled(false);
-		
+
 		label_21 = new JLabel(".");
 		label_21.setFont(new Font("Segoe UI Black", Font.PLAIN, 14));
 		label_21.setBounds(12, 169, 362, 16);
 		panelFondo.add(label_21);
 		label_21.setVisible(false);
-		
+
 		label_25 = new JLabel("");
 		label_25.addMouseListener(new MouseAdapter() {
 			@Override
@@ -455,7 +455,7 @@ public class CrearCuenta extends JDialog {
 			public void keyTyped(KeyEvent x) {
 				if(textField.getText().length()>UsuarioTam()){
 					x.consume();
-			}
+				}
 			}
 		});
 		textField.setFont(new Font("Segoe UI Black", Font.PLAIN, 18));
@@ -546,13 +546,13 @@ public class CrearCuenta extends JDialog {
 		lblDecirSuSaldo.setFont(new Font("Segoe UI Black", Font.BOLD, 18));
 		lblDecirSuSaldo.setBounds(386, 152, 270, 33);
 		panelCorriente.add(lblDecirSuSaldo);
-		
+
 		lblNewLabel_7 = new JLabel(".");
 		lblNewLabel_7.setFont(new Font("Segoe UI Black", Font.PLAIN, 14));
 		lblNewLabel_7.setBounds(12, 55, 362, 16);
 		panelCorriente.add(lblNewLabel_7);
 		lblNewLabel_7.setVisible(false);
-		
+
 		label_5 = new JLabel("");
 		label_5.addMouseListener(new MouseAdapter() {
 			@Override
@@ -570,13 +570,13 @@ public class CrearCuenta extends JDialog {
 		panelCorriente.add(label_5);
 		label_5.setVisible(false);
 		label_5.setEnabled(false);
-		
+
 		label_11 = new JLabel(".");
 		label_11.setFont(new Font("Segoe UI Black", Font.PLAIN, 14));
 		label_11.setBounds(12, 165, 362, 16);
 		panelCorriente.add(label_11);
 		label_11.setVisible(false);
-		
+
 		label_12 = new JLabel("");
 		label_12.addMouseListener(new MouseAdapter() {
 			@Override
@@ -594,13 +594,13 @@ public class CrearCuenta extends JDialog {
 		panelCorriente.add(label_12);
 		label_12.setVisible(false);
 		label_12.setEnabled(false);
-		
+
 		label_13 = new JLabel(".");
 		label_13.setFont(new Font("Segoe UI Black", Font.PLAIN, 14));
 		label_13.setBounds(12, 268, 362, 16);
 		panelCorriente.add(label_13);
 		label_13.setVisible(false);
-		
+
 		label_16 = new JLabel("");
 		label_16.addMouseListener(new MouseAdapter() {
 			@Override
@@ -635,7 +635,7 @@ public class CrearCuenta extends JDialog {
 			public void keyTyped(KeyEvent x) {
 				if(textField_2.getText().length()>UsuarioTam()){
 					x.consume();
-			}
+				}
 			}
 		});
 		textField_2.setFont(new Font("Segoe UI Black", Font.PLAIN, 18));
@@ -738,25 +738,25 @@ public class CrearCuenta extends JDialog {
 		lblNoSeCobra.setFont(new Font("Segoe UI Black", Font.BOLD, 18));
 		lblNoSeCobra.setBounds(386, 172, 270, 33);
 		panelPlazoFijo.add(lblNoSeCobra);
-		
+
 		label_32 = new JLabel(".");
 		label_32.setFont(new Font("Segoe UI Black", Font.PLAIN, 14));
 		label_32.setBounds(8, 56, 366, 16);
 		panelPlazoFijo.add(label_32);
 		label_32.setVisible(false);
-		
+
 		label_33 = new JLabel(".");
 		label_33.setFont(new Font("Segoe UI Black", Font.PLAIN, 14));
 		label_33.setBounds(8, 165, 366, 16);
 		panelPlazoFijo.add(label_33);
 		label_33.setVisible(false);
-		
+
 		label_34 = new JLabel(".");
 		label_34.setFont(new Font("Segoe UI Black", Font.PLAIN, 14));
 		label_34.setBounds(8, 271, 366, 16);
 		panelPlazoFijo.add(label_34);
 		label_34.setVisible(false);
-		
+
 		label_35 = new JLabel("");
 		label_35.addMouseListener(new MouseAdapter() {
 			@Override
@@ -774,7 +774,7 @@ public class CrearCuenta extends JDialog {
 		panelPlazoFijo.add(label_35);
 		label_35.setVisible(false);
 		label_35.setEnabled(false);
-		
+
 		label_36 = new JLabel("");
 		label_36.addMouseListener(new MouseAdapter() {
 			@Override
@@ -792,7 +792,7 @@ public class CrearCuenta extends JDialog {
 		panelPlazoFijo.add(label_36);
 		label_36.setVisible(false);
 		label_36.setEnabled(false);
-		
+
 		label_37 = new JLabel("");
 		label_37.addMouseListener(new MouseAdapter() {
 			@Override
@@ -976,17 +976,17 @@ public class CrearCuenta extends JDialog {
 				else
 					if(comboBox.getSelectedItem().equals("MLC")){
 						if(ValidacionMLC()){
-								Menu.cuentaCreada=true;
-								AñadirCuenta();
-								dispose();
+							Menu.cuentaCreada=true;
+							AñadirCuenta();
+							dispose();
 						}
 					}
 					else
 						if(comboBox.getSelectedItem().equals("Fondo")){
 							if(ValidacionFondo()){
-									Menu.cuentaCreada=true;
-									AñadirCuenta();
-									dispose();
+								Menu.cuentaCreada=true;
+								AñadirCuenta();
+								dispose();
 							}
 						}
 						else
@@ -1121,7 +1121,7 @@ public class CrearCuenta extends JDialog {
 		lblDeTenerYa.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
 		lblDeTenerYa.setBounds(42, 315, 425, 33);
 		panelMLC.add(lblDeTenerYa);
-		
+
 		lblNewLabel_3 = new JLabel("");
 		lblNewLabel_3.addMouseListener(new MouseAdapter() {
 			@Override
@@ -1138,7 +1138,7 @@ public class CrearCuenta extends JDialog {
 		panelMLC.add(lblNewLabel_3);
 		lblNewLabel_3.setVisible(false);
 		lblNewLabel_3.setEnabled(false);
-		
+
 		lblNewLabel_5 = new JLabel("");
 		lblNewLabel_5.addMouseListener(new MouseAdapter() {
 			@Override
@@ -1155,24 +1155,24 @@ public class CrearCuenta extends JDialog {
 		panelMLC.add(lblNewLabel_5);
 		lblNewLabel_5.setVisible(false);
 		lblNewLabel_5.setEnabled(false);
-		
-		
-		
-		
-		
+
+
+
+
+
 		lblNewLabel_4 = new JLabel(".");
 		lblNewLabel_4.setFont(new Font("Segoe UI Black", Font.PLAIN, 14));
 		lblNewLabel_4.setBounds(12, 61, 360, 16);
 		panelMLC.add(lblNewLabel_4);
 		lblNewLabel_4.setVisible(false);
-		
+
 		lblNewLabel_6 = new JLabel(".");
 		lblNewLabel_6.setFont(new Font("Segoe UI Black", Font.PLAIN, 14));
 		lblNewLabel_6.setBounds(12, 170, 360, 16);
 		panelMLC.add(lblNewLabel_6);
 		lblNewLabel_6.setVisible(false);
-		
-		
+
+
 
 		buttonGroup.add(buttonPersonal);
 		buttonGroup.add(buttonEstatal);
@@ -1222,19 +1222,19 @@ public class CrearCuenta extends JDialog {
 		lblsiEsEstatal.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
 		lblsiEsEstatal.setBounds(287, 344, 317, 33);
 		panelAhorro.add(lblsiEsEstatal);
-		
+
 		lblNewLabel_9 = new JLabel(".");
 		lblNewLabel_9.setFont(new Font("Segoe UI Black", Font.PLAIN, 14));
 		lblNewLabel_9.setBounds(80, 200, 216, 16);
 		panelAhorro.add(lblNewLabel_9);
 		lblNewLabel_9.setVisible(false);
-		
+
 		label_26 = new JLabel(".");
 		label_26.setFont(new Font("Segoe UI Black", Font.PLAIN, 14));
 		label_26.setBounds(360, 200, 215, 16);
 		panelAhorro.add(label_26);
 		label_26.setVisible(false);
-		
+
 		label_28 = new JLabel("");
 		label_28.addMouseListener(new MouseAdapter() {
 			@Override
@@ -1252,13 +1252,13 @@ public class CrearCuenta extends JDialog {
 		panelAhorro.add(label_28);
 		label_28.setVisible(false);
 		label_28.setEnabled(false);
-		
+
 		label_29 = new JLabel(".");
 		label_29.setFont(new Font("Segoe UI Black", Font.PLAIN, 14));
 		label_29.setBounds(12, 56, 366, 16);
 		panelAhorro.add(label_29);
 		label_29.setVisible(false);
-		
+
 		label_30 = new JLabel("");
 		label_30.addMouseListener(new MouseAdapter() {
 			@Override
@@ -1276,7 +1276,7 @@ public class CrearCuenta extends JDialog {
 		panelAhorro.add(label_30);
 		label_30.setVisible(false);
 		label_30.setEnabled(false);
-		
+
 		label_31 = new JLabel("");
 		label_31.addMouseListener(new MouseAdapter() {
 			@Override
@@ -1294,13 +1294,13 @@ public class CrearCuenta extends JDialog {
 		panelAhorro.add(label_31);
 		label_31.setVisible(false);
 		label_31.setEnabled(false);
-		
+
 		JLabel lblSiapareceToque = new JLabel("Toque si aparece:");
 		lblSiapareceToque.setIcon(null);
 		lblSiapareceToque.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
 		lblSiapareceToque.setBounds(0, 31, 138, 34);
 		contentPanel.add(lblSiapareceToque);
-		
+
 		JLabel label_38 = new JLabel("");
 		label_38.setBounds(136, 33, 39, 34);
 		contentPanel.add(label_38);
@@ -1341,13 +1341,13 @@ public class CrearCuenta extends JDialog {
 				}
 			}else
 				if(comboBox.getSelectedItem().equals("Fondo")){
-						salarioEstatal=Float.parseFloat(textField_9.getText());
-						Fondo p=new Fondo(usuario.getIdU(),textField_8.getText(),salarioEstatal * 10 / 100);
-						banco.getUsuarios().get(pos).getCuentas().add(p);
+					salarioEstatal=Float.parseFloat(textField_9.getText());
+					Fondo p=new Fondo(usuario.getIdU(),textField_8.getText(),salarioEstatal * 10 / 100);
+					banco.getUsuarios().get(pos).getCuentas().add(p);
 				}else
 					if(comboBox.getSelectedItem().equals("MLC")){
-							MLC p=new MLC(usuario.getIdU(),textField_11.getText(),Float.parseFloat(textField_13.getText()));
-							banco.getUsuarios().get(pos).getCuentas().add(p);
+						MLC p=new MLC(usuario.getIdU(),textField_11.getText(),Float.parseFloat(textField_13.getText()));
+						banco.getUsuarios().get(pos).getCuentas().add(p);
 					}else
 						if(comboBox.getSelectedItem().equals("Plazo Fijo")){
 							PlazoFijo p=new PlazoFijo(usuario.getIdU(),textField_2.getText(),Float.parseFloat(textField_4.getText()));
@@ -1418,7 +1418,7 @@ public class CrearCuenta extends JDialog {
 			label_28.setEnabled(true);
 			label_29.setText("Ese usuario no existe");
 		}
-		
+
 		if(!(textField_7.getText().isEmpty() && textField_6.getText().isEmpty())){
 			if((!(textField_7.getText().isEmpty()) && textField_6.getText().isEmpty()) || (textField_7.getText().isEmpty()) && !(textField_6.getText().isEmpty())){
 				if((!(textField_7.getText().isEmpty()) && textField_6.getText().isEmpty())){
@@ -1456,7 +1456,7 @@ public class CrearCuenta extends JDialog {
 						label_31.setEnabled(true);
 						label_26.setText("No se aceptan letras");
 					}
-					
+
 
 				}
 			}
@@ -1467,7 +1467,7 @@ public class CrearCuenta extends JDialog {
 				label_31.setEnabled(true);
 				lblNewLabel_9.setText("Una celda debe estar vacia");
 				label_26.setText("Una celda debe estar vacia");
-				
+
 			}
 		}
 		else{
@@ -1478,8 +1478,8 @@ public class CrearCuenta extends JDialog {
 			lblNewLabel_9.setText("Una celda debe tener numeros");
 			label_26.setText("Una celda debe tener numeros");
 		}
-		
-		
+
+
 		return validoB==true && validoS==true ? true : false;
 
 	}
@@ -1522,9 +1522,9 @@ public class CrearCuenta extends JDialog {
 				}
 				else{
 					if(fechaUsuario.before(fechaActual)){
-					label_36.setVisible(true);
-					label_36.setEnabled(true);
-					label_33.setText("La fecha es anterior a la actual");
+						label_36.setVisible(true);
+						label_36.setEnabled(true);
+						label_33.setText("La fecha es anterior a la actual");
 					}
 					else{
 						label_36.setVisible(true);
@@ -1532,22 +1532,22 @@ public class CrearCuenta extends JDialog {
 						label_33.setText("La fecha coincide con la actual");
 					}
 				}
-				
+
 			}
 			else{
 				label_36.setVisible(true);
 				label_36.setEnabled(true);
 				label_33.setText("Le faltan datos");
-				
-		}
+
+			}
 		}
 		else{
 			label_36.setVisible(true);
 			label_36.setEnabled(true);
 			label_33.setText("Esta vacia la celda");
 		}
-		
-		
+
+
 		if(!textField_4.getText().isEmpty()){
 			if(EsFloat(textField_4.getText())){
 				float saldo = Float.parseFloat(textField_4.getText());
@@ -1571,7 +1571,7 @@ public class CrearCuenta extends JDialog {
 			label_37.setEnabled(true);
 			label_34.setText("Esta vacia la celda");
 		}
-		
+
 		return validoB==true && validoS==true && validoF==true ? true : false;
 	}
 	public boolean ValidacionMLC(){
@@ -1600,42 +1600,42 @@ public class CrearCuenta extends JDialog {
 			lblNewLabel_3.setEnabled(true);
 			lblNewLabel_4.setText("Ese usuario no existe");
 		}
-			if(!textField_13.getText().isEmpty()){
-				if(EsFloat(textField_13.getText())){
-					float saldo = Float.parseFloat(textField_13.getText());
-					if(saldo>10){
-						validoS=true;
-					}
-					else{
-						lblNewLabel_5.setVisible(true);
-						lblNewLabel_5.setEnabled(true);
-						lblNewLabel_6.setText("Debe ser mayor que 10 mlc");
-					}
+		if(!textField_13.getText().isEmpty()){
+			if(EsFloat(textField_13.getText())){
+				float saldo = Float.parseFloat(textField_13.getText());
+				if(saldo>10){
+					validoS=true;
 				}
 				else{
 					lblNewLabel_5.setVisible(true);
 					lblNewLabel_5.setEnabled(true);
-					lblNewLabel_6.setText("No se aceptan letras");
+					lblNewLabel_6.setText("Debe ser mayor que 10 mlc");
 				}
-				
-				for(int i=0;i<usuario.getCuentas().size();i++){
-					if(usuario.getCuentas().get(i) instanceof Fondo || usuario.getCuentas().get(i) instanceof MLC){
-					MoF=true;
-					i=usuario.getCuentas().size();
-					}
-				}
-					if(MoF){
-							JOptionPane.showMessageDialog(null, "Ya tiene una cuenta de Fondo o MLC");
-					}
 			}
 			else{
 				lblNewLabel_5.setVisible(true);
 				lblNewLabel_5.setEnabled(true);
-				lblNewLabel_6.setText("Esta vacia la celda");
+				lblNewLabel_6.setText("No se aceptan letras");
 			}
-		
 
-			
+			for(int i=0;i<usuario.getCuentas().size();i++){
+				if(usuario.getCuentas().get(i) instanceof Fondo || usuario.getCuentas().get(i) instanceof MLC){
+					MoF=true;
+					i=usuario.getCuentas().size();
+				}
+			}
+			if(MoF){
+				JOptionPane.showMessageDialog(null, "Ya tiene una cuenta de Fondo o MLC");
+			}
+		}
+		else{
+			lblNewLabel_5.setVisible(true);
+			lblNewLabel_5.setEnabled(true);
+			lblNewLabel_6.setText("Esta vacia la celda");
+		}
+
+
+
 
 		return validoB==true && validoS==true && MoF==false? true : false;
 
@@ -1664,7 +1664,7 @@ public class CrearCuenta extends JDialog {
 		else{
 			validoB=true;
 		}
-		
+
 		if(!txtDejeLaCelda.getText().equals("")){
 			for(int i=0;i<banco.getUsuarios().size();i++){
 				if(txtDejeLaCelda.getText().equals(banco.getUsuarios().get(i).getIdU())){
@@ -1676,20 +1676,20 @@ public class CrearCuenta extends JDialog {
 		else{
 			validoT=true;
 		}
-		
-		
+
+
 		if(!validoB){
 			label_5.setVisible(true);
 			label_5.setEnabled(true);
 			lblNewLabel_7.setText("Ese usuario no existe");
 		}
-		
+
 		if(!validoT){
 			label_12.setVisible(true);
 			label_12.setEnabled(true);
 			label_11.setText("Ese usuario no existe");
 		}
-		
+
 		if(!textField_1.getText().isEmpty()){
 			if(EsFloat(textField_1.getText())){
 				float saldo = Float.parseFloat(textField_1.getText());
@@ -1723,7 +1723,7 @@ public class CrearCuenta extends JDialog {
 		label_17.setEnabled(false);
 		label_25.setVisible(false);
 		label_25.setEnabled(false);
-		
+
 		boolean validoB=false;//beneficiario
 		boolean validoS=false;//saldo
 		boolean MoF=false;
@@ -1743,51 +1743,51 @@ public class CrearCuenta extends JDialog {
 			label_17.setEnabled(true);
 			lblNewLabel_8.setText("Ese usuario no existe");
 		}
-			if(!textField_9.getText().isEmpty()){
-				if(EsFloat(textField_9.getText())){
-					float saldo = Float.parseFloat(textField_9.getText());
-					if(saldo>30){
-						validoS=true;
-					}
-					else{
-						label_25.setVisible(true);
-						label_25.setEnabled(true);
-						label_21.setText("Debe ser mayor que 30 pesos");
-					}
+		if(!textField_9.getText().isEmpty()){
+			if(EsFloat(textField_9.getText())){
+				float saldo = Float.parseFloat(textField_9.getText());
+				if(saldo>30){
+					validoS=true;
 				}
 				else{
 					label_25.setVisible(true);
 					label_25.setEnabled(true);
-					label_21.setText("No se aceptan letras");
+					label_21.setText("Debe ser mayor que 30 pesos");
 				}
 			}
 			else{
 				label_25.setVisible(true);
 				label_25.setEnabled(true);
-				label_21.setText("Esta vacia la celda");
+				label_21.setText("No se aceptan letras");
 			}
-			
-			for(int i=0;i<usuario.getCuentas().size();i++){
-				if(usuario.getCuentas().get(i) instanceof Fondo || usuario.getCuentas().get(i) instanceof MLC){
+		}
+		else{
+			label_25.setVisible(true);
+			label_25.setEnabled(true);
+			label_21.setText("Esta vacia la celda");
+		}
+
+		for(int i=0;i<usuario.getCuentas().size();i++){
+			if(usuario.getCuentas().get(i) instanceof Fondo || usuario.getCuentas().get(i) instanceof MLC){
 				MoF=true;
 				i=usuario.getCuentas().size();
-				}
 			}
-				if(MoF){
-						JOptionPane.showMessageDialog(null, "Ya tiene una cuenta de Fondo o MLC");
-				}
-	
+		}
+		if(MoF){
+			JOptionPane.showMessageDialog(null, "Ya tiene una cuenta de Fondo o MLC");
+		}
+
 		return validoB==true && validoS==true && MoF==false? true : false;
 
 	}
-	
+
 	public boolean ValidarFecha(String fecha){
 		boolean sifecha=false;
 		SimpleDateFormat fechaPrederteminada = new SimpleDateFormat("dd-MMM-yyyy");//verifica si un String puede ser una fecha con este modelo de fecha
 		fechaPrederteminada.setLenient(false);//Lenient es el modo de flexibilidad,si es true 32-ene-2024 va a ser 01-feb-2024,en false lanzara una exception de que no puede ser
 		try{
-			 fechaUsuario = fechaPrederteminada.parse(fecha);
-			 fechaActual = fechaPrederteminada.parse(fchjul.getText());
+			fechaUsuario = fechaPrederteminada.parse(fecha);
+			fechaActual = fechaPrederteminada.parse(fchjul.getText());
 			sifecha=true;
 
 		}
