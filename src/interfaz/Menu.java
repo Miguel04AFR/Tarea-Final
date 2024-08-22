@@ -2861,6 +2861,9 @@ public class Menu extends JFrame {
 	 
 	}*/
 		public static void SonidoExito(){
+			  Thread hiloContinua = new Thread(new Runnable() {//esto se llama hilo y sirve para que el programa no se congele mientras suena el sonido
+			        @Override
+			        public void run() {
 			try{
 			String sonidoExito=elmain.sonidoExito;
 			 FileInputStream fis = new FileInputStream(sonidoExito);
@@ -2875,7 +2878,10 @@ public class Menu extends JFrame {
 			}
 
 		}
-		
+			
+		});
+			  hiloContinua.start();//esto hace que el programa no se congele
+		}
 }
 
 
