@@ -13,6 +13,8 @@ import LogicaClases.Banco;
 
 
 
+
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -47,6 +49,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import logica.utilidades.logica.Validaciones;
+
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.FocusAdapter;
@@ -230,7 +233,10 @@ public class NuevaCuenta extends JFrame {
 		    	if(validacion){
 		    	AñadirUsuario();
 		    	cuentacreada();
+		    	Menu.SonidoExito();
 		    	}
+		    	else
+		    		Menu.SonidoError();
 		    	
 		       
 		        

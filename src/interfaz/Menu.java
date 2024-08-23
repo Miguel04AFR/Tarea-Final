@@ -422,12 +422,13 @@ public class Menu extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				if(!negocios){
+					SonidoError();
 					NotificacionesModernas.getInstancia().show(Tipo.ERROR, 5000, "No tiene todavia ninguna cuenta de Fondo");
 				}
-				else
+				else{
 				lblNewLabel_10.setText(String.valueOf(salarioEstatal));
 				label_14.setText(String.valueOf(porcentajeFondo));
-				
+				}
 			}
 		});
 		botonAnimacion_10.addActionListener(new ActionListener() {
@@ -625,10 +626,11 @@ public class Menu extends JFrame {
 				p.setVisible(true);
 				VerCuenta();
 				AñadirCuentaTabla(miTabla);
-				SonidoExito();
+				
 
 
 				if(cuentaCreada){
+					SonidoExito();
 					NotificacionesModernas.getInstancia().show(Tipo.EXITO,Localizacion.SUP_CENTRO,5000,"Cuenta creada exitosamente");
 					cuentaCreada=false;
 				}
@@ -660,6 +662,7 @@ public class Menu extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				if(!tiempoInteres){
+					SonidoError();
 					NotificacionesModernas.getInstancia().show(Tipo.ERROR, 5000, "No tiene todavia ningun interes");
 				}
 			}
@@ -822,8 +825,8 @@ public class Menu extends JFrame {
 		paneldatos.add(btnmcnAsd);
 		
 		JLabel lblFiltrar = new JLabel("Filtrar:");
-		lblFiltrar.setFont(new Font("Segoe UI Black", Font.BOLD, 13));
-		lblFiltrar.setBounds(243, 93, 61, 16);
+		lblFiltrar.setFont(new Font("Segoe UI Black", Font.BOLD, 14));
+		lblFiltrar.setBounds(243, 93, 61, 27);
 		paneldatos.add(lblFiltrar);
 		
 		comboBox_1 = new JComboBox();
@@ -918,7 +921,7 @@ public class Menu extends JFrame {
 		ultiOpeTabla.addColumn("Cuenta");
 		ultiOpeTabla.addColumn("Monto");
 		ultiOpeTabla.addColumn("Hora");
-		ultiOpeTabla.addColumn("Fehca");
+		ultiOpeTabla.addColumn("Fecha");
 		
 		table_1 = new JTable(ultiOpeTabla);
 		table_1.setFont(new Font("Segoe UI Black", Font.PLAIN, 12));
@@ -1128,9 +1131,11 @@ public class Menu extends JFrame {
 					SonidoExito();
 					NotificacionesModernas.getInstancia().show(Tipo.EXITO, 6000, "Su transferencia a sido un exito");
 					}
-				else
+				else{
+					SonidoError();
 					NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "Ya no puede extraer mas en la cuenta de fondo hasta el proximo año");
 				}
+					}
 					else{
 							miTabla.setValueAt(saldoTrans, cambioPos, 1);
 							miTabla.setValueAt(SaldoEnvio, enviar, 1);
@@ -1146,18 +1151,26 @@ public class Menu extends JFrame {
 					}
 						
 					}
-				else
+				else{
+					SonidoError();
 					NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "No puedes tranferir si las cuentas son de diferentes monedas");
 				}
-					else
+					}
+					else{
+						SonidoError();
 						NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "El monto no puede ser mayor que el saldo de la cuenta a transferir");
 					}
+					}
 					
-					else
+					else{
+						SonidoError();
 						NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "Por favor introduzca numeros");
 				}
-				else
+				}
+				else{
+					SonidoError();
 					NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "Elija las cuentas");
+			}
 			}
 				
 		});
@@ -1321,9 +1334,11 @@ public class Menu extends JFrame {
 					NotificacionesModernas.getInstancia().show(Tipo.EXITO, 6000, "La operacion recarga movil a sido un exito");
 					
 					}
-					else
+					else{
+						SonidoError();
 						NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "Ya no puede extraer mas en la cuenta de fondo hasta el proximo año");
-				}
+					}
+					}
 					else{
 						miTabla.setValueAt(saldoTrans, cambioPos, 1);
 						textField.setText("");
@@ -1336,18 +1351,25 @@ public class Menu extends JFrame {
 						
 					}
 					}
-					else
+					else{
+						SonidoError();
 						NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "El monto no puede ser mayor que el saldo de la cuenta que recarga");
 					}
-					else
+					}
+					else{
+						SonidoError();
 						NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "Por favor,introduzca un numero movil cubano");
 					}
-					else
+					}
+					else{
+						SonidoError();
 						NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "Por favor,introduzca numeros");
-				
+					}
 			}
-				else
+				else{
+					SonidoError();
 					NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "Elija una cuenta");
+			}
 			}
 		});
 		btnmcnRecargar.setText("Recargar");
@@ -1884,12 +1906,16 @@ public class Menu extends JFrame {
 				NotificacionesModernas.getInstancia().show(Tipo.EXITO, 6000, "Su recarga a sido un exito");
 				
 				}
-				else
+				else{
+					SonidoError();
 					NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "Por favor introduzca numeros");
 			
+				}
 		}
-				else
+				else{
+					SonidoError();
 					NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "Elija una cuenta");
+			}
 			}
 			
 			
@@ -1911,6 +1937,7 @@ public class Menu extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				if(contadorIntereses<12){
+					SonidoError();
 					NotificacionesModernas.getInstancia().show(Tipo.ERROR, 5000, "No tiene todavia intereses de este tipo");
 				}
 			}
@@ -2040,9 +2067,10 @@ public class Menu extends JFrame {
 				}
 				textField_4.setText("");
 				}
-				else
+				else{
+					SonidoError();
 					NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "Por favor,introduzca numeros");
-					
+				}
 			}
 		});
 		botonAnimacion_14.setText("Aceptar");
@@ -2092,8 +2120,10 @@ public class Menu extends JFrame {
 				SonidoExito();
 				NotificacionesModernas.getInstancia().show(Tipo.EXITO, 6000, "La operacion ingresar intereses a sido un exito");
 			}
-				else
+				else{
+					SonidoError();
 					NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "Elija una cuenta");
+				}
 			}
 		});
 		btnmcnIngresarALa.setText("Ingresar a la cuenta");
@@ -2165,9 +2195,10 @@ public class Menu extends JFrame {
 				SonidoExito();
 				NotificacionesModernas.getInstancia().show(Tipo.EXITO, 6000, "La operacion extraccion de intereses a sido un exito");
 			}
-			else
+			else{
+				SonidoError();
 				NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "Elija una cuenta");
-				
+			}
 			}
 		});
 		btnmcnExtraer.setText("Extraer los intereses");
@@ -2213,9 +2244,10 @@ public class Menu extends JFrame {
 				NotificacionesModernas.getInstancia().show(Tipo.EXITO, 6000, "La operacion ingresar intereses a sido un exito");
 				
 			}
-				else
+				else{
+					SonidoError();
 					NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "Elija una cuenta");
-					
+				}
 			}
 		});
 		botonAnimacion_15.setText("Ingresar a la cuenta");
@@ -2290,8 +2322,10 @@ public class Menu extends JFrame {
 				NotificacionesModernas.getInstancia().show(Tipo.EXITO, 6000, "La operacion extraer intereses a sido un exito");
 				
 			}
-				else
+				else{
+					SonidoError();
 					NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "Elija una cuenta");
+			}
 			}
 					
 		});
@@ -2323,8 +2357,10 @@ public class Menu extends JFrame {
 				NotificacionesModernas.getInstancia().show(Tipo.EXITO, 6000, "La operacion ingresar intereses a sido un exito");
 				
 			}
-				else
+				else{
+					SonidoError();
 					NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "Elija las cuentas");
+			}
 			}
 		});
 		btnmcnIngresarEnCuenta.setText("Ingresar en cuenta de Ahorro");
@@ -2754,6 +2790,7 @@ public class Menu extends JFrame {
 	            listaMovil.clear();
 	            listaRecargaCuenta.clear();
 	            listaTranferenciaEnvio.clear();
+	            SonidoExito();
 	            NotificacionesModernas.getInstancia().show(Tipo.EXITO, 6000, "La cuenta se ha eliminado exitosamente");
 	            
 	            
@@ -2770,6 +2807,7 @@ public class Menu extends JFrame {
 				ListaIngresarInteresAhorro();
 	        }
 	        	else{
+	        		SonidoError();
 	        		NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "No puede borrar una cuenta de Ahorro estatal");
 	        		txtNumero.setText("");
 	        	}
@@ -2867,6 +2905,29 @@ public class Menu extends JFrame {
 			try{
 			String sonidoExito=elmain.sonidoExito;
 			 FileInputStream fis = new FileInputStream(sonidoExito);
+	            Player player = new Player(fis);
+	            player.play();
+			}
+			catch (FileNotFoundException e){
+				System.out.println("archivo no encontrado");
+			}
+			catch (JavaLayerException e){
+				System.out.println("Error al reproducir");
+			}
+
+		}
+			
+		});
+			  hiloContinua.start();//esto hace que el programa no se congele
+		}
+		
+		public static void SonidoError(){
+			  Thread hiloContinua = new Thread(new Runnable() {//esto se llama hilo y sirve para que el programa no se congele mientras suena el sonido
+			        @Override
+			        public void run() {
+			try{
+			String sonidoError=elmain.sonidoError;
+			 FileInputStream fis = new FileInputStream(sonidoError);
 	            Player player = new Player(fis);
 	            player.play();
 			}

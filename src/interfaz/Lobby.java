@@ -7,7 +7,7 @@ import java.awt.RenderingHints.Key;
 import javax.sound.sampled.*;//hace sonidos
 import LogicaClases.Banco;
 import LogicaClases.Usuario;
-
+import interfaz.Menu;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -470,10 +470,11 @@ public class Lobby extends JFrame {
 			Menu elmenu = new Menu();
 			elmenu.setVisible(true);
 			dispose();
+			Menu.SonidoExito();
 			NotificacionesModernas.getInstancia().show(Tipo.INFO,Localizacion.SUP_DER,3000,"Se ha autenticado correctamente en la plataforma");
 		}
 		else{
-			
+			Menu.SonidoError();
 			NotificacionesModernas.getInstancia().show(Tipo.ERROR,Localizacion.SUP_DER,3000,"Usuario o contraseña incorrecta");
 		}
 

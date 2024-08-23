@@ -155,7 +155,7 @@ public class Cajero extends JDialog {
 											tablaCajero.setValueAt(saldo-monto, cambioPos, 1);
 											textField.setText("");
 											table.clearSelection();
-											JOptionPane.showMessageDialog(null, "La extraccion a sido un exito");
+											JOptionPane.showMessageDialog(null, "La extraccion ha sido un exito");
 											Menu.SonidoExito();
 										}
 									}

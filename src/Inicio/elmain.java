@@ -22,9 +22,10 @@ import com.formdev.flatlaf.FlatDarculaLaf;
 import LogicaClases.Banco;
 import interfaz.Lobby;
 public class elmain {
-	public static Banco banco=Banco.getInstancia();
-	public static String sonidoExito = "sonidos/success-1-6297.mp3"; 
-
+	public static Banco banco=Banco.getInstancia();//la instacnia del banco
+	public static String sonidoExito = "sonidos/success-1-6297.mp3"; //el sonido de  exito
+	public static String sonidoError = "sonidos/error-126627.mp3"; //el sonido de error
+	
 	public static void main(String[] args) {
 		Usuario primer=new Usuario("usuario","usuario","Alfredo Lopez","41y48","52334463","usuario@gmail.com",'M',"04040534681","perfil","77234398");
 		Corriente j=new Corriente("usuario",null,40,null);

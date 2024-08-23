@@ -972,6 +972,8 @@ public class CrearCuenta extends JDialog {
 						AñadirCuenta();
 						dispose();
 					}
+					else
+						Menu.SonidoError();
 				}
 				else
 					if(comboBox.getSelectedItem().equals("MLC")){
@@ -980,6 +982,8 @@ public class CrearCuenta extends JDialog {
 							AñadirCuenta();
 							dispose();
 						}
+						else
+							Menu.SonidoError();
 					}
 					else
 						if(comboBox.getSelectedItem().equals("Fondo")){
@@ -988,6 +992,8 @@ public class CrearCuenta extends JDialog {
 								AñadirCuenta();
 								dispose();
 							}
+							else
+								Menu.SonidoError();
 						}
 						else
 							if(comboBox.getSelectedItem().equals("Ahorro")){
@@ -996,6 +1002,8 @@ public class CrearCuenta extends JDialog {
 									AñadirCuenta();
 									dispose();
 								}
+								else
+									Menu.SonidoError();
 							}
 							else
 								if(comboBox.getSelectedItem().equals("Plazo Fijo")){
@@ -1004,6 +1012,8 @@ public class CrearCuenta extends JDialog {
 										AñadirCuenta();
 										dispose();
 									}
+									else
+										Menu.SonidoError();
 								}
 
 			}
