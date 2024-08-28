@@ -10,6 +10,7 @@ import java.awt.Image;
 import Inicio.elmain;
 import LogicaClases.*;
 import interfaz.*;
+import sonidos.*;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -28,6 +29,7 @@ import componentesVisuales.NotificacionesModernas.Tipo;
 import componentesVisuales.PanelGradiente;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;//el jl es el Jlayer sirve para reproducir sonidos en mp3
+
 
 
 
@@ -122,8 +124,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URL;
 
 import javax.swing.JInternalFrame;
+
+import componentesVisuales.CarruselImagenes;
 
 
 
@@ -560,7 +565,27 @@ public class Menu extends JFrame {
 		lblBienvenidoAInversion.setBounds(255, 0, 278, 45);
 		panelinicio.add(lblBienvenidoAInversion);
 		
+		CarruselImagenes carruselImagenes = new CarruselImagenes(8000);
+		carruselImagenes.setBounds(10, 44, 846, 384);
+		panelinicio.add(carruselImagenes);
 		
+		 // Crea instancias de Icon a partir de las URLs
+        URL url1 = Menu.class.getResource("/iconos/1.png");
+        URL url2 = Menu.class.getResource("/iconos/2.png");
+        URL url3 = Menu.class.getResource("/iconos/3.png");
+        URL url4 = Menu.class.getResource("/iconos/4.png");
+        Icon icono1 = new ImageIcon(url1);
+        Icon icono2 = new ImageIcon(url2);
+        Icon icono3 = new ImageIcon(url3);
+        Icon icono4 = new ImageIcon(url4);
+
+        // Agrega los iconos al carrusel
+        carruselImagenes.addImage(icono1);
+        carruselImagenes.addImage(icono2);
+        carruselImagenes.addImage(icono3);
+        carruselImagenes.addImage(icono4);
+        
+        carruselImagenes.iniciarAnimacion();
 		
 		
 		panelope = new JPanel();
