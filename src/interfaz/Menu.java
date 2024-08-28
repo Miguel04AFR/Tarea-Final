@@ -344,7 +344,7 @@ public class Menu extends JFrame {
 		lblNewLabel_2 = new JLabel("Ultimas");
 		lblNewLabel_2.setBounds(3, 322, 56, 16);
 		panel.add(lblNewLabel_2);
-		lblNewLabel_2.setFont(new Font("Segoe UI Black", Font.BOLD, 13));
+		lblNewLabel_2.setFont(new Font("Segoe UI Black", Font.BOLD, 11));
 		
 		lblNewLabel_3 = new JLabel("operaciones");
 		lblNewLabel_3.setBounds(3, 340, 85, 16);
@@ -449,15 +449,15 @@ public class Menu extends JFrame {
 
 		JLabel lblComercio = new JLabel("Comercio");
 		lblComercio.setFont(new Font("Segoe UI Black", Font.BOLD, 11));
-		lblComercio.setBounds(1, 129, 116, 16);
+		lblComercio.setBounds(3, 140, 116, 16);
 		panel.add(lblComercio);
 		
 		JLabel lblBancario = new JLabel("bancario");
 		lblBancario.setFont(new Font("Segoe UI Black", Font.BOLD, 11));
-		lblBancario.setBounds(1, 143, 116, 16);
+		lblBancario.setBounds(3, 154, 116, 16);
 		panel.add(lblBancario);
 		
-		JLabel lblAgencia = new JLabel("Agencias");
+		JLabel lblAgencia = new JLabel("Agencias y");
 		lblAgencia.setFont(new Font("Segoe UI Black", Font.BOLD, 11));
 		lblAgencia.setBounds(5, 196, 116, 16);
 		panel.add(lblAgencia);
@@ -468,8 +468,8 @@ public class Menu extends JFrame {
 		panel.add(lblInicio);
 		
 		JLabel lblCajeros = new JLabel("Cajeros");
-		lblCajeros.setFont(new Font("Segoe UI Black", Font.BOLD, 13));
-		lblCajeros.setBounds(3, 212, 56, 16);
+		lblCajeros.setFont(new Font("Segoe UI Black", Font.BOLD, 11));
+		lblCajeros.setBounds(5, 212, 56, 16);
 		panel.add(lblCajeros);
 		
 		JLabel lblCerrar = new JLabel("Menu");
@@ -559,6 +559,116 @@ public class Menu extends JFrame {
 		lblBienvenidoAInversion.setBackground(Color.BLACK);
 		lblBienvenidoAInversion.setBounds(255, 0, 278, 45);
 		panelinicio.add(lblBienvenidoAInversion);
+		
+		JLabel lblNewLabel_13 = new JLabel("Inversion Max es una entidad bancaria innovadora que ofrece una amplia gama de servicios financie-");
+		lblNewLabel_13.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
+		lblNewLabel_13.setBounds(29, 58, 800, 38);
+		panelinicio.add(lblNewLabel_13);
+		
+		JLabel lblRosPara = new JLabel("ros para satisfacer las necesidades de nuestros clientes. A continuaci\u00F3n, se detallan las principales ca-");
+		lblRosPara.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
+		lblRosPara.setBounds(29, 80, 800, 38);
+		panelinicio.add(lblRosPara);
+		
+		JLabel lblRactersticasYServicios = new JLabel("racter\u00EDsticas y servicios que ofrecemos:");
+		lblRactersticasYServicios.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
+		lblRactersticasYServicios.setBounds(29, 102, 800, 38);
+		panelinicio.add(lblRactersticasYServicios);
+		
+		JLabel lblOperaciones_2 = new JLabel("Dep\u00F3sitos y retiros: Los clientes pueden depositar y retirar dinero de sus cuentas de forma segura.");
+		lblOperaciones_2.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
+		lblOperaciones_2.setBounds(29, 148, 800, 38);
+		panelinicio.add(lblOperaciones_2);
+		
+		JLabel lblServicios = new JLabel("Servicios:");
+		lblServicios.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
+		lblServicios.setBounds(29, 125, 800, 38);
+		panelinicio.add(lblServicios);
+		
+		JLabel lblTransferenciasOfrecemosTransferencias = new JLabel("Cuentas: Ofrecemos una cantidad de 5 cuentas a elegir Corriente,Ahorro,Plazo Fijo,MLC y de Fondo");
+		lblTransferenciasOfrecemosTransferencias.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
+		lblTransferenciasOfrecemosTransferencias.setBounds(29, 175, 800, 38);
+		panelinicio.add(lblTransferenciasOfrecemosTransferencias);
+		
+		JLabel label = new JLabel("Transferencias: Ofrecemos transferencias nacionales tanto de cuenta tipo MLC y CUP.");
+		label.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
+		label.setBounds(29, 202, 800, 38);
+		panelinicio.add(label);
+		
+		JLabel lblIntereses_1 = new JLabel("Intereses: Ofrecemos diferentes tipos de intereses para cuenta Corrientes,Plazo Fijo y de Fondo. ");
+		lblIntereses_1.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
+		lblIntereses_1.setBounds(29, 229, 800, 38);
+		panelinicio.add(lblIntereses_1);
+		
+		JLabel lblYDiferentesManeras = new JLabel("Ademas de diferentes maneras de extraerlo.");
+		lblYDiferentesManeras.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
+		lblYDiferentesManeras.setBounds(29, 249, 800, 38);
+		panelinicio.add(lblYDiferentesManeras);
+		
+		JLabel lblUsuarioInformacionDel = new JLabel("Usuario: Informacion del usuario con sus datos personales e informacion de todas sus cuentas");
+		lblUsuarioInformacionDel.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
+		lblUsuarioInformacionDel.setBounds(29, 276, 800, 38);
+		panelinicio.add(lblUsuarioInformacionDel);
+		
+		JLabel lblConTodoLo = new JLabel("con todo lo necesario para su gestion y sus ultimas operaciones realizadas.");
+		lblConTodoLo.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
+		lblConTodoLo.setBounds(29, 296, 800, 38);
+		panelinicio.add(lblConTodoLo);
+		
+		JLabel lblAgencias = new JLabel("Agencias: Contamos con una red de agencias distribuidas para brindar un servicio accesible.");
+		lblAgencias.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
+		lblAgencias.setBounds(29, 323, 800, 38);
+		panelinicio.add(lblAgencias);
+		
+		JLabel lblAdemasDeLa = new JLabel("Ademas de la informacion de la agencia junto con sus cajeros disponibles.");
+		lblAdemasDeLa.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
+		lblAdemasDeLa.setBounds(29, 343, 800, 38);
+		panelinicio.add(lblAdemasDeLa);
+		
+		JLabel lblCajeros_1 = new JLabel("Cajeros: Los cajeros autom\u00E1ticos est\u00E1n disponibles las 24 horas del d\u00EDa y los 7 d\u00EDas de la semana. En ");
+		lblCajeros_1.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
+		lblCajeros_1.setBounds(29, 370, 800, 38);
+		panelinicio.add(lblCajeros_1);
+		
+		JLabel lblEnEllosEsta = new JLabel("ellos esta disponible la revision de saldo de todas sus cuentas y la extracion en billetes menos MLC.");
+		lblEnEllosEsta.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
+		lblEnEllosEsta.setBounds(29, 390, 800, 38);
+		panelinicio.add(lblEnEllosEsta);
+		
+		JLabel label_38 = new JLabel(".");
+		label_38.setFont(new Font("Segoe UI Black", Font.PLAIN, 35));
+		label_38.setBounds(12, 164, 11, 43);
+		panelinicio.add(label_38);
+		
+		JLabel label_39 = new JLabel(".");
+		label_39.setFont(new Font("Segoe UI Black", Font.PLAIN, 35));
+		label_39.setBounds(12, 138, 11, 43);
+		panelinicio.add(label_39);
+		
+		JLabel label_40 = new JLabel(".");
+		label_40.setFont(new Font("Segoe UI Black", Font.PLAIN, 35));
+		label_40.setBounds(12, 191, 11, 43);
+		panelinicio.add(label_40);
+		
+		JLabel label_41 = new JLabel(".");
+		label_41.setFont(new Font("Segoe UI Black", Font.PLAIN, 35));
+		label_41.setBounds(12, 218, 11, 43);
+		panelinicio.add(label_41);
+		
+		JLabel label_42 = new JLabel(".");
+		label_42.setFont(new Font("Segoe UI Black", Font.PLAIN, 35));
+		label_42.setBounds(12, 264, 11, 43);
+		panelinicio.add(label_42);
+		
+		JLabel label_43 = new JLabel(".");
+		label_43.setFont(new Font("Segoe UI Black", Font.PLAIN, 35));
+		label_43.setBounds(12, 312, 11, 43);
+		panelinicio.add(label_43);
+		
+		JLabel label_44 = new JLabel(".");
+		label_44.setFont(new Font("Segoe UI Black", Font.PLAIN, 35));
+		label_44.setBounds(12, 359, 11, 43);
+		panelinicio.add(label_44);
 		
 		
 		
@@ -2792,7 +2902,7 @@ public class Menu extends JFrame {
 	            listaTranferenciaEnvio.clear();
 	            SonidoExito();
 	            NotificacionesModernas.getInstancia().show(Tipo.EXITO, 6000, "La cuenta se ha eliminado exitosamente");
-	            
+	            FiltrarCuentas();
 	            
 	            for (int j=i; j< miTabla.getRowCount();j++) {
 	                miTabla.setValueAt(j + 1, j, 10);
