@@ -1,6 +1,8 @@
 package LogicaClases;
 import java.util.ArrayList;
 
+import javax.swing.table.DefaultTableModel;
+
 public class Usuario {
 	private String IdU;
 	private String contraseña;
@@ -13,6 +15,7 @@ public class Usuario {
 	private String DosPasos;
 	private String telFijo;
 	private ArrayList<CuentaBancaria> cuentas;
+	private ArrayList<ArrayList<String>> UltimasOpe;
 	
 	
 
@@ -28,6 +31,7 @@ public class Usuario {
 	 setDosPasos(DosPasos);
 	 setTelFijo(telFijo);
 	 cuentas=new ArrayList<CuentaBancaria>();
+	 UltimasOpe=new ArrayList<>();
 	 
  }
 
@@ -122,7 +126,21 @@ public boolean Solouno(){
 	}
 	return unacuenta;
 }
-
-
+public void UltimasOperaciones(DefaultTableModel ultiTalba){
+	UltimasOpe.clear();
+	ArrayList<String> fila1 = new ArrayList<>();
+	for(int i=0;i<ultiTalba.getRowCount();i++){
+	fila1.add(ultiTalba.getValueAt(i, 0).toString());
+	fila1.add(ultiTalba.getValueAt(i, 1).toString());
+	fila1.add(ultiTalba.getValueAt(i, 2).toString());
+	fila1.add(ultiTalba.getValueAt(i, 3).toString());
+	fila1.add(ultiTalba.getValueAt(i, 4).toString());
+	UltimasOpe.add(fila1);
+	}
+	
+}
+public void EliminarCuenta(int cuenta){
+	getCuentas().remove(cuenta);
+}
 
 }

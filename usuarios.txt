@@ -6,3 +6,6 @@ Manuela,manuela,A B C D,23y49,52362843,manuela@gmail.com,F,04010566982,manuel,72
 Sophie,Elliel50,Sofia Florin Rodriguez,68 % 41 y 43 #4108,52362947,sofiafr2000@gmail.com,F,00101167050,elliel,72026137
 alex0403,ale0403,Alejandro Arias Hidalgo,Maceo 103 e/ Facciolo y La Piedra,58892311,alex0403@gmail.com,M,04031567683,alefecha,77945564
 pacojones,abrete,Paco Jones Tiro,Calle 68 No. 29F10 / 29F y 31,58470970,popopo@gmail.com,M,04051868003,sesamo,72073031
+usuario2,usuario2,a b c d ef,2323423423432424,52362345,us@gmail.com,F,04010566981,us,72034545
+usuario3,usuario3,a v c d e d,2332233223,52361243,usuario3@gmail.com,F,02010566981,us3,73424924
+rosita,rosita,Rosa Mel Ano,34 entre 31 y 33,52367263,rosita@gmail.com,F,04020266884,flor,72034545

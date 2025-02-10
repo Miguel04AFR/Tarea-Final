@@ -184,7 +184,7 @@ public void setBilletes(ArrayList<Integer> billetes) {
 }
 public int TotalBilletes(){
 	int total=0;
-	if(!(getBilletes().size()==1)){
+	if(!(getBilletes().size()==1) || !(getBilletes().size()==0)){
 		for(Integer c : billetes){
 			total+=c;
 		}
@@ -196,6 +196,7 @@ public int TotalBilletes(){
 }
 public boolean Extraer(int numExtraer){
 	int extraer=0;
+	ArrayList<Integer> removidos=new ArrayList<Integer>();
 	boolean extraido=false;
 	if(!(extraer==numExtraer)){
 	for(int i=getBilletes().size()-1;i>=0;i--){
@@ -203,6 +204,7 @@ public boolean Extraer(int numExtraer){
 		if(numExtraer<=extraer){
 			if(numExtraer==extraer){
 				extraido=true;
+				getBilletes().remove(i);
 				i=-1;
 			}
 			else{
@@ -211,11 +213,18 @@ public boolean Extraer(int numExtraer){
 		}
 		else{
 			getBilletes().remove(i);
+			removidos.add(i);
 		}
 	}
 	}
 	else{
 		extraido=true;
+	}
+	
+	if(!extraido){
+		for(int i=removidos.size()-1;i>=0;i--){
+			getBilletes().add(removidos.get(i));
+		}
 	}
 	return extraido;
 }

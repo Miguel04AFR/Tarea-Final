@@ -19,7 +19,7 @@ public class Ahorro extends CuentaBancaria{
 	}
 	public void setMlc(float mlc) {
 		this.mlc = mlc;
-	}
+		}
 	public float getCup() {
 		return cup;
 	}

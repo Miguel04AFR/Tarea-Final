@@ -46,11 +46,5 @@ public class Agencia {
 		this.cajeros = cajeros;
 	}
 	
-	public void ReponerCajero(){
 		
-		for(CajeroAutomatico c : cajeros){
-			
-		}
-		
-	}
 }

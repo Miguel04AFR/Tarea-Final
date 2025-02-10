@@ -144,7 +144,7 @@ public class Menu extends JFrame {
 	private JPanel panelope;
 	private JPanel panelinicio;
 	private JPanel panelperfil;
-	public static int pos=Lobby.pos;
+	public static int pos;
 	private AvatarCircular avatarCircular;
 	private JLabel lblNombre;
 	private JLabel lblNewLabel_4;
@@ -176,25 +176,25 @@ public class Menu extends JFrame {
 	private int lineasPF=0;//de intereses plazofijo
 	private int lineasIA=0;//de ingresar Ahorro
 	private DefaultTableModel miTabla;//se utiliza para la table,es una tabla default,mas abajo esta la instancia  en la linea 767,tuve que cambiarlo para cambiar un metodo
-	private DefaultTableModel ultiOpeTabla=new DefaultTableModel();
+	private DefaultTableModel ultiOpeTabla;
 	private String fechaCreada;
 	private String horaCreada;
 	private float salarioEstatal;
-	private Usuario usuario=banco.getUsuarios().get(pos);
-	private DefaultListModel<String> listaTranferencia= new DefaultListModel();
-	private JList<String> ListaTranfer=new JList<>(listaTranferencia);
-	private DefaultListModel<String> listaTranferenciaEnvio=new DefaultListModel();
-	private JList<String> ListaEnvioG=new JList<>(listaTranferenciaEnvio);
-	private DefaultListModel<String> listaMovil= new DefaultListModel();
-	private JList<String> ListaMovilRecargaG=new JList<>(listaMovil);
-	private DefaultListModel<String> listaRecargaCuenta= new DefaultListModel();
-	private JList<String> ListaRecargaCuentaG=new JList<>(listaRecargaCuenta);
-	private DefaultListModel<String> listaInteresCF= new DefaultListModel();
-	private JList<String> ListaInteresCFG=new JList<>(listaInteresCF);
-	private DefaultListModel<String> listaInteresPF= new DefaultListModel();
-	private JList<String> ListaInteresPFG=new JList<>(listaInteresPF);
-	private DefaultListModel<String> listaIngresarInteresAhorro= new DefaultListModel();
-	private JList<String> ListaIngresarInteresAhorroG=new JList<>(listaIngresarInteresAhorro);
+	private Usuario usuario;
+	private DefaultListModel<String> listaTranferencia;
+	private JList<String> ListaTranfer;
+	private DefaultListModel<String> listaTranferenciaEnvio;
+	private JList<String> ListaEnvioG;
+	private DefaultListModel<String> listaMovil;
+	private JList<String> ListaMovilRecargaG;
+	private DefaultListModel<String> listaRecargaCuenta;
+	private JList<String> ListaRecargaCuentaG;
+	private DefaultListModel<String> listaInteresCF;
+	private JList<String> ListaInteresCFG;
+	private DefaultListModel<String> listaInteresPF;
+	private JList<String> ListaInteresPFG;
+	private DefaultListModel<String> listaIngresarInteresAhorro;
+	private JList<String> ListaIngresarInteresAhorroG;
 	private boolean tiempoInteres=false;
 	private boolean negocios=false;
 	private JTextField textField_1;
@@ -221,7 +221,7 @@ public class Menu extends JFrame {
 	private JTable table_1;
 	private JFecha fecha_1;
 	private JHora hora_1;
-	private float porcentajeFondo=10;
+	private float porcentajeFondo;
 	private JLabel label_14;
 	private JLabel lblNewLabel_12;
 	private JLabel label_15;
@@ -239,13 +239,15 @@ public class Menu extends JFrame {
 	private int cajero=0;
 	public static int extraerFondo=0;
 	private JComboBox comboBox_1;
-	
+	private boolean lasy=false;
+	private boolean lasya=false;
+	private Validar validados;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		FlatDarculaLaf.setup();
+/*	public static void main(String[] args) {
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -264,12 +266,27 @@ public class Menu extends JFrame {
 	 * 
 	 */
 
-	public Menu() {
-		
-		 
-		
-		setIconImage(Toolkit.getDefaultToolkit().getImage(Menu.class.getResource("/iconos/iconfinder-481-university-bank-campus-court-4212926_114964.png")));
-		setTitle("Mi banco");
+	public Menu(int pos) {
+		listaTranferencia= new DefaultListModel();
+		ListaTranfer=new JList<>(listaTranferencia);
+		listaTranferenciaEnvio=new DefaultListModel();
+		ListaEnvioG=new JList<>(listaTranferenciaEnvio);
+		listaMovil= new DefaultListModel();
+		ListaMovilRecargaG=new JList<>(listaMovil);
+		listaRecargaCuenta= new DefaultListModel();
+		ListaRecargaCuentaG=new JList<>(listaRecargaCuenta);
+		listaInteresCF= new DefaultListModel();
+		ListaInteresCFG=new JList<>(listaInteresCF);
+		listaInteresPF= new DefaultListModel();
+		ListaInteresPFG=new JList<>(listaInteresPF);
+		listaIngresarInteresAhorro= new DefaultListModel();
+		ListaIngresarInteresAhorroG=new JList<>(listaIngresarInteresAhorro);
+		validados=new Validar();
+		ultiOpeTabla=new DefaultTableModel();
+		 this.pos = pos;
+		 usuario=banco.getUsuarios().get(pos);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Menu.class.getResource("/iconos/banca-en-linea2.png")));
+		setTitle("Banco Metropolitano");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1001, 502);
 		NotificacionesModernas.getInstancia().setJFrame(this);
@@ -287,13 +304,13 @@ public class Menu extends JFrame {
 
 		panel = new JPanel();
 		panel.setBorder(new CompoundBorder(new MatteBorder(1, 1, 2, 2, (Color) new Color(0, 0, 0)), new BevelBorder(BevelBorder.LOWERED, new Color(0, 128, 0), new Color(0, 128, 0), new Color(0, 128, 0), new Color(0, 128, 0))));
-		panel.setForeground(new Color(152, 251, 152));
-		panel.setBounds(0, -17, 129, 484);
+		//panel.setForeground(new Color(152, 251, 152));
+		panel.setBounds(0, -418, 129, 484);
 		//panel.setBounds(0, -418, 129, 484); localizacion deseada
 		contentPane.add(panel);
 
 		lblNewLabel = new JLabel("New label");
-		lblNewLabel.setIcon(new ImageIcon(Menu.class.getResource("/iconos/iconmonstr-menu-dot-horizontal-circle-lined-48.png")));
+		lblNewLabel.setIcon(new ImageIcon(Menu.class.getResource("/iconos/menuu.png")));
 		lblNewLabel.setBounds(69, 429, 48, 42);
 		
 		timer = new Timer(10, new ActionListener() {
@@ -337,12 +354,12 @@ public class Menu extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				CardLayout cardLayout = (CardLayout) panel_1.getLayout();
 		        cardLayout.show(panel_1,"ultiope");
-				
+		        usuario.UltimasOperaciones(ultiOpeTabla);
 			}
 		});
-		botonAnimacion.setBounds(69, 309, 48, 47);
+		botonAnimacion.setBounds(70, 309, 48, 47);
 		panel.add(botonAnimacion);
-		botonAnimacion.setIcon(new ImageIcon(Menu.class.getResource("/iconos/checklist_list_icon_259149.png")));
+		botonAnimacion.setIcon(new ImageIcon(Menu.class.getResource("/iconos/listaa.png")));
 		botonAnimacion.setBackground(null);
 		botonAnimacion.setForeground(null);
 		
@@ -363,10 +380,10 @@ public class Menu extends JFrame {
 				card.show(panel_1, "perfil");
 			}
 		});
-		botonAnimacion_2.setIcon(new ImageIcon(Menu.class.getResource("/iconos/masculine-avatar-user-with-suit_icon-icons.com_68296 (1).png")));
+		botonAnimacion_2.setIcon(new ImageIcon(Menu.class.getResource("/iconos/desarrolladorr.png")));
 		botonAnimacion_2.setForeground((Color) null);
 		botonAnimacion_2.setBackground((Color) null);
-		botonAnimacion_2.setBounds(69, 69, 48, 47);
+		botonAnimacion_2.setBounds(69, 69, 48, 48);
 		panel.add(botonAnimacion_2);
 		
 		lblUsuario = new JLabel("Usuario");
@@ -379,14 +396,14 @@ public class Menu extends JFrame {
 		panel.add(lblUsuario);
 		
 		botonAnimacion_3 = new BotonAnimacion();
-		botonAnimacion_3.setIcon(new ImageIcon(Menu.class.getResource("/iconos/bank_transfer_icon_137913 (2).png")));
+		botonAnimacion_3.setIcon(new ImageIcon(Menu.class.getResource("/iconos/transferenciaa.png")));
 		botonAnimacion_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				CardLayout card=(CardLayout) panel_1.getLayout();
 				card.show(panel_1, "panelope");
 			}
 		});
-		botonAnimacion_3.setBounds(69, 254, 48, 42);
+		botonAnimacion_3.setBounds(69, 254, 48, 50);
 		panel.add(botonAnimacion_3);
 		botonAnimacion_3.setBackground(null);
 		botonAnimacion_3.setForeground(null);
@@ -403,7 +420,7 @@ public class Menu extends JFrame {
 				card.show(panel_1, "inicio");
 			}
 		});
-		botonAnimacion_8.setIcon(new ImageIcon(Menu.class.getResource("/iconos/bank_78916.png")));
+		botonAnimacion_8.setIcon(new ImageIcon(Menu.class.getResource("/iconos/banco (1)a.png")));
 		botonAnimacion_8.setForeground((Color) null);
 		botonAnimacion_8.setBackground((Color) null);
 		botonAnimacion_8.setBounds(69, 369, 48, 47);
@@ -416,7 +433,7 @@ public class Menu extends JFrame {
 				card.show(panel_1, "Agencia");
 			}
 		});
-		botonAnimacion_9.setIcon(new ImageIcon(Menu.class.getResource("/iconos/manandcashiermachine_89097.png")));
+		botonAnimacion_9.setIcon(new ImageIcon(Menu.class.getResource("/iconos/retiro-de-efectivoo.png")));
 		botonAnimacion_9.setForeground((Color) null);
 		botonAnimacion_9.setBackground((Color) null);
 		botonAnimacion_9.setBounds(69, 188, 48, 54);
@@ -427,7 +444,7 @@ public class Menu extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				if(!negocios){
-					SonidoError();
+					Toolkit.getDefaultToolkit().beep();
 					NotificacionesModernas.getInstancia().show(Tipo.ERROR, 5000, "No tiene todavia ninguna cuenta de Fondo");
 				}
 				else{
@@ -444,7 +461,7 @@ public class Menu extends JFrame {
 				
 			}
 		});
-		botonAnimacion_10.setIcon(new ImageIcon(Menu.class.getResource("/iconos/handshake_icon_198540.png")));
+		botonAnimacion_10.setIcon(new ImageIcon(Menu.class.getResource("/iconos/apreton-de-manoss.png")));
 		botonAnimacion_10.setForeground((Color) null);
 		botonAnimacion_10.setBackground((Color) null);
 		botonAnimacion_10.setBounds(61, 129, 56, 54);
@@ -452,32 +469,32 @@ public class Menu extends JFrame {
 		panel.add(botonAnimacion_10);
 		
 
-		JLabel lblComercio = new JLabel("Comercio");
+		final JLabel lblComercio = new JLabel("Comercio");
 		lblComercio.setFont(new Font("Segoe UI Black", Font.BOLD, 11));
 		lblComercio.setBounds(3, 140, 116, 16);
 		panel.add(lblComercio);
 		
-		JLabel lblBancario = new JLabel("bancario");
+		final JLabel lblBancario = new JLabel("bancario");
 		lblBancario.setFont(new Font("Segoe UI Black", Font.BOLD, 11));
 		lblBancario.setBounds(3, 154, 116, 16);
 		panel.add(lblBancario);
 		
-		JLabel lblAgencia = new JLabel("Agencias y");
+		final JLabel lblAgencia = new JLabel("Agencias y");
 		lblAgencia.setFont(new Font("Segoe UI Black", Font.BOLD, 11));
 		lblAgencia.setBounds(5, 196, 116, 16);
 		panel.add(lblAgencia);
 		
-		JLabel lblInicio = new JLabel("Inicio");
+		final JLabel lblInicio = new JLabel("Inicio");
 		lblInicio.setFont(new Font("Segoe UI Black", Font.BOLD, 13));
 		lblInicio.setBounds(12, 390, 56, 16);
 		panel.add(lblInicio);
 		
-		JLabel lblCajeros = new JLabel("Cajeros");
+		final JLabel lblCajeros = new JLabel("Cajeros");
 		lblCajeros.setFont(new Font("Segoe UI Black", Font.BOLD, 11));
 		lblCajeros.setBounds(5, 212, 56, 16);
 		panel.add(lblCajeros);
 		
-		JLabel lblCerrar = new JLabel("Menu");
+		final JLabel lblCerrar = new JLabel("Menu");
 		lblCerrar.setFont(new Font("Segoe UI Black", Font.BOLD, 13));
 		lblCerrar.setBounds(14, 441, 56, 16);
 		panel.add(lblCerrar);
@@ -498,10 +515,18 @@ public class Menu extends JFrame {
 								mnSalir.add(mntmNewMenuItem);
 								
 										JMenuItem mntmNewMenuItem_1 = new JMenuItem("cerrar sesion");
-										mntmNewMenuItem_1.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F2, InputEvent.ALT_MASK));
+										mntmNewMenuItem_1.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F3, 0));
 										mnSalir.add(mntmNewMenuItem_1);
 												mntmNewMenuItem_1.addActionListener(new ActionListener() {
 													public void actionPerformed(ActionEvent arg0) {
+														if(extraerFondo>0){
+															for(int i=0;i<usuario.getCuentas().size();i++){
+													if(usuario.getCuentas().get(i) instanceof Fondo){
+														((Fondo)usuario.getCuentas().get(i)).setExtraido(extraerFondo);
+														((Fondo)usuario.getCuentas().get(i)).setPorcentaje(porcentajeFondo);
+													}
+												}
+														}
 														Lobby ellobby = new Lobby();
 														dispose();
 														ellobby.setVisible(true);
@@ -510,7 +535,11 @@ public class Menu extends JFrame {
 												});
 												mntmNewMenuItem.addActionListener(new ActionListener() {
 													public void actionPerformed(ActionEvent arg0) {
-														dispose();
+															int respuesta= JOptionPane.showConfirmDialog(null, "Desea Salir","Inversion Max", JOptionPane.YES_NO_OPTION);
+
+															if(respuesta==JOptionPane.YES_OPTION){
+																dispose();
+															}
 													}
 												});
 		
@@ -523,24 +552,8 @@ public class Menu extends JFrame {
 		menuBar_1.add(mnNewMenu);
 		
 		mntmNewMenuItem_3 = new JMenuItem("modo claro");
-		mntmNewMenuItem_3.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				if(!claro){
-					contentPane.setBackground(Color.WHITE);
-					panel.setBackground(Color.WHITE);
-					claro=true;
-					mntmNewMenuItem_3.setText("modo oscuro");
-				}
-					else {
-						contentPane.setBackground(null);
-						panel.setBackground(null);
-						claro=false;
-						mntmNewMenuItem_3.setText("modo claro");
-					}
-				
-				
-			}
-		});
+		mntmNewMenuItem_3.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0));
+		
 		mnNewMenu.add(mntmNewMenuItem_3);
 		
 		JMenuBar menuBar_2 = new JMenuBar();
@@ -559,123 +572,128 @@ public class Menu extends JFrame {
 		panel_1.add(panelinicio, "inicio");
 		panelinicio.setLayout(null);
 		
-		JLabel lblBienvenidoAInversion = new JLabel("Bienvenido a Inversion Max");
+		final JLabel lblBienvenidoAInversion = new JLabel("Bienvenido a Inversion Max");
 		lblBienvenidoAInversion.setFont(new Font("Segoe UI", Font.BOLD, 20));
 		lblBienvenidoAInversion.setBackground(Color.BLACK);
 		lblBienvenidoAInversion.setBounds(255, 0, 278, 45);
 		panelinicio.add(lblBienvenidoAInversion);
 		
-		JLabel lblNewLabel_13 = new JLabel("Inversion Max es una entidad bancaria innovadora que ofrece una amplia gama de servicios financie-");
+		final JLabel lblNewLabel_13 = new JLabel("Inversion Max es una entidad bancaria innovadora que ofrece una amplia gama de servicios financie-");
 		lblNewLabel_13.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
 		lblNewLabel_13.setBounds(29, 58, 800, 38);
 		panelinicio.add(lblNewLabel_13);
 		
-		JLabel lblRosPara = new JLabel("ros para satisfacer las necesidades de nuestros clientes. A continuaci\u00F3n, se detallan las principales ca-");
+		final JLabel lblRosPara = new JLabel("ros para satisfacer las necesidades de nuestros clientes. A continuaci\u00F3n, se detallan las principales ca-");
 		lblRosPara.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
 		lblRosPara.setBounds(29, 80, 800, 38);
 		panelinicio.add(lblRosPara);
 		
-		JLabel lblRactersticasYServicios = new JLabel("racter\u00EDsticas y servicios que ofrecemos:");
+		final JLabel lblRactersticasYServicios = new JLabel("racter\u00EDsticas y servicios que ofrecemos:");
 		lblRactersticasYServicios.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
 		lblRactersticasYServicios.setBounds(29, 102, 800, 38);
 		panelinicio.add(lblRactersticasYServicios);
 		
-		JLabel lblOperaciones_2 = new JLabel("Dep\u00F3sitos y retiros: Los clientes pueden depositar y retirar dinero de sus cuentas de forma segura.");
+		final JLabel lblOperaciones_2 = new JLabel("Dep\u00F3sitos y retiros: Los clientes pueden depositar y retirar dinero de sus cuentas de forma segura.");
 		lblOperaciones_2.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
 		lblOperaciones_2.setBounds(29, 148, 800, 38);
 		panelinicio.add(lblOperaciones_2);
 		
-		JLabel lblServicios = new JLabel("Servicios:");
+		final JLabel lblServicios = new JLabel("Servicios:");
 		lblServicios.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
 		lblServicios.setBounds(29, 125, 800, 38);
 		panelinicio.add(lblServicios);
 		
-		JLabel lblTransferenciasOfrecemosTransferencias = new JLabel("Cuentas: Ofrecemos una cantidad de 5 cuentas a elegir Corriente,Ahorro,Plazo Fijo,MLC y de Fondo");
+		final JLabel lblTransferenciasOfrecemosTransferencias = new JLabel("Cuentas: Ofrecemos una cantidad de 5 cuentas a elegir Corriente,Ahorro,Plazo Fijo,MLC y de Fondo");
 		lblTransferenciasOfrecemosTransferencias.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
 		lblTransferenciasOfrecemosTransferencias.setBounds(29, 175, 800, 38);
 		panelinicio.add(lblTransferenciasOfrecemosTransferencias);
 		
-		JLabel label = new JLabel("Transferencias: Ofrecemos transferencias nacionales tanto de cuenta tipo MLC y CUP.");
+		final JLabel label = new JLabel("Transferencias: Ofrecemos transferencias nacionales tanto de cuenta tipo MLC y CUP.");
 		label.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
 		label.setBounds(29, 202, 800, 38);
 		panelinicio.add(label);
 		
-		JLabel lblIntereses_1 = new JLabel("Intereses: Ofrecemos diferentes tipos de intereses para cuenta Corrientes,Plazo Fijo y de Fondo. ");
+		final JLabel lblIntereses_1 = new JLabel("Intereses: Ofrecemos diferentes tipos de intereses para cuenta Corrientes,Plazo Fijo y de Fondo. ");
 		lblIntereses_1.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
 		lblIntereses_1.setBounds(29, 229, 800, 38);
 		panelinicio.add(lblIntereses_1);
 		
-		JLabel lblYDiferentesManeras = new JLabel("Ademas de diferentes maneras de extraerlo.");
+		final JLabel lblYDiferentesManeras = new JLabel("Ademas de diferentes maneras de extraerlo.");
 		lblYDiferentesManeras.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
 		lblYDiferentesManeras.setBounds(29, 249, 800, 38);
 		panelinicio.add(lblYDiferentesManeras);
 		
-		JLabel lblUsuarioInformacionDel = new JLabel("Usuario: Informacion del usuario con sus datos personales e informacion de todas sus cuentas");
+		final JLabel lblUsuarioInformacionDel = new JLabel("Usuario: Informacion del usuario con sus datos personales e informacion de todas sus cuentas");
 		lblUsuarioInformacionDel.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
 		lblUsuarioInformacionDel.setBounds(29, 276, 800, 38);
 		panelinicio.add(lblUsuarioInformacionDel);
 		
-		JLabel lblConTodoLo = new JLabel("con todo lo necesario para su gestion y sus ultimas operaciones realizadas.");
+		final JLabel lblConTodoLo = new JLabel("con todo lo necesario para su gestion y sus ultimas operaciones realizadas.");
 		lblConTodoLo.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
 		lblConTodoLo.setBounds(29, 296, 800, 38);
 		panelinicio.add(lblConTodoLo);
 		
-		JLabel lblAgencias = new JLabel("Agencias: Contamos con una red de agencias distribuidas para brindar un servicio accesible.");
+		final JLabel lblAgencias = new JLabel("Agencias: Contamos con una red de agencias distribuidas para brindar un servicio accesible.");
 		lblAgencias.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
 		lblAgencias.setBounds(29, 323, 800, 38);
 		panelinicio.add(lblAgencias);
 		
-		JLabel lblAdemasDeLa = new JLabel("Ademas de la informacion de la agencia junto con sus cajeros disponibles.");
+		final JLabel lblAdemasDeLa = new JLabel("Ademas de la informacion de la agencia junto con sus cajeros disponibles.");
 		lblAdemasDeLa.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
 		lblAdemasDeLa.setBounds(29, 343, 800, 38);
 		panelinicio.add(lblAdemasDeLa);
 		
-		JLabel lblCajeros_1 = new JLabel("Cajeros: Los cajeros autom\u00E1ticos est\u00E1n disponibles las 24 horas del d\u00EDa y los 7 d\u00EDas de la semana. En ");
+		final JLabel lblCajeros_1 = new JLabel("Cajeros: Los cajeros autom\u00E1ticos est\u00E1n disponibles las 24 horas del d\u00EDa y los 7 d\u00EDas de la semana. En ");
 		lblCajeros_1.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
 		lblCajeros_1.setBounds(29, 370, 800, 38);
 		panelinicio.add(lblCajeros_1);
 		
-		JLabel lblEnEllosEsta = new JLabel("ellos esta disponible la revision de saldo de todas sus cuentas y la extracion en billetes menos MLC.");
+		final JLabel lblEnEllosEsta = new JLabel("ellos esta disponible la revision de saldo de todas sus cuentas y la extracion en billetes menos MLC.");
 		lblEnEllosEsta.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
 		lblEnEllosEsta.setBounds(29, 390, 800, 38);
 		panelinicio.add(lblEnEllosEsta);
 		
-		JLabel label_38 = new JLabel(".");
+		final JLabel label_38 = new JLabel(".");
 		label_38.setFont(new Font("Segoe UI Black", Font.PLAIN, 35));
 		label_38.setBounds(12, 164, 11, 43);
 		panelinicio.add(label_38);
 		
-		JLabel label_39 = new JLabel(".");
+		final JLabel label_39 = new JLabel(".");
 		label_39.setFont(new Font("Segoe UI Black", Font.PLAIN, 35));
 		label_39.setBounds(12, 138, 11, 43);
 		panelinicio.add(label_39);
 		
-		JLabel label_40 = new JLabel(".");
+		final JLabel label_40 = new JLabel(".");
 		label_40.setFont(new Font("Segoe UI Black", Font.PLAIN, 35));
 		label_40.setBounds(12, 191, 11, 43);
 		panelinicio.add(label_40);
 		
-		JLabel label_41 = new JLabel(".");
+		final JLabel label_41 = new JLabel(".");
 		label_41.setFont(new Font("Segoe UI Black", Font.PLAIN, 35));
 		label_41.setBounds(12, 218, 11, 43);
 		panelinicio.add(label_41);
 		
-		JLabel label_42 = new JLabel(".");
+		final JLabel label_42 = new JLabel(".");
 		label_42.setFont(new Font("Segoe UI Black", Font.PLAIN, 35));
 		label_42.setBounds(12, 264, 11, 43);
 		panelinicio.add(label_42);
 		
-		JLabel label_43 = new JLabel(".");
+		final JLabel label_43 = new JLabel(".");
 		label_43.setFont(new Font("Segoe UI Black", Font.PLAIN, 35));
 		label_43.setBounds(12, 312, 11, 43);
 		panelinicio.add(label_43);
 		
-		JLabel label_44 = new JLabel(".");
+		final JLabel label_44 = new JLabel(".");
 		label_44.setFont(new Font("Segoe UI Black", Font.PLAIN, 35));
 		label_44.setBounds(12, 359, 11, 43);
 		panelinicio.add(label_44);
 		
-		CarruselImagenes carruselImagenes = new CarruselImagenes(8000);
+		JLabel lblNewLabel_15 = new JLabel(".");
+		lblNewLabel_15.setIcon(new ImageIcon(Menu.class.getResource("/iconos/descargar (1)aa.png")));
+		lblNewLabel_15.setBounds(132, 13, 111, 50);
+		panelinicio.add(lblNewLabel_15);
+		
+		/*CarruselImagenes carruselImagenes = new CarruselImagenes(8000);
 		carruselImagenes.setBounds(10, 44, 846, 384);
 		panelinicio.add(carruselImagenes);
 
@@ -698,7 +716,7 @@ public class Menu extends JFrame {
         
         carruselImagenes.iniciarAnimacion();
 		
-		
+		*/
 		panelope = new JPanel();
 		panel_1.add(panelope, "panelope");
 		panelope.setLayout(null);
@@ -710,18 +728,18 @@ public class Menu extends JFrame {
 				card.show(panel_1, "Movil");
 			}
 		});
-		botonAnimacion_1.setIcon(new ImageIcon(Menu.class.getResource("/iconos/transfer_data_icon_154703.png")));
+		botonAnimacion_1.setIcon(new ImageIcon(Menu.class.getResource("/iconos/transferirr.png")));
 		botonAnimacion_1.setBackground(new Color(50, 205, 50));
 		botonAnimacion_1.setBounds(80, 131, 78, 78);
 		panelope.add(botonAnimacion_1);
 		
-		JLabel label_1 = new JLabel("Transferencia de");
-		label_1.setFont(new Font("Segoe UI", Font.BOLD, 15));
-		label_1.setBounds(170, 131, 116, 37);
-		panelope.add(label_1);
+		final JLabel lblTransferencia = new JLabel("Transferencia");
+		lblTransferencia.setFont(new Font("Segoe UI", Font.BOLD, 15));
+		lblTransferencia.setBounds(170, 131, 116, 37);
+		panelope.add(lblTransferencia);
 		
 		BotonAnimacion botonAnimacion_4 = new BotonAnimacion();
-		botonAnimacion_4.setIcon(new ImageIcon(Menu.class.getResource("/iconos/bank_transfer_icon_137913 (2).png")));
+		botonAnimacion_4.setIcon(new ImageIcon(Menu.class.getResource("/iconos/transferenciaa.png")));
 		botonAnimacion_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
@@ -739,23 +757,23 @@ public class Menu extends JFrame {
 		botonAnimacion_4.setBounds(80, 272, 78, 78);
 		panelope.add(botonAnimacion_4);
 		
-		JLabel label_3 = new JLabel("Transferir de");
+		final JLabel label_3 = new JLabel("Transferir de");
 		label_3.setFont(new Font("Segoe UI", Font.BOLD, 15));
-		label_3.setBounds(170, 305, 116, 37);
+		label_3.setBounds(170, 272, 116, 37);
 		panelope.add(label_3);
 		
-		JLabel label_4 = new JLabel("cuenta a cuenta");
+		final JLabel label_4 = new JLabel("cuenta a cuenta");
 		label_4.setFont(new Font("Segoe UI", Font.BOLD, 15));
-		label_4.setBounds(170, 272, 116, 37);
+		label_4.setBounds(170, 291, 116, 37);
 		panelope.add(label_4);
 		
-		JLabel label_6 = new JLabel("saldo");
-		label_6.setFont(new Font("Segoe UI", Font.BOLD, 15));
-		label_6.setBounds(170, 172, 104, 37);
-		panelope.add(label_6);
+		final JLabel lblSaldoMovil = new JLabel("saldo movil");
+		lblSaldoMovil.setFont(new Font("Segoe UI", Font.BOLD, 15));
+		lblSaldoMovil.setBounds(170, 152, 104, 37);
+		panelope.add(lblSaldoMovil);
 
 		BotonAnimacion botonAnimacion_5 = new BotonAnimacion();
-		botonAnimacion_5.setIcon(new ImageIcon(Menu.class.getResource("/iconos/creditcard_106496.png")));
+		botonAnimacion_5.setIcon(new ImageIcon(Menu.class.getResource("/iconos/operaciones-financieras.png")));
 		botonAnimacion_5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				CrearCuenta p=new CrearCuenta();
@@ -783,14 +801,14 @@ public class Menu extends JFrame {
 		botonAnimacion_5.setBounds(446, 272, 78, 78);
 		panelope.add(botonAnimacion_5);
 		
-		JLabel lblCrearNueva = new JLabel("Crear nueva ");
+		final JLabel lblCrearNueva = new JLabel("Crear nueva ");
 		lblCrearNueva.setFont(new Font("Segoe UI", Font.BOLD, 15));
 		lblCrearNueva.setBounds(536, 272, 116, 37);
 		panelope.add(lblCrearNueva);
 		
-		JLabel lblCuentaDeBanco = new JLabel("cuenta de banco");
+		final JLabel lblCuentaDeBanco = new JLabel("cuenta de banco");
 		lblCuentaDeBanco.setFont(new Font("Segoe UI", Font.BOLD, 15));
-		lblCuentaDeBanco.setBounds(536, 305, 116, 37);
+		lblCuentaDeBanco.setBounds(536, 291, 116, 37);
 		panelope.add(lblCuentaDeBanco);
 		
 		botonAnimacion_6 = new BotonAnimacion();
@@ -798,7 +816,7 @@ public class Menu extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				if(!tiempoInteres){
-					SonidoError();
+					Toolkit.getDefaultToolkit().beep();
 					NotificacionesModernas.getInstancia().show(Tipo.ERROR, 5000, "No tiene todavia ningun interes");
 				}
 			}
@@ -829,25 +847,25 @@ public class Menu extends JFrame {
 		timerst.setRepeats(true); // Asegurarse de que el Timer  se repita
         timerst.start();
 	
-		botonAnimacion_6.setIcon(new ImageIcon(Menu.class.getResource("/iconos/money-bills-stack-1_icon-icons.com_56168.png")));
+		botonAnimacion_6.setIcon(new ImageIcon(Menu.class.getResource("/iconos/presupuestoo.png")));
 		botonAnimacion_6.setBackground(new Color(50, 205, 50));
-		botonAnimacion_6.setBounds(446, 131, 78, 78);
+		botonAnimacion_6.setBounds(446, 131, 81, 78);
 		panelope.add(botonAnimacion_6);
 		botonAnimacion_6.setEnabled(tiempoInteres);
 		
 
 	        
-		JLabel lblRecargarSaldo = new JLabel("Extraer intereses");
+		final JLabel lblRecargarSaldo = new JLabel("Extraer intereses");
 		lblRecargarSaldo.setFont(new Font("Segoe UI", Font.BOLD, 15));
 		lblRecargarSaldo.setBounds(551, 131, 129, 37);
 		panelope.add(lblRecargarSaldo);
 		
-		JLabel lblMovil = new JLabel("de cuentas");
+		final JLabel lblMovil = new JLabel("de cuentas");
 		lblMovil.setFont(new Font("Segoe UI", Font.BOLD, 15));
-		lblMovil.setBounds(551, 172, 116, 37);
+		lblMovil.setBounds(551, 152, 116, 37);
 		panelope.add(lblMovil);
 		
-		JLabel lblOperaciones_1 = new JLabel("Operaciones");
+		final JLabel lblOperaciones_1 = new JLabel("Operaciones");
 		lblOperaciones_1.setFont(new Font("Segoe UI", Font.BOLD, 22));
 		lblOperaciones_1.setBackground(Color.BLACK);
 		lblOperaciones_1.setBounds(264, 13, 278, 45);
@@ -872,7 +890,7 @@ public class Menu extends JFrame {
 		panel_1.add(panelperfil, "perfil");
 		panelperfil.setLayout(null);
 		
-		JPanel paneldatos = new JPanel();
+		final JPanel paneldatos = new JPanel();
 		paneldatos.setBounds(0, 0, 866, 125);
 		panelperfil.add(paneldatos);
 		paneldatos.setLayout(null);
@@ -880,12 +898,12 @@ public class Menu extends JFrame {
 		
 		avatarCircular = new AvatarCircular();
 		avatarCircular.setAvatar(new ImageIcon(Menu.class.getResource("/iconos/woman_female_girl_people_avatar_icon_131275 (5).png")));
-		avatarCircular.setBounds(12, -1, 93, 99);
+		avatarCircular.setBounds(0, -1, 93, 99);
 		paneldatos.add(avatarCircular);
 		
 		lblNombre = new JLabel("Nombre:");
 		lblNombre.setFont(new Font("Segoe UI Black", Font.BOLD, 13));
-		lblNombre.setBounds(95, 13, 268, 16);
+		lblNombre.setBounds(80, 13, 297, 16);
 		paneldatos.add(lblNombre);
 		
 		lblNewLabel_4 = new JLabel("Genero:");
@@ -895,47 +913,47 @@ public class Menu extends JFrame {
 		
 		lblNewLabel_5 = new JLabel("Direccion:");
 		lblNewLabel_5.setFont(new Font("Segoe UI Black", Font.BOLD, 13));
-		lblNewLabel_5.setBounds(95, 42, 268, 16);
+		lblNewLabel_5.setBounds(80, 42, 297, 16);
 		paneldatos.add(lblNewLabel_5);
 		
 		lblUsuario_1 = new JLabel("Usuario:");
 		lblUsuario_1.setFont(new Font("Segoe UI Black", Font.BOLD, 13));
-		lblUsuario_1.setBounds(375, 13, 241, 16);
+		lblUsuario_1.setBounds(392, 13, 261, 16);
 		paneldatos.add(lblUsuario_1);
 		
-		lblgmail = new JLabel("@gmail:");
+		lblgmail = new JLabel("Correo:");
 		lblgmail.setFont(new Font("Segoe UI Black", Font.BOLD, 13));
-		lblgmail.setBounds(375, 42, 248, 16);
+		lblgmail.setBounds(392, 42, 261, 16);
 		paneldatos.add(lblgmail);
 		
 		lblCi = new JLabel("CI:");
 		lblCi.setFont(new Font("Segoe UI Black", Font.BOLD, 13));
-		lblCi.setBounds(95, 71, 172, 16);
+		lblCi.setBounds(80, 71, 172, 16);
 		paneldatos.add(lblCi);
 		
 		lblMovil_1 = new JLabel("Movil:");
 		lblMovil_1.setFont(new Font("Segoe UI Black", Font.BOLD, 13));
-		lblMovil_1.setBounds(375, 71, 186, 16);
+		lblMovil_1.setBounds(392, 71, 186, 16);
 		paneldatos.add(lblMovil_1);
 		
-		JLabel lblBorrarCuenta = new JLabel("Borrar Cuenta:");
+		final JLabel lblBorrarCuenta = new JLabel("Borrar Cuenta:");
 		lblBorrarCuenta.setFont(new Font("Segoe UI Black", Font.BOLD, 13));
-		lblBorrarCuenta.setBounds(628, 13, 186, 16);
+		lblBorrarCuenta.setBounds(650, 13, 186, 16);
 		paneldatos.add(lblBorrarCuenta);
 		
-		JLabel lblEscribaEl = new JLabel("Escriba el # de la cuenta");
+		final JLabel lblEscribaEl = new JLabel("Escriba el # de la cuenta");
 		lblEscribaEl.setFont(new Font("Segoe UI Black", Font.BOLD, 13));
-		lblEscribaEl.setBounds(628, 28, 248, 16);
+		lblEscribaEl.setBounds(650, 28, 248, 16);
 		paneldatos.add(lblEscribaEl);
 		
-		JLabel lblLaCuentaA = new JLabel("a eliminar:");
+		final JLabel lblLaCuentaA = new JLabel("a eliminar:");
 		lblLaCuentaA.setFont(new Font("Segoe UI Black", Font.BOLD, 13));
-		lblLaCuentaA.setBounds(628, 42, 143, 16);
+		lblLaCuentaA.setBounds(650, 42, 143, 16);
 		paneldatos.add(lblLaCuentaA);
 		
 		txtNumero = new JTextField();
 		txtNumero.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
-		txtNumero.setBounds(708, 52, 85, 34);
+		txtNumero.setBounds(730, 52, 85, 34);
 		paneldatos.add(txtNumero);
 		txtNumero.setColumns(10);
 		
@@ -956,11 +974,12 @@ public class Menu extends JFrame {
 		btnmcnAsd.setColorEfecto(new Color(0, 255, 0));
 		btnmcnAsd.setBackground(new Color(0, 128, 0));
 		btnmcnAsd.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
+		btnmcnAsd.setForeground(Color.BLACK);
 		btnmcnAsd.setText("Eliminar");
-		btnmcnAsd.setBounds(708, 91, 85, 29);
+		btnmcnAsd.setBounds(730, 91, 85, 29);
 		paneldatos.add(btnmcnAsd);
 		
-		JLabel lblFiltrar = new JLabel("Filtrar:");
+		final JLabel lblFiltrar = new JLabel("Filtrar:");
 		lblFiltrar.setFont(new Font("Segoe UI Black", Font.BOLD, 14));
 		lblFiltrar.setBounds(243, 93, 61, 27);
 		paneldatos.add(lblFiltrar);
@@ -985,7 +1004,7 @@ public class Menu extends JFrame {
 			}
 		});
 		
-		JPanel paneltabla = new JPanel();
+		final JPanel paneltabla = new JPanel();
 		paneltabla.setBounds(0, 122, 866, 317);
 		panelperfil.add(paneltabla);
 		paneltabla.setLayout(null);
@@ -1035,12 +1054,12 @@ public class Menu extends JFrame {
 		
 		
 		
-		JHora hora = new JHora(0);
+		final JHora hora = new JHora(0);
 		hora.setFont(new Font("Segoe UI Black", Font.PLAIN, 13));
 		hora.setBounds(773, 300, 96, 16);
 		paneltabla.add(hora);
 		
-		JFecha fecha = new JFecha();
+		final JFecha fecha = new JFecha();
 		fecha.setFont(new Font("Segoe UI Black", Font.PLAIN, 13));
 		fecha.setBounds(773, 280, 93, 16);
 		paneltabla.add(fecha);
@@ -1066,7 +1085,7 @@ public class Menu extends JFrame {
 		panelultiope.add(table_1);
 		
 		JScrollPane scrollPaneOpe = new JScrollPane(table_1);
-		scrollPaneOpe.setBounds(12, 80, 842, 267);
+		scrollPaneOpe.setBounds(12, 80, 842, 298);
 		panelultiope.add(scrollPaneOpe);
 		
 		hora_1 = new JHora(0);
@@ -1079,14 +1098,19 @@ public class Menu extends JFrame {
 		fecha_1.setBounds(773, 403, 93, 16);
 		panelultiope.add(fecha_1);
 		
+		final JLabel lblNewLabel_14 = new JLabel("Operaciones Realizadas");
+		lblNewLabel_14.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
+		lblNewLabel_14.setBounds(245, 13, 260, 37);
+		panelultiope.add(lblNewLabel_14);
+		
 
 		
 		
-		JPanel panelTransferir = new JPanel();
+		final JPanel panelTransferir = new JPanel();
 		panel_1.add(panelTransferir, "Transferir");
 		panelTransferir.setLayout(null);
 		
-		JLabel lblTransferirDeCuenta = new JLabel("Transferir de cuenta a cuenta");
+		final JLabel lblTransferirDeCuenta = new JLabel("Transferir de cuenta a cuenta");
 		lblTransferirDeCuenta.setBounds(254, 0, 288, 27);
 		lblTransferirDeCuenta.setFont(new Font("Segoe UI", Font.BOLD, 20));
 		lblTransferirDeCuenta.setBackground(Color.BLACK);
@@ -1202,9 +1226,9 @@ public class Menu extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				if(ListaTranfer.getSelectedIndex()>-1 && ListaEnvioG.getSelectedIndex()>-1 && ListaTranfer.getSelectedIndex()!=ListaEnvioG.getSelectedIndex()){
 					int enviar=ListaEnvioG.getSelectedIndex();//la posicion del nuevo Saldo
-					if(EsFloat(textField_1.getText())){
+					if(validados.EsFloat(textField_1.getText()) && Float.parseFloat(textField_1.getText())>0){
 					float restaSaldo=Float.parseFloat(textField_1.getText());
-					if(Float.parseFloat(miTabla.getValueAt(cambioPos, 1).toString())>restaSaldo){
+					if(Float.parseFloat(miTabla.getValueAt(cambioPos, 1).toString())>=restaSaldo){
 					float saldoTrans=0;
 					float SaldoEnvio=(float) miTabla.getValueAt(enviar,1)+restaSaldo;//el casting  es por el dato de las cosas en la tabla 
 					if(miTabla.getValueAt(cambioPos, 2).toString().equals(miTabla.getValueAt(enviar, 2).toString())){
@@ -1265,10 +1289,10 @@ public class Menu extends JFrame {
 					ultiOpeTabla.addRow(new Object[]{"Extraccion de cuenta a cuenta",listaTranferencia.get(cambioPos),restaSaldo,hora_1.getText(),fecha_1.getText()});
 					ultiOpeTabla.addRow(new Object[]{"Ingreso de cuenta a cuenta",listaTranferencia.get(enviar),restaSaldo,hora_1.getText(),fecha_1.getText()});
 					SonidoExito();
-					NotificacionesModernas.getInstancia().show(Tipo.EXITO, 6000, "Su transferencia a sido un exito");
+					NotificacionesModernas.getInstancia().show(Tipo.EXITO, 6000, "Su transferencia ha sido un exito");
 					}
 				else{
-					SonidoError();
+					Toolkit.getDefaultToolkit().beep();
 					NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "Ya no puede extraer mas en la cuenta de fondo hasta el proximo año");
 				}
 					}
@@ -1283,28 +1307,29 @@ public class Menu extends JFrame {
 							ultiOpeTabla.addRow(new Object[]{"Extraccion de cuenta a cuenta",listaTranferencia.get(cambioPos),restaSaldo,hora_1.getText(),fecha_1.getText()});
 							ultiOpeTabla.addRow(new Object[]{"Ingreso de cuenta a cuenta",listaTranferencia.get(enviar),restaSaldo,hora_1.getText(),fecha_1.getText()});
 							SonidoExito();
-							NotificacionesModernas.getInstancia().show(Tipo.EXITO, 6000, "Su transferencia a sido un exito");
+							NotificacionesModernas.getInstancia().show(Tipo.EXITO, 6000, "Su transferencia ha sido un exito");
 					}
 						
 					}
 				else{
-					SonidoError();
+					Toolkit.getDefaultToolkit().beep();
 					NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "No puedes tranferir si las cuentas son de diferentes monedas");
 				}
 					}
 					else{
-						SonidoError();
+						Toolkit.getDefaultToolkit().beep();
 						NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "El monto no puede ser mayor que el saldo de la cuenta a transferir");
 					}
 					}
 					
 					else{
-						SonidoError();
-						NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "Por favor introduzca numeros");
+						Toolkit.getDefaultToolkit().beep();
+						NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "Por favor introduzca numeros positivos");
 				}
+					
 				}
 				else{
-					SonidoError();
+					Toolkit.getDefaultToolkit().beep();
 					NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "Elija las cuentas");
 			}
 			}
@@ -1323,32 +1348,37 @@ public class Menu extends JFrame {
 		label_2.setBounds(567, 248, 140, 16);
 		panelTransferir.add(label_2);
 		
-		JLabel lblNewLabel_6 = new JLabel("Elija Cuenta de Envio:");
+		final JLabel lblNewLabel_6 = new JLabel("Elija Cuenta de Envio:");
 		lblNewLabel_6.setFont(new Font("Segoe UI Black", Font.PLAIN, 18));
 		lblNewLabel_6.setBounds(40, 129, 230, 16);
 		panelTransferir.add(lblNewLabel_6);
 		
-		JLabel lblSaldoActual = new JLabel("Saldo :");
+		final JLabel lblSaldoActual = new JLabel("Saldo :");
 		lblSaldoActual.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
 		lblSaldoActual.setBounds(62, 237, 78, 37);
 		panelTransferir.add(lblSaldoActual);
 		
-		JLabel lblMontoATranferir = new JLabel("Monto a tranferir:");
+		final JLabel lblMontoATranferir = new JLabel("Monto a tranferir:");
 		lblMontoATranferir.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
 		lblMontoATranferir.setBounds(298, 250, 150, 37);
 		panelTransferir.add(lblMontoATranferir);
 		
-		JLabel label_5 = new JLabel("Elija Cuenta a transferir:");
+		final JLabel label_5 = new JLabel("Elija Cuenta a transferir:");
 		label_5.setFont(new Font("Segoe UI Black", Font.PLAIN, 18));
 		label_5.setBounds(477, 131, 230, 16);
 		panelTransferir.add(label_5);
 		
-		JLabel label_7 = new JLabel("Saldo :");
+		final JLabel label_7 = new JLabel("Saldo :");
 		label_7.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
 		label_7.setBounds(510, 237, 78, 37);
 		panelTransferir.add(label_7);
 		
-		JPanel panelMovil = new JPanel();
+		ImageIcon gifIcon =  new ImageIcon("iconos/intercambio-unscreen (1).gif");
+		JLabel lblNewLabel_19 = new JLabel(gifIcon);
+		lblNewLabel_19.setBounds(301, 156, 139, 80);
+		panelTransferir.add(lblNewLabel_19);
+		
+		final JPanel panelMovil = new JPanel();
 		panel_1.add(panelMovil, "Movil");
 		panelMovil.setLayout(null);
 		ListaMovilRecargaG.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
@@ -1389,7 +1419,7 @@ public class Menu extends JFrame {
 		scrollPane_3.setBounds(77, 112, 265, 116);
 		panelMovil.add(scrollPane_3);
 
-		JLabel lblRecargarSaldoMovil = new JLabel("Recargar Saldo Movil");
+		final JLabel lblRecargarSaldoMovil = new JLabel("Recargar Saldo Movil");
 		lblRecargarSaldoMovil.setFont(new Font("Segoe UI", Font.BOLD, 20));
 		lblRecargarSaldoMovil.setBackground(Color.BLACK);
 		lblRecargarSaldoMovil.setBounds(243, 13, 208, 27);
@@ -1432,11 +1462,12 @@ public class Menu extends JFrame {
 		btnmcnRecargar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(ListaMovilRecargaG.getSelectedIndex()>-1){
-					if(EsFloat(textField.getText())){
+					if(validados.EsFloat(textField.getText()) && Float.parseFloat(textField.getText())>0){
+						if(!textField_2.getText().isEmpty()){
 					char cinco=textField_2.getText().charAt(0);
 					if(textField_2.getText().length()==8 && Character.toString(cinco).equals("5")){//el character es el dato no primitivo de char estoy verificando si el primer numero es 5
 					float restaSaldo=Float.parseFloat(textField.getText());
-					if(Float.parseFloat(miTabla.getValueAt(cambioPos, 1).toString())>restaSaldo){
+					if(Float.parseFloat(miTabla.getValueAt(cambioPos, 1).toString())>=restaSaldo){
 					float saldoTrans=0;
 					if(usuario.getCuentas().get(cambioPos) instanceof Corriente){
 						saldoTrans=((Corriente)usuario.getCuentas().get(cambioPos)).getCup()-restaSaldo;
@@ -1467,11 +1498,11 @@ public class Menu extends JFrame {
 					ListaMovilRecargaG.clearSelection();
 					lblNewLabel_9.setText(String.valueOf(saldoTrans));
 					SonidoExito();
-					NotificacionesModernas.getInstancia().show(Tipo.EXITO, 6000, "La operacion recarga movil a sido un exito");
+					NotificacionesModernas.getInstancia().show(Tipo.EXITO, 6000, "La operacion recarga movil ha sido un exito");
 					
 					}
 					else{
-						SonidoError();
+						Toolkit.getDefaultToolkit().beep();
 						NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "Ya no puede extraer mas en la cuenta de fondo hasta el proximo año");
 					}
 					}
@@ -1483,27 +1514,33 @@ public class Menu extends JFrame {
 						ListaMovilRecargaG.clearSelection();
 						lblNewLabel_9.setText(String.valueOf(saldoTrans));
 						SonidoExito();
-						NotificacionesModernas.getInstancia().show(Tipo.EXITO, 6000, "La operacion recarga movil a sido un exito");
+						NotificacionesModernas.getInstancia().show(Tipo.EXITO, 6000, "La operacion recarga movil ha sido un exito");
 						
 					}
 					}
 					else{
-						SonidoError();
+						Toolkit.getDefaultToolkit().beep();
 						NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "El monto no puede ser mayor que el saldo de la cuenta que recarga");
 					}
 					}
 					else{
-						SonidoError();
+						Toolkit.getDefaultToolkit().beep();
 						NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "Por favor,introduzca un numero movil cubano");
 					}
+					
 					}
 					else{
-						SonidoError();
-						NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "Por favor,introduzca numeros");
+						Toolkit.getDefaultToolkit().beep();
+						NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "Por favor,introduzca numeros movil");
+					}
+				}
+					else{
+						Toolkit.getDefaultToolkit().beep();
+						NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "Por favor,introduzca un numero positivos");
 					}
 			}
 				else{
-					SonidoError();
+					Toolkit.getDefaultToolkit().beep();
 					NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "Elija una cuenta");
 			}
 			}
@@ -1516,32 +1553,42 @@ public class Menu extends JFrame {
 		btnmcnRecargar.setBounds(218, 340, 290, 67);
 		panelMovil.add(btnmcnRecargar);
 
-		JLabel lblSaldo = new JLabel("Saldo:");
+		final JLabel lblSaldo = new JLabel("Saldo:");
 		lblSaldo.setFont(new Font("Segoe UI Black", Font.BOLD, 16));
 		lblSaldo.setBounds(144, 241, 56, 16);
 		panelMovil.add(lblSaldo);
 
-		JLabel label_8 = new JLabel("Elija Cuenta de Envio:");
+		final JLabel label_8 = new JLabel("Elija Cuenta de Envio:");
 		label_8.setFont(new Font("Segoe UI Black", Font.PLAIN, 18));
 		label_8.setBounds(77, 94, 230, 16);
 		panelMovil.add(label_8);
 
-		JLabel label_9 = new JLabel("Monto a tranferir:");
+		final JLabel label_9 = new JLabel("Monto a tranferir:");
 		label_9.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
 		label_9.setBounds(128, 255, 150, 37);
 		panelMovil.add(label_9);
 
-		JLabel lblTelefono = new JLabel("Telefono");
+		final JLabel lblTelefono = new JLabel("Telefono");
 		lblTelefono.setFont(new Font("Segoe UI Black", Font.PLAIN, 18));
 		lblTelefono.setBounds(516, 248, 89, 16);
 		panelMovil.add(lblTelefono);
 
-		JLabel lblARecargar = new JLabel("a recargar:");
+		final JLabel lblARecargar = new JLabel("a recargar:");
 		lblARecargar.setFont(new Font("Segoe UI Black", Font.PLAIN, 18));
 		lblARecargar.setBounds(511, 260, 140, 27);
 		panelMovil.add(lblARecargar);
+		
+		JLabel lblNewLabel_18 = new JLabel("");
+		lblNewLabel_18.setIcon(new ImageIcon(Menu.class.getResource("/iconos/trasnferencias_bancarias_mismo_titularr.png")));
+		lblNewLabel_18.setBounds(450, 53, 279, 187);
+		panelMovil.add(lblNewLabel_18);
+		
+		ImageIcon movilGif =new ImageIcon("iconos/telefono-inteligente-unscreen (1).gif");
+		JLabel lblNewLabel_22 = new JLabel(movilGif);
+		lblNewLabel_22.setBounds(321, 229, 130, 79);
+		panelMovil.add(lblNewLabel_22);
 
-		JPanel panelAgencias = new JPanel();
+		final JPanel panelAgencias = new JPanel();
 		panel_1.add(panelAgencias, "Agencia");
 		panelAgencias.setLayout(null);
 
@@ -1631,35 +1678,40 @@ public class Menu extends JFrame {
 		lblDireccion.setBounds(12, 357, 697, 29);
 		panelA1.add(lblDireccion);
 		
-		JLabel label_23 = new JLabel("1");
+		final JLabel label_23 = new JLabel("1");
 		label_23.setHorizontalAlignment(SwingConstants.CENTER);
 		label_23.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
 		label_23.setBounds(77, 195, 32, 43);
 		panelA1.add(label_23);
 		
-		JLabel label_24 = new JLabel("2");
+		final JLabel label_24 = new JLabel("2");
 		label_24.setHorizontalAlignment(SwingConstants.CENTER);
 		label_24.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
 		label_24.setBounds(395, 195, 32, 43);
 		panelA1.add(label_24);
 		
-		JLabel label_25 = new JLabel("3");
+		final JLabel label_25 = new JLabel("3");
 		label_25.setHorizontalAlignment(SwingConstants.CENTER);
 		label_25.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
 		label_25.setBounds(725, 195, 32, 43);
 		panelA1.add(label_25);
 		
-		JLabel label_26 = new JLabel("4");
+		final JLabel label_26 = new JLabel("4");
 		label_26.setHorizontalAlignment(SwingConstants.CENTER);
 		label_26.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
 		label_26.setBounds(233, 314, 32, 43);
 		panelA1.add(label_26);
 		
-		JLabel label_27 = new JLabel("5");
+		final JLabel label_27 = new JLabel("5");
 		label_27.setHorizontalAlignment(SwingConstants.CENTER);
 		label_27.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
 		label_27.setBounds(563, 314, 32, 43);
 		panelA1.add(label_27);
+		
+		JLabel lblNewLabel_17 = new JLabel(".");
+		lblNewLabel_17.setIcon(new ImageIcon(Menu.class.getResource("/iconos/bancoC.png")));
+		lblNewLabel_17.setBounds(661, 234, 195, 123);
+		panelA1.add(lblNewLabel_17);
 		
 
 		final JPanel panelA2 = new JPanel();
@@ -1705,23 +1757,28 @@ public class Menu extends JFrame {
 		botonAnimacion_24.setBounds(685, 54, 149, 139);
 		panelA2.add(botonAnimacion_24);
 		
-		JLabel label_28 = new JLabel("1");
+		final JLabel label_28 = new JLabel("1");
 		label_28.setHorizontalAlignment(SwingConstants.CENTER);
 		label_28.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
 		label_28.setBounds(89, 182, 32, 43);
 		panelA2.add(label_28);
 		
-		JLabel label_29 = new JLabel("2");
+		final JLabel label_29 = new JLabel("2");
 		label_29.setHorizontalAlignment(SwingConstants.CENTER);
 		label_29.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
 		label_29.setBounds(406, 182, 32, 43);
 		panelA2.add(label_29);
 		
-		JLabel label_30 = new JLabel("3");
+		final JLabel label_30 = new JLabel("3");
 		label_30.setHorizontalAlignment(SwingConstants.CENTER);
 		label_30.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
 		label_30.setBounds(738, 182, 32, 43);
 		panelA2.add(label_30);
+		
+		JLabel label_1 = new JLabel("");
+		label_1.setIcon(new ImageIcon(Menu.class.getResource("/iconos/bancoN.png")));
+		label_1.setBounds(661, 234, 128, 123);
+		panelA2.add(label_1);
 		
 
 		final JPanel panelA3 = new JPanel();
@@ -1767,23 +1824,28 @@ public class Menu extends JFrame {
 		botonAnimacion_27.setBounds(685, 54, 149, 139);
 		panelA3.add(botonAnimacion_27);
 		
-		JLabel label_31 = new JLabel("1");
+		final JLabel label_31 = new JLabel("1");
 		label_31.setHorizontalAlignment(SwingConstants.CENTER);
 		label_31.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
 		label_31.setBounds(89, 182, 32, 43);
 		panelA3.add(label_31);
 		
-		JLabel label_32 = new JLabel("2");
+		final JLabel label_32 = new JLabel("2");
 		label_32.setHorizontalAlignment(SwingConstants.CENTER);
 		label_32.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
 		label_32.setBounds(406, 182, 32, 43);
 		panelA3.add(label_32);
 		
-		JLabel label_33 = new JLabel("3");
+		final JLabel label_33 = new JLabel("3");
 		label_33.setHorizontalAlignment(SwingConstants.CENTER);
 		label_33.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
 		label_33.setBounds(738, 182, 32, 43);
 		panelA3.add(label_33);
+		
+		JLabel label_6 = new JLabel(".");
+		label_6.setIcon(new ImageIcon(Menu.class.getResource("/iconos/bancoPo.png")));
+		label_6.setBounds(661, 234, 128, 123);
+		panelA3.add(label_6);
 
 		final JPanel panelA4 = new JPanel();
 		panelAgenciaC.add(panelA4, "Agencia4");
@@ -1815,17 +1877,22 @@ public class Menu extends JFrame {
 		botonAnimacion_29.setBounds(537, 58, 149, 139);
 		panelA4.add(botonAnimacion_29);
 		
-		JLabel label_34 = new JLabel("1");
+		final JLabel label_34 = new JLabel("1");
 		label_34.setHorizontalAlignment(SwingConstants.CENTER);
 		label_34.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
 		label_34.setBounds(200, 186, 32, 43);
 		panelA4.add(label_34);
 		
-		JLabel label_35 = new JLabel("2");
+		 final JLabel label_35 = new JLabel("2");
 		label_35.setHorizontalAlignment(SwingConstants.CENTER);
 		label_35.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
 		label_35.setBounds(590, 186, 32, 43);
 		panelA4.add(label_35);
+		
+		JLabel label_45 = new JLabel("");
+		label_45.setIcon(new ImageIcon(Menu.class.getResource("/iconos/logos.png")));
+		label_45.setBounds(661, 234, 90, 123);
+		panelA4.add(label_45);
 
 		final JPanel panelA5 = new JPanel();
 		panelAgenciaC.add(panelA5, "Agencia5");
@@ -1857,19 +1924,30 @@ public class Menu extends JFrame {
 		botonAnimacion_31.setBounds(537, 58, 149, 139);
 		panelA5.add(botonAnimacion_31);
 		
-		JLabel label_36 = new JLabel("1");
+		final JLabel label_36 = new JLabel("1");
 		label_36.setHorizontalAlignment(SwingConstants.CENTER);
 		label_36.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
 		label_36.setBounds(200, 186, 32, 43);
 		panelA5.add(label_36);
 		
-		JLabel label_37 = new JLabel("2");
+		final JLabel label_37 = new JLabel("2");
 		label_37.setHorizontalAlignment(SwingConstants.CENTER);
 		label_37.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
 		label_37.setBounds(590, 186, 32, 43);
 		panelA5.add(label_37);
+		
+		JLabel label_46 = new JLabel("");
+		label_46.setIcon(new ImageIcon(Menu.class.getResource("/iconos/22.jpg")));
+		label_46.setBounds(661, 234, 128, 123);
+		panelA5.add(label_46);
+		
+		JLabel lblContactenos = new JLabel("Contactenos:");
+		lblContactenos.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		lblContactenos.setBackground(Color.BLACK);
+		lblContactenos.setBounds(-107, 71, 85, 27);
+		panelA5.add(lblContactenos);
 
-		JLabel lblAgenciasYCajeros = new JLabel("Agencias y Cajeros");
+		final JLabel lblAgenciasYCajeros = new JLabel("Agencias y Cajeros");
 		lblAgenciasYCajeros.setFont(new Font("Segoe UI", Font.BOLD, 20));
 		lblAgenciasYCajeros.setBackground(Color.BLACK);
 		lblAgenciasYCajeros.setBounds(236, 10, 288, 27);
@@ -1934,7 +2012,7 @@ public class Menu extends JFrame {
 		
 		
 
-		JPanel panelRecargar = new JPanel();
+		final JPanel panelRecargar = new JPanel();
 		panel_1.add(panelRecargar, "Recargar");
 		panelRecargar.setLayout(null);
 		ListaRecargaCuentaG.addListSelectionListener(new ListSelectionListener() {
@@ -1975,18 +2053,18 @@ public class Menu extends JFrame {
 		scrollPane_4.setBounds(233, 136, 265, 116);
 		panelRecargar.add(scrollPane_4);
 
-		JLabel lblRecargarCuenta = new JLabel("Recargar Cuenta");
+		final JLabel lblRecargarCuenta = new JLabel("Recargar Cuenta");
 		lblRecargarCuenta.setFont(new Font("Segoe UI", Font.BOLD, 20));
 		lblRecargarCuenta.setBackground(Color.BLACK);
 		lblRecargarCuenta.setBounds(253, 0, 288, 27);
 		panelRecargar.add(lblRecargarCuenta);
 
-		JLabel lblElijaCuentaPara = new JLabel("Elija Cuenta para Recargar:");
+		final JLabel lblElijaCuentaPara = new JLabel("Elija Cuenta para Recargar:");
 		lblElijaCuentaPara.setFont(new Font("Segoe UI Black", Font.PLAIN, 18));
 		lblElijaCuentaPara.setBounds(233, 109, 265, 27);
 		panelRecargar.add(lblElijaCuentaPara);
 
-		JLabel label_10 = new JLabel("Saldo :");
+		final JLabel label_10 = new JLabel("Saldo :");
 		label_10.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
 		label_10.setBounds(286, 247, 78, 37);
 		panelRecargar.add(label_10);
@@ -1996,7 +2074,7 @@ public class Menu extends JFrame {
 		label_11.setBounds(341, 247, 85, 38);
 		panelRecargar.add(label_11);
 
-		JLabel label_12 = new JLabel("Monto a tranferir:");
+		final JLabel label_12 = new JLabel("Monto a tranferir:");
 		label_12.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
 		label_12.setBounds(307, 274, 150, 37);
 		panelRecargar.add(label_12);
@@ -2019,37 +2097,48 @@ public class Menu extends JFrame {
 		botonAnimacion_12.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(ListaRecargaCuentaG.getSelectedIndex()>-1){
-				float SaldoAntiguo=((Corriente)usuario.getCuentas().get(cambioPos)).getCup();
-				if(EsFloat(textField_3.getText())){
+				float SaldoAntiguo=0;
+				if(validados.EsFloat(textField_3.getText()) && Float.parseFloat(textField_3.getText())>0){
 				float recarga=Float.parseFloat(textField_3.getText());
-				if(usuario.getCuentas().get(cambioPos) instanceof Corriente)
+				if(usuario.getCuentas().get(cambioPos) instanceof Corriente){
+					SaldoAntiguo=((Corriente)usuario.getCuentas().get(cambioPos)).getCup();
 					((Corriente)usuario.getCuentas().get(cambioPos)).setCup(SaldoAntiguo+recarga);
-				else if(usuario.getCuentas().get(cambioPos) instanceof MLC)
-					((MLC)usuario.getCuentas().get(cambioPos)).setMlc(SaldoAntiguo+recarga);
-				else if(usuario.getCuentas().get(cambioPos) instanceof PlazoFijo)
+				}
+				else if(usuario.getCuentas().get(cambioPos) instanceof MLC){
+					SaldoAntiguo=((MLC)usuario.getCuentas().get(cambioPos)).getMlc();
+					((MLC)usuario.getCuentas().get(cambioPos)).setMlc(SaldoAntiguo+recarga);	
+				}
+				else if(usuario.getCuentas().get(cambioPos) instanceof PlazoFijo){
+					SaldoAntiguo=((PlazoFijo)usuario.getCuentas().get(cambioPos)).getCup();
 					((PlazoFijo)usuario.getCuentas().get(cambioPos)).setCup(SaldoAntiguo+recarga);
+				}
 				else if(usuario.getCuentas().get(cambioPos) instanceof Ahorro)
-					if(miTabla.getValueAt(cambioPos, 2).toString().equalsIgnoreCase("cup"))
+					if(miTabla.getValueAt(cambioPos, 2).toString().equalsIgnoreCase("cup")){
+						SaldoAntiguo=((Ahorro)usuario.getCuentas().get(cambioPos)).getCup();
 						((Ahorro)usuario.getCuentas().get(cambioPos)).setCup(SaldoAntiguo+recarga);
-					else
+					}
+					else{
+						SaldoAntiguo=((Ahorro)usuario.getCuentas().get(cambioPos)).getMlc();
 						((Ahorro)usuario.getCuentas().get(cambioPos)).setMlc(SaldoAntiguo+recarga);
+					}
 				
 				miTabla.setValueAt(SaldoAntiguo+recarga, cambioPos, 1);
 				ultiOpeTabla.addRow(new Object[]{"Ingreso a cuenta",listaTranferencia.get(cambioPos),recarga,hora_1.getText(),fecha_1.getText()});
 				textField_3.setText("");
 				ListaRecargaCuentaG.clearSelection();
 				SonidoExito();
-				NotificacionesModernas.getInstancia().show(Tipo.EXITO, 6000, "Su recarga a sido un exito");
+				NotificacionesModernas.getInstancia().show(Tipo.EXITO, 6000, "Su recarga ha sido un exito");
+				label_11.setText(String.valueOf(SaldoAntiguo+recarga));
 				
 				}
 				else{
-					SonidoError();
-					NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "Por favor introduzca numeros");
+					Toolkit.getDefaultToolkit().beep();
+					NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "Por favor introduzca numeros postivos");
 			
 				}
 		}
 				else{
-					SonidoError();
+					Toolkit.getDefaultToolkit().beep();
 					NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "Elija una cuenta");
 			}
 			}
@@ -2063,8 +2152,13 @@ public class Menu extends JFrame {
 		botonAnimacion_12.setBackground(new Color(0, 128, 0));
 		botonAnimacion_12.setBounds(233, 362, 290, 67);
 		panelRecargar.add(botonAnimacion_12);
+		
+		ImageIcon recargaImagen = new ImageIcon("iconos/circulacion-de-dinero-unscreen (1).gif");
+		JLabel lblNewLabel_21 = new JLabel(recargaImagen);
+		lblNewLabel_21.setBounds(564, 109, 209, 175);
+		panelRecargar.add(lblNewLabel_21);
 
-		JPanel panelIntereses = new JPanel();
+		final JPanel panelIntereses = new JPanel();
 		panel_1.add(panelIntereses, "Intereses");
 		panelIntereses.setLayout(null);
 
@@ -2073,7 +2167,7 @@ public class Menu extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				if(contadorIntereses<12){
-					SonidoError();
+					Toolkit.getDefaultToolkit().beep();
 					NotificacionesModernas.getInstancia().show(Tipo.ERROR, 5000, "No tiene todavia intereses de este tipo");
 				}
 			}
@@ -2094,7 +2188,7 @@ public class Menu extends JFrame {
 			botonAnimacion_11.setEnabled(true);
 			
 		botonAnimacion_11.setText("    ");
-		botonAnimacion_11.setIcon(new ImageIcon(Menu.class.getResource("/iconos/donacion.png")));
+		botonAnimacion_11.setIcon(new ImageIcon(Menu.class.getResource("/iconos/donacion (2).png")));
 		botonAnimacion_11.setBackground(new Color(50, 205, 50));
 		botonAnimacion_11.setBounds(109, 178, 231, 78);
 		botonAnimacion_11.setEnabled(false);
@@ -2107,38 +2201,43 @@ public class Menu extends JFrame {
 				card.show(panel_1, "InteresPF");
 			}
 		});
-		botonAnimacion_13.setIcon(new ImageIcon(Menu.class.getResource("/iconos/application_project_scheme_planning_fundraising_icon_251233.png")));
+		botonAnimacion_13.setIcon(new ImageIcon(Menu.class.getResource("/iconos/analiticaa.png")));
 		botonAnimacion_13.setBackground(new Color(50, 205, 50));
 		botonAnimacion_13.setBounds(473, 178, 231, 78);
 		panelIntereses.add(botonAnimacion_13);
 
-		JLabel lblIntereses = new JLabel("Intereses");
+		final JLabel lblIntereses = new JLabel("Intereses");
 		lblIntereses.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
 		lblIntereses.setBounds(176, 148, 108, 27);
 		panelIntereses.add(lblIntereses);
 
-		JLabel lblCorrienteODe = new JLabel("Corriente o de Fondo");
+		final JLabel lblCorrienteODe = new JLabel("Corriente o de Fondo");
 		lblCorrienteODe.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCorrienteODe.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
 		lblCorrienteODe.setBounds(109, 269, 231, 27);
 		panelIntereses.add(lblCorrienteODe);
 
-		JLabel label_13 = new JLabel("Intereses");
+		final JLabel label_13 = new JLabel("Intereses");
 		label_13.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
 		label_13.setBounds(542, 148, 108, 27);
 		panelIntereses.add(label_13);
 
-		JLabel lblPlazoFijo = new JLabel("Plazo fijo");
+		final JLabel lblPlazoFijo = new JLabel("Plazo fijo");
 		lblPlazoFijo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPlazoFijo.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
 		lblPlazoFijo.setBounds(473, 269, 231, 27);
 		panelIntereses.add(lblPlazoFijo);
+		
+		ImageIcon interesGif = new ImageIcon("iconos/trabajar-unscreen (1).gif");
+		JLabel lblNewLabel_20 = new JLabel(interesGif);
+		lblNewLabel_20.setBounds(352, 178, 109, 78);
+		panelIntereses.add(lblNewLabel_20);
 
-		JPanel panelNegociosFondo = new JPanel();
+		final JPanel panelNegociosFondo = new JPanel();
 		panel_1.add(panelNegociosFondo, "Negocios");
 		panelNegociosFondo.setLayout(null);
 
-		JLabel lblNewLabel_7 = new JLabel("Salario Estatal :");
+		final JLabel lblNewLabel_7 = new JLabel("Salario Estatal :");
 		lblNewLabel_7.setFont(new Font("Segoe UI Black", Font.PLAIN, 18));
 		lblNewLabel_7.setBounds(40, 131, 196, 77);
 		panelNegociosFondo.add(lblNewLabel_7);
@@ -2148,22 +2247,22 @@ public class Menu extends JFrame {
 		lblNewLabel_10.setBounds(188, 131, 132, 77);
 		panelNegociosFondo.add(lblNewLabel_10);
 
-		JLabel lblEstoEsEl = new JLabel("Este es el comercio de la agencia bancaria.Aqu\u00ED puede cambiar");
+		final JLabel lblEstoEsEl = new JLabel("Este es el comercio de la agencia bancaria.Aqu\u00ED puede cambiar");
 		lblEstoEsEl.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
 		lblEstoEsEl.setBounds(30, 0, 740, 61);
 		panelNegociosFondo.add(lblEstoEsEl);
 
-		JLabel lblUnAumentodeterminandoSu = new JLabel("el porcentaje de ingreso que tiene de su salario que le propor-");
+		final JLabel lblUnAumentodeterminandoSu = new JLabel("el porcentaje de ingreso que tiene de su salario que le propor-");
 		lblUnAumentodeterminandoSu.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
 		lblUnAumentodeterminandoSu.setBounds(30, 23, 754, 61);
 		panelNegociosFondo.add(lblUnAumentodeterminandoSu);
 
-		JLabel lblIngreseLaCantidad = new JLabel("ciona la empresa estatal que le deposita a su preferencia.");
+		final JLabel lblIngreseLaCantidad = new JLabel("ciona la empresa estatal que le deposita a su preferencia.");
 		lblIngreseLaCantidad.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
 		lblIngreseLaCantidad.setBounds(30, 45, 766, 61);
 		panelNegociosFondo.add(lblIngreseLaCantidad);
 
-		JLabel lbltengaEnCuenta = new JLabel("(No tiene que poner el signo (%) solo el porcentaje que desee).");
+		final JLabel lbltengaEnCuenta = new JLabel("(No tiene que poner el signo (%) solo el porcentaje que desee).");
 		lbltengaEnCuenta.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
 		lbltengaEnCuenta.setBounds(30, 70, 740, 61);
 		panelNegociosFondo.add(lbltengaEnCuenta);
@@ -2182,7 +2281,7 @@ public class Menu extends JFrame {
 		panelNegociosFondo.add(textField_4);
 		textField_4.setColumns(10);
 
-		JLabel lblAumentoDeseado = new JLabel("Cambio del % deseado:");
+		final JLabel lblAumentoDeseado = new JLabel("Cambio del % deseado:");
 		lblAumentoDeseado.setFont(new Font("Segoe UI Black", Font.PLAIN, 18));
 		lblAumentoDeseado.setBounds(217, 205, 209, 77);
 		panelNegociosFondo.add(lblAumentoDeseado);
@@ -2190,13 +2289,17 @@ public class Menu extends JFrame {
 		botonAnimacion_14 = new BotonAnimacion();
 		botonAnimacion_14.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(EsFloat(textField_4.getText())){
+				if(validados.EsFloat(textField_4.getText())){
 				float aumentar=Float.parseFloat(textField_4.getText());
 				SalarioFondo();
 				ImageIcon icono=new ImageIcon("/iconos/aprobacion-de-documento.png");
-				if(aumentar<=100){
+				if(aumentar<=100 && 0<aumentar){
 					porcentajeFondo=aumentar;
+					SonidoExito();
 					JOptionPane.showMessageDialog(null, "¡Felicidades! Se ha aprobado el cambio de porcentaje depositado, ahora cobrará: " + ((Fondo)usuario.getCuentas().get(fondoA)).SalarioDepositado(salarioEstatal, porcentajeFondo), "Cambio % de deposito", JOptionPane.INFORMATION_MESSAGE, icono);
+					label_14.setText(String.valueOf(porcentajeFondo));
+					((Fondo)usuario.getCuentas().get(fondoA)).setPorcentaje(aumentar);
+					
 				}
 				else{
 					JOptionPane.showMessageDialog(null, "Lo siento,no puede tener ese porcentaje(%)");
@@ -2204,7 +2307,7 @@ public class Menu extends JFrame {
 				textField_4.setText("");
 				}
 				else{
-					SonidoError();
+					Toolkit.getDefaultToolkit().beep();
 					NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "Por favor,introduzca numeros");
 				}
 			}
@@ -2217,7 +2320,7 @@ public class Menu extends JFrame {
 		botonAnimacion_14.setBounds(174, 313, 290, 67);
 		panelNegociosFondo.add(botonAnimacion_14);
 		
-		JLabel lblDeSalario = new JLabel("El % depositado:");
+		final JLabel lblDeSalario = new JLabel("El % depositado:");
 		lblDeSalario.setFont(new Font("Segoe UI Black", Font.PLAIN, 18));
 		lblDeSalario.setBounds(332, 131, 155, 77);
 		panelNegociosFondo.add(lblDeSalario);
@@ -2227,7 +2330,7 @@ public class Menu extends JFrame {
 		label_14.setBounds(485, 131, 110, 77);
 		panelNegociosFondo.add(label_14);
 		
-		JPanel panelInteresCF = new JPanel();
+		final JPanel panelInteresCF = new JPanel();
 		panel_1.add(panelInteresCF, "InteresCF");
 		panelInteresCF.setLayout(null);
 		
@@ -2254,10 +2357,10 @@ public class Menu extends JFrame {
 				label_15.setText("0");
 				ultiOpeTabla.addRow(new Object[]{"Ingresar a cuenta por intereses",listaTranferencia.get(cambioPos),interes,hora_1.getText(),fecha_1.getText()});
 				SonidoExito();
-				NotificacionesModernas.getInstancia().show(Tipo.EXITO, 6000, "La operacion ingresar intereses a sido un exito");
+				NotificacionesModernas.getInstancia().show(Tipo.EXITO, 6000, "La operacion ingresar intereses ha sido un exito");
 			}
 				else{
-					SonidoError();
+					Toolkit.getDefaultToolkit().beep();
 					NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "Elija una cuenta");
 				}
 			}
@@ -2299,7 +2402,7 @@ public class Menu extends JFrame {
 		scrollPane_5.setBounds(279, 84, 265, 116);
 		panelInteresCF.add(scrollPane_5);
 		
-		JLabel lblNewLabel_11 = new JLabel("Saldo:");
+		final JLabel lblNewLabel_11 = new JLabel("Saldo:");
 		lblNewLabel_11.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
 		lblNewLabel_11.setBounds(150, 248, 56, 16);
 		panelInteresCF.add(lblNewLabel_11);
@@ -2309,7 +2412,7 @@ public class Menu extends JFrame {
 		lblNewLabel_12.setBounds(202, 248, 131, 16);
 		panelInteresCF.add(lblNewLabel_12);
 		
-		JLabel lblInteres = new JLabel("Interes:");
+		final JLabel lblInteres = new JLabel("Interes:");
 		lblInteres.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
 		lblInteres.setBounds(516, 248, 71, 16);
 		panelInteresCF.add(lblInteres);
@@ -2329,10 +2432,10 @@ public class Menu extends JFrame {
 				ultiOpeTabla.addRow(new Object[]{"Extraccion de interes",listaTranferencia.get(cambioPos),label_15.getText(),hora_1.getText(),fecha_1.getText()});
 				label_15.setText("0");
 				SonidoExito();
-				NotificacionesModernas.getInstancia().show(Tipo.EXITO, 6000, "La operacion extraccion de intereses a sido un exito");
+				NotificacionesModernas.getInstancia().show(Tipo.EXITO, 6000, "La operacion extraccion de intereses ha sido un exito");
 			}
 			else{
-				SonidoError();
+				Toolkit.getDefaultToolkit().beep();
 				NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "Elija una cuenta");
 			}
 			}
@@ -2345,18 +2448,18 @@ public class Menu extends JFrame {
 		btnmcnExtraer.setBounds(448, 315, 290, 67);
 		panelInteresCF.add(btnmcnExtraer);
 		
-		JLabel lblElijaCuentaPara_1 = new JLabel("Elija Cuenta para los Intereses:");
+		final JLabel lblElijaCuentaPara_1 = new JLabel("Elija Cuenta para los Intereses:");
 		lblElijaCuentaPara_1.setFont(new Font("Segoe UI Black", Font.PLAIN, 18));
 		lblElijaCuentaPara_1.setBounds(265, 56, 280, 27);
 		panelInteresCF.add(lblElijaCuentaPara_1);
 		
-		JLabel lblOperacionesDeInteresescuenta = new JLabel("Operaciones de Intereses,cuenta Corriente y Fondo");
+		final JLabel lblOperacionesDeInteresescuenta = new JLabel("Operaciones de Intereses,cuenta Corriente y Fondo");
 		lblOperacionesDeInteresescuenta.setFont(new Font("Segoe UI", Font.BOLD, 20));
 		lblOperacionesDeInteresescuenta.setBackground(Color.BLACK);
 		lblOperacionesDeInteresescuenta.setBounds(150, 0, 481, 45);
 		panelInteresCF.add(lblOperacionesDeInteresescuenta);
 		
-		JPanel panelInteresesPF = new JPanel();
+		final JPanel panelInteresesPF = new JPanel();
 		panelInteresesPF.setLayout(null);
 		panel_1.add(panelInteresesPF, "InteresPF");
 		
@@ -2377,11 +2480,11 @@ public class Menu extends JFrame {
 				label_17.setText(String.valueOf(saldo+interes));
 				label_19.setText("0");
 				SonidoExito();
-				NotificacionesModernas.getInstancia().show(Tipo.EXITO, 6000, "La operacion ingresar intereses a sido un exito");
+				NotificacionesModernas.getInstancia().show(Tipo.EXITO, 6000, "La operacion ingresar intereses ha sido un exito");
 				
 			}
 				else{
-					SonidoError();
+					Toolkit.getDefaultToolkit().beep();
 					NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "Elija una cuenta");
 				}
 			}
@@ -2425,7 +2528,7 @@ public class Menu extends JFrame {
 		scrollPane_6.setBounds(63, 85, 265, 116);
 		panelInteresesPF.add(scrollPane_6);
 		
-		JLabel label_16 = new JLabel("Saldo:");
+		final JLabel label_16 = new JLabel("Saldo:");
 		label_16.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
 		label_16.setBounds(32, 248, 56, 16);
 		panelInteresesPF.add(label_16);
@@ -2435,7 +2538,7 @@ public class Menu extends JFrame {
 		label_17.setBounds(86, 248, 165, 16);
 		panelInteresesPF.add(label_17);
 		
-		JLabel label_18 = new JLabel("Interes:");
+		final JLabel label_18 = new JLabel("Interes:");
 		label_18.setFont(new Font("Segoe UI Black", Font.PLAIN, 18));
 		label_18.setBounds(263, 248, 71, 16);
 		panelInteresesPF.add(label_18);
@@ -2455,11 +2558,11 @@ public class Menu extends JFrame {
 				ultiOpeTabla.addRow(new Object[]{"Ingresar a cuenta por intereses",listaTranferencia.get(fondoA),label_19.getText(),hora_1.getText(),fecha_1.getText()});
 				label_19.setText("0");
 				SonidoExito();
-				NotificacionesModernas.getInstancia().show(Tipo.EXITO, 6000, "La operacion extraer intereses a sido un exito");
+				NotificacionesModernas.getInstancia().show(Tipo.EXITO, 6000, "La operacion extraer intereses ha sido un exito");
 				
 			}
 				else{
-					SonidoError();
+					Toolkit.getDefaultToolkit().beep();
 					NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "Elija una cuenta");
 			}
 			}
@@ -2490,11 +2593,11 @@ public class Menu extends JFrame {
 				ListaInteresPFG.clearSelection();
 				ListaIngresarInteresAhorroG.clearSelection();
 				SonidoExito();
-				NotificacionesModernas.getInstancia().show(Tipo.EXITO, 6000, "La operacion ingresar intereses a sido un exito");
+				NotificacionesModernas.getInstancia().show(Tipo.EXITO, 6000, "La operacion ingresar intereses ha sido un exito");
 				
 			}
 				else{
-					SonidoError();
+					Toolkit.getDefaultToolkit().beep();
 					NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "Elija las cuentas");
 			}
 			}
@@ -2532,7 +2635,7 @@ public class Menu extends JFrame {
 		scrollPane_7.setBounds(538, 85, 265, 116);
 		panelInteresesPF.add(scrollPane_7);
 		
-		JLabel label_20 = new JLabel("Saldo:");
+		final JLabel label_20 = new JLabel("Saldo:");
 		label_20.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
 		label_20.setBounds(565, 214, 56, 16);
 		panelInteresesPF.add(label_20);
@@ -2542,22 +2645,84 @@ public class Menu extends JFrame {
 		label_21.setBounds(621, 214, 182, 16);
 		panelInteresesPF.add(label_21);
 		
-		JLabel lblOperacionesDeIntereses = new JLabel("Operaciones de Intereses, de cuenta Plazo Fijo ");
+		final JLabel lblOperacionesDeIntereses = new JLabel("Operaciones de Intereses, de cuenta Plazo Fijo ");
 		lblOperacionesDeIntereses.setFont(new Font("Segoe UI", Font.BOLD, 20));
 		lblOperacionesDeIntereses.setBackground(Color.BLACK);
 		lblOperacionesDeIntereses.setBounds(147, 0, 481, 45);
 		panelInteresesPF.add(lblOperacionesDeIntereses);
 		
-		JLabel label_22 = new JLabel("Elija Cuenta para los Intereses:");
+		final JLabel label_22 = new JLabel("Elija Cuenta para los Intereses:");
 		label_22.setFont(new Font("Segoe UI Black", Font.PLAIN, 18));
 		label_22.setBounds(50, 58, 280, 27);
 		panelInteresesPF.add(label_22);
 		
-		JLabel lblElijaCuentaDe = new JLabel("Elija Cuenta de Ahorro a operar:");
+		final JLabel lblElijaCuentaDe = new JLabel("Elija Cuenta de Ahorro a operar:");
 		lblElijaCuentaDe.setFont(new Font("Segoe UI Black", Font.PLAIN, 18));
 		lblElijaCuentaDe.setBounds(523, 58, 292, 27);
 		panelInteresesPF.add(lblElijaCuentaDe);
 		
+		JLabel lblNewLabel_16 = new JLabel("");
+		lblNewLabel_16.setIcon(new ImageIcon(Menu.class.getResource("/iconos/images (2).jpg")));
+		lblNewLabel_16.setBounds(22, 76, 78, 54);
+		contentPane.add(lblNewLabel_16);
+		
+		final JLabel lblContactenos_1 = new JLabel("Contactenos:");
+		lblContactenos_1.setFont(new Font("Segoe UI Black", Font.PLAIN, 14));
+		lblContactenos_1.setBounds(14, 143, 102, 54);
+		contentPane.add(lblContactenos_1);
+		
+		final JLabel label_47 = new JLabel("78683535");
+		label_47.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
+		label_47.setBounds(14, 161, 102, 54);
+		//label_47.setForeground(null);
+		//label_47.setForeground(new Color(0, 0, 204));
+		contentPane.add(label_47);
+		
+		final JLabel lblSoporteTecnico = new JLabel("Soporte:");
+		lblSoporteTecnico.setFont(new Font("Segoe UI Black", Font.PLAIN, 14));
+		lblSoporteTecnico.setBounds(14, 371, 115, 54);
+		contentPane.add(lblSoporteTecnico);
+		
+		JLabel label_48 = new JLabel("56387320");
+		label_48.setForeground(null);
+		label_48.setForeground(new Color(51, 51, 204));
+		label_48.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
+		label_48.setBounds(14, 391, 102, 54);
+		contentPane.add(label_48);
+		
+		final JLabel label_49 = new JLabel("");
+		label_49.setIcon(new ImageIcon(Menu.class.getResource("/iconos/pago-con-tarjeta.png")));
+		label_49.setBounds(30, 210, 64, 54);
+		contentPane.add(label_49);
+		
+		ImageIcon soporteGif = new ImageIcon("iconos/mesa-de-ayuda-unscreen (1).gif");
+		JLabel label_50 = new JLabel(soporteGif);
+		label_50.setBounds(75, 371, 50, 40);
+		contentPane.add(label_50);
+		
+		ActionListener RotarDinero = new ActionListener() {
+			public void actionPerformed(ActionEvent v) {
+				int yArriba = 210;
+                int yAbajo = 320;
+
+                // Movimiento de label_49
+                if (label_49.getY() < yAbajo && !lasy) {
+                    label_49.setLocation(label_49.getX(), label_49.getY() + 5);
+                    if (label_49.getY() >= yAbajo)
+                        lasy = true;
+                } else {
+                    if (label_49.getY() > yArriba && lasy) {
+                        label_49.setLocation(label_49.getX(), label_49.getY() - 5);
+                        if (label_49.getY() <= yArriba)
+                            lasy = false;
+                    }
+                }
+			
+		}
+        };
+		
+		Timer timerD = new Timer(40, RotarDinero);
+		timerD.start();
 
 		ActionListener Intereses = new ActionListener() {
 			@Override
@@ -2595,7 +2760,7 @@ public class Menu extends JFrame {
 		};
 		// Programar la tarea para que se ejecute cada segundos que pongas en el primer parametro	
 		Timer timers = new Timer(60 * 1000, Intereses);
-		timers.setInitialDelay(10 * 1000); // Para que la tarea se ejecute inmediatamente al inicio
+		timers.setInitialDelay(60 * 1000); // Para que la tarea se ejecute inmediatamente al inicio
 		timers.start();
 
 		ActionListener PagarEstatal= new ActionListener(){
@@ -2639,18 +2804,59 @@ public class Menu extends JFrame {
 		if(pos!=-1){
 			PerfilIniciado();
 		}
+		
+		
+		
+		mntmNewMenuItem_3.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent arg0) {
+		        final Color claroColor = Color.WHITE;
+		        final Color oscuroColor = Color.BLACK;
+		        final Color defaultColor = null;
+		        
+		        final JPanel[] panels = {contentPane, panel, panelinicio, panelA1, panelA2, panelA3, panelA4, panelA5, panelAgencias, paneldatos, panelInteresCF, panelIntereses, panelInteresesPF, panelMovil, panelNegociosFondo, panelRecargar, paneltabla, panelTransferir, panelope, panelperfil, panelultiope};
+		        final JLabel[] labels = {label_11, label_14, label_15, label_17, label_19, label_2, label_21, label, label_10, label_12, label_13, label_16, label_18, label_20, label_22, label_23, lblAdemasDeLa, lblAgencia, lblAgencias, lblAgenciasYCajeros, lblARecargar, lblAumentoDeseado, lblBancario, lblBienvenidoAInversion, lblBorrarCuenta, lblCajeros, lblCajeros_1, lblCerrar, lblComercio, lblConTodoLo, lblCorrienteODe, lblCrearNueva, lblCuentaDeBanco, lblDeSalario, lblElijaCuentaDe, lblElijaCuentaPara, lblElijaCuentaPara_1, lblEnEllosEsta, lblEscribaEl, lblEstoEsEl, lblFiltrar, lblIngreseLaCantidad, lblInicio, lblInteres, lblIntereses, lblIntereses_1, lblLaCuentaA, lblMontoATranferir, lblMovil, lblNewLabel_11, lblNewLabel_13, lblNewLabel_6, lblNewLabel_7, lblOperaciones_1, lblOperaciones_2, lblOperacionesDeIntereses, lblOperacionesDeInteresescuenta, lblPlazoFijo, lblRactersticasYServicios, lblRecargarCuenta, lblRecargarSaldo, lblRecargarSaldoMovil, lblRosPara, lblSaldo, lblSaldoActual, lblSaldoMovil, lblServicios, lblTelefono, lbltengaEnCuenta, lblTransferencia, lblTransferenciasOfrecemosTransferencias, lblTransferirDeCuenta, lblUnAumentodeterminandoSu, lblUsuarioInformacionDel, lblYDiferentesManeras, lblCi, lblDireccion, lblgmail, lblMovil_1, lblNewLabel, lblNewLabel_1, lblNewLabel_10, lblNewLabel_12, lblNewLabel_2, lblNewLabel_3, lblNewLabel_4, lblNewLabel_5, lblNewLabel_8, lblNewLabel_9, lblNombre, lblOperaciones, lblUsuario, lblUsuario_1, lblNewLabel_14,label_39,label_38,label_40,label_41,label_42,label_43,label_44,label_24,label_25,label_26,label_27,label_28,label_29,label_30,label_31,label_32,label_33,label_34,label_35,label_36,label_37,label_3,label_4,lblNewLabel_6,label_5,label_7,label_8,label_9,fecha,hora,fecha_1,hora_1,label_47,lblSoporteTecnico,lblContactenos_1};
+
+		        if (!claro) {
+		            claro = true;
+		            mntmNewMenuItem_3.setText("modo oscuro");
+		            panel_1.setForeground(claroColor);
+		            panelAgencias.setForeground(claroColor);
+		            for (JPanel panel : panels) {
+		                panel.setBackground(claroColor);
+		            }
+
+		            for (JLabel label : labels) {
+		                label.setForeground(oscuroColor);
+		            }
+		        } else {
+		            claro = false;
+		            mntmNewMenuItem_3.setText("modo claro");
+
+		            for (JPanel panel : panels) {
+		                panel.setBackground(defaultColor);
+		            }
+
+		            for (JLabel label : labels) {
+		                label.setForeground(defaultColor);
+		            }
+		        }
+
+		        contentPane.revalidate();
+		        contentPane.repaint();
+		    }
+		});
 	}
 	public void CambiarAvatar(){
 		if(banco.getUsuarios().get(pos).getSexo()=='O'){
-			avatarCircular.setAvatar(new ImageIcon(Menu.class.getResource("/iconos/woman_female_girl_people_avatar_icon_131275 (5).png")));
+			avatarCircular.setAvatar(new ImageIcon(Menu.class.getResource("/iconos/politico.png")));
 			lblNewLabel_4.setText("Sexo:Otro");
 		}
 		else if(banco.getUsuarios().get(pos).getSexo()=='M'){
-			avatarCircular.setAvatar(new ImageIcon(Menu.class.getResource("/iconos/people_avatar_boy_child_person_icon_131264 (3).png")));
+			avatarCircular.setAvatar(new ImageIcon(Menu.class.getResource("/iconos/hombre.png")));
 			lblNewLabel_4.setText("Sexo:Masculino");
 		}
 		else if(banco.getUsuarios().get(pos).getSexo()=='F'){
-			avatarCircular.setAvatar(new ImageIcon(Menu.class.getResource("/iconos/avatar_woman_female_girl_people_icon_131282 (2) - copia.png")));
+			avatarCircular.setAvatar(new ImageIcon(Menu.class.getResource("/iconos/mujer-de-negocios (1).png")));
 			lblNewLabel_4.setText("Sexo:Femenino");
 		}
 	}
@@ -2659,7 +2865,7 @@ public class Menu extends JFrame {
 		lblNombre.setText("Nombre:" + usuario.getNombreCompleto());
 		lblNewLabel_5.setText("Direccion:" +  usuario.getDireccion());
 		lblUsuario_1.setText("Usuario:" +  usuario.getIdU());
-		lblgmail.setText("@gmail:" +  usuario.getCorreoelectronico());
+		lblgmail.setText("Correo:" +  usuario.getCorreoelectronico());
 		lblCi.setText("CI:" + usuario.getCI());
 		lblMovil_1.setText("Movil:" + usuario.getTelefono());
 		CambiarAvatar();
@@ -2700,6 +2906,9 @@ public class Menu extends JFrame {
 						lineas++;
 					}
 					if(c.getTipo().equalsIgnoreCase("Fondo")){
+						salarioEstatal=((Fondo)c).getSalarioEstatal();
+						extraerFondo=((Fondo)c).getExtraido();
+						porcentajeFondo=((Fondo)c).getPorcentaje();
 						mitabla.addRow(new Object[]{c.getTipo(),((Fondo)c).getCup(),"cup","12","12:50:30 PM","18-oct-2024","no",beneficiario,"no","si",lineas});
 						lineas++;
 					}
@@ -2761,7 +2970,12 @@ public class Menu extends JFrame {
 						}
 					}
 					if(c.getTipo().equalsIgnoreCase("Fondo")){
+						porcentajeFondo=10;
 						salarioEstatal=CrearCuenta.salarioEstatal;
+						((Fondo)c).setExtraido(0);
+						extraerFondo=((Fondo)c).getExtraido();
+						((Fondo)c).setSalarioEstatal(salarioEstatal);
+						((Fondo)c).setPorcentaje(porcentajeFondo);
 						mitabla.addRow(new Object[]{c.getTipo(),((Fondo)c).getCup(),"cup","0",horaCreada,fechaCreada,"no",beneficiario,"no","si",lineas});
 						lineas++;
 					}
@@ -2908,7 +3122,7 @@ public class Menu extends JFrame {
 	        	cuenta=miTabla.getValueAt(i, 0).toString();
 	        	estatal=miTabla.getValueAt(i, 9).toString();
 	        	if(!(estatal.equals("si") && cuenta.equals("Ahorro"))){
-	            usuario.getCuentas().remove(i);
+	            usuario.EliminarCuenta(i);
 	            miTabla.removeRow(i);
 	            txtNumero.setText("");
 	            lineas--;
@@ -2928,7 +3142,9 @@ public class Menu extends JFrame {
 	            listaTranferenciaEnvio.clear();
 	            SonidoExito();
 	            NotificacionesModernas.getInstancia().show(Tipo.EXITO, 6000, "La cuenta se ha eliminado exitosamente");
+	            if(!(comboBox_1.getSelectedItem().equals("Todo")))
 	            FiltrarCuentas();
+	            
 	            
 	            for (int j=i; j< miTabla.getRowCount();j++) {
 	                miTabla.setValueAt(j + 1, j, 10);
@@ -2943,7 +3159,7 @@ public class Menu extends JFrame {
 				ListaIngresarInteresAhorro();
 	        }
 	        	else{
-	        		SonidoError();
+	        		Toolkit.getDefaultToolkit().beep();
 	        		NotificacionesModernas.getInstancia().show(Tipo.ERROR, 6000, "No puede borrar una cuenta de Ahorro estatal");
 	        		txtNumero.setText("");
 	        	}
@@ -2953,16 +3169,7 @@ public class Menu extends JFrame {
 	
 	}
 	
-	public  static boolean EsFloat(String text) {
-		boolean sies;
-		try {
-			Float.parseFloat(text);
-			sies=true;
-		} catch (NumberFormatException e) {
-			sies=false;
-		}
-		return sies;
-	}
+	
 	
 	public void FiltrarCuentas(){
 		DefaultTableModel filtrarTabla =new DefaultTableModel(){ 

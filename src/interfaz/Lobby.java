@@ -4,10 +4,14 @@ package interfaz;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.RenderingHints.Key;
+
 import javax.sound.sampled.*;//hace sonidos
+
 import LogicaClases.Banco;
 import LogicaClases.Usuario;
+import LogicaClases.Validar;
 import interfaz.Menu;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -96,6 +100,7 @@ public class Lobby extends JFrame {
 	private JPanel panel;
 	private BotonAnimacion btnmcnAx;
 	private BotonAnimacion btnmcnSdf;
+	private Banco banco;
 	
 	/**
 	 * @wbp.nonvisual location=690,274
@@ -110,7 +115,7 @@ public class Lobby extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		FlatDarculaLaf.setup();
 		
 		EventQueue.invokeLater(new Runnable() {
@@ -133,7 +138,7 @@ public class Lobby extends JFrame {
 	 * Create the frame.
 	 */
 	public Lobby() {
-		
+		banco=elmain.banco;
 		setTitle("Lobby");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Lobby.class.getResource("/iconos/iconfinder-481-university-bank-campus-court-4212926_114964.png")));
 		
@@ -232,6 +237,11 @@ public class Lobby extends JFrame {
 				if(a.getKeyCode() == KeyEvent.VK_DOWN)
 				passwordField_1.requestFocus();
 			}
+			@Override
+			public void keyTyped(KeyEvent e) {
+				if(txtEscribaAqui.getText().length()>elmain.banco.UsuarioTam())
+					e.consume();
+			}
 		});
 		txtEscribaAqui.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -286,7 +296,7 @@ public class Lobby extends JFrame {
 		contentPane.add(passwordField_1);
 		
 	     AvatarCircular avatarCircular = new AvatarCircular();
-	        avatarCircular.setAvatar(new ImageIcon("D:\\Proyectos\\Java\\tarea-final\\iconos\\1486564400-account_81513 (3).png"));
+	        avatarCircular.setAvatar(new ImageIcon(Lobby.class.getResource("/iconos/1486564400-account_81513 (3).png")));
 	        avatarCircular.setBounds(212, 128, 153, 131); //sino te sale la imagen es por que uno de los ejes esta negativo
 	        contentPane.add(avatarCircular);
 	        
@@ -343,7 +353,7 @@ public class Lobby extends JFrame {
 	        btnmcnSdf.setBorder(new EmptyBorder(40,40,40,40));
 	        
 	        lblInversionMax = new JLabel("");
-	        lblInversionMax.setIcon(new ImageIcon("D:\\Proyectos\\Java\\tarea-final\\iconos\\inversion-max-high-resolution-logo-transparent.png"));
+	        lblInversionMax.setIcon(new ImageIcon(Lobby.class.getResource("/iconos/inversion-max-high-resolution-logo-transparent.png")));
 	        lblInversionMax.setHorizontalAlignment(SwingConstants.CENTER);
 	        lblInversionMax.setFont(new Font("Segoe UI Black", Font.PLAIN, 23));
 	        lblInversionMax.setBounds(55, 50, 466, 80);
@@ -452,6 +462,20 @@ public class Lobby extends JFrame {
 	        botonAnimacion_1.setBounds(441, 386, 39, 30);
 	        contentPane.add(botonAnimacion_1);
 	        
+	        JLabel label = new JLabel("");
+	        label.setIcon(new ImageIcon(Lobby.class.getResource("/iconos/sss.png")));
+	        label.setHorizontalAlignment(SwingConstants.CENTER);
+	        label.setFont(new Font("Segoe UI Black", Font.PLAIN, 23));
+	        label.setBounds(12, 128, 131, 116);
+	        contentPane.add(label);
+	        
+	        JLabel label_1 = new JLabel("");
+	        label_1.setIcon(new ImageIcon(Lobby.class.getResource("/iconos/target.png")));
+	        label_1.setHorizontalAlignment(SwingConstants.CENTER);
+	        label_1.setFont(new Font("Segoe UI Black", Font.PLAIN, 23));
+	        label_1.setBounds(405, 128, 146, 116);
+	        contentPane.add(label_1);
+	        
 	        
 	        
 	        
@@ -459,37 +483,27 @@ public class Lobby extends JFrame {
 
 	}
 
-	public boolean iniciarSesion(){
-		boolean valido = true;
-
+	public void iniciarSesion(){
+		Validar validado=new Validar();
 		String username = txtEscribaAqui.getText();
 		String password = passwordField_1.getText();
-
-		if(usuarioValido(username,password)!=-1){
-			pos=usuarioValido(username,password);
-			Menu elmenu = new Menu();
+		pos=validado.UsuarioValido(username,password,banco);
+		if(pos!=-1){
+			Menu elmenu = new Menu(pos);
 			elmenu.setVisible(true);
 			dispose();
 			Menu.SonidoExito();
 			NotificacionesModernas.getInstancia().show(Tipo.INFO,Localizacion.SUP_DER,3000,"Se ha autenticado correctamente en la plataforma");
 		}
 		else{
-			Menu.SonidoError();
-			NotificacionesModernas.getInstancia().show(Tipo.ERROR,Localizacion.SUP_DER,3000,"Usuario o contraseña incorrecta");
+			Toolkit.getDefaultToolkit().beep();
+			NotificacionesModernas.getInstancia().show(Tipo.ERROR,Localizacion.SUP_DER,3000,"Usuario o correo o contraseña incorrecta");
 		}
+		}
+	
+	
 
-		return valido;
-	}
-
-	private int usuarioValido(String username, String password){
-		int valido = -1;
-		for(int i=0;i<elmain.banco.getUsuarios().size();i++){
-		if((username.equalsIgnoreCase(elmain.banco.getUsuarios().get(i).getIdU()) || username.equalsIgnoreCase(elmain.banco.getUsuarios().get(i).getCorreoelectronico())) && password.equalsIgnoreCase(elmain.banco.getUsuarios().get(i).getContraseña())){
-			valido = i;
-		}
-		}
-		return valido;
-	}
+	
 	public void Salir(){
 		int respuesta= JOptionPane.showConfirmDialog(null, "Desea Salir","Inversion Max", JOptionPane.YES_NO_OPTION);
 

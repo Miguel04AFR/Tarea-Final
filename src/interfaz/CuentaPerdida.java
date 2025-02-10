@@ -37,6 +37,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 
 public class CuentaPerdida extends JFrame {
@@ -113,6 +115,14 @@ public class CuentaPerdida extends JFrame {
 		contentPane.add(lblNewLabel_1);
 		
 		textField = new JTextField();
+		textField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				if(textField.getText().length()>elmain.banco.UsuarioTam())
+					e.consume();
+						
+			}
+		});
 		textField.setFont(new Font("Segoe UI", Font.BOLD, 16));
 		textField.addFocusListener(new FocusAdapter() {
 			@Override
@@ -170,7 +180,7 @@ public class CuentaPerdida extends JFrame {
 		contentPane.add(lblNewLabel_2);
 		
 		AvatarCircular avatarCircular = new AvatarCircular();
-		avatarCircular.setAvatar(new ImageIcon("D:\\Proyectos\\Java\\tarea-final\\iconos\\business_man_usersearch_thesearch_theclient_2356 (3).png"));
+		avatarCircular.setAvatar(new ImageIcon(CuentaPerdida.class.getResource("/iconos/business_man_usersearch_thesearch_theclient_2356 (3).png")));
 		avatarCircular.setBounds(118, 142, 296, 124);
 		contentPane.add(avatarCircular);
 		
@@ -199,7 +209,7 @@ public class CuentaPerdida extends JFrame {
 		
 		
 		lblVolverAlLobby.setFont(new Font("Segoe UI", Font.BOLD, 17));
-		lblVolverAlLobby.setBounds(198, 374, 147, 16);
+		lblVolverAlLobby.setBounds(198, 374, 147, 24);
 		contentPane.add(lblVolverAlLobby);
 		
 		lblOSuCorreo = new JLabel("o su correo electronico:");
@@ -270,16 +280,25 @@ public class CuentaPerdida extends JFrame {
 			}
 
 
-		}
+	 }
 	 public void VerificarExistencia(){	
 		 boolean valido=false;
+		 int poss=0;
 		 for(int i=0;i<elmain.banco.getUsuarios().size();i++){
-	     if(elmain.banco.getUsuarios().get(i).getCorreoelectronico().equals(textField.getText()) || elmain.banco.getUsuarios().get(i).getIdU().equals(textField.getText())){
-				valido=true; 
+			 if(elmain.banco.getUsuarios().get(i).getCorreoelectronico().equals(textField.getText()) || elmain.banco.getUsuarios().get(i).getIdU().equals(textField.getText())){
+				 valido=true; 		
+				 poss=i;
+				 i=elmain.banco.getUsuarios().size();
 			 }
-	     if(valido)
-	     JOptionPane.showMessageDialog(contentPane,"Tu pista es:" + elmain.banco.getUsuarios().get(i).getDosPasos());
 		 }
+			 if(valido){
+				 JOptionPane.showMessageDialog(contentPane,"Tu pista es:" + elmain.banco.getUsuarios().get(poss).getDosPasos());
+				 poss=elmain.banco.getUsuarios().size();
+				 textField.setText("");
+			 }else
+				 JOptionPane.showMessageDialog(contentPane,"No existe este usuario");	 
+		 
+
 	 }
 }
 

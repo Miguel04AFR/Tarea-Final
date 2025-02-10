@@ -89,7 +89,7 @@ public class PlazoFijo extends CuentaBancaria {
 
 		int totalMeses = (restaAño * 12) + (mesF - mesI);
 		if(restaAño!=0 || mesI!=mesF){
-			interes=(cup-2 +totalMeses) * 0.0003 ;
+			interes=(getCup()-2 +totalMeses) * 0.0003 ;
 		}
 		else{
 			interes=(mesF - mesI) * 0.025 + getCup()-2;

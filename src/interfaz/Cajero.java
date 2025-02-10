@@ -53,6 +53,12 @@ import java.awt.event.KeyEvent;
 import logica.utilidades.logica.Validaciones;
 import componentes.JHora;
 import componentes.JFecha;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.SwingConstants;
+import javax.swing.border.BevelBorder;
+import javax.swing.JMenu;
+import javax.swing.KeyStroke;
 
 public class Cajero extends JDialog {
 	private JPanel panel;
@@ -73,6 +79,10 @@ public class Cajero extends JDialog {
 	private Usuario usuarioC;
 	private JHora hora;
 	private JFecha fecha;
+	private JMenu mnNewMenu;
+	private JMenuItem mntmNewMenuItem;
+	private boolean claro=false;
+	private JMenuBar menuBar;
 
 
 	/**
@@ -169,7 +179,7 @@ public class Cajero extends JDialog {
 								JOptionPane.showMessageDialog(null, "El cajero no tiene suficiente dinero,vuelva mas tarde");
 						}
 						else
-							JOptionPane.showMessageDialog(null, "No existen billetes de kilos");
+							JOptionPane.showMessageDialog(null, "No existen billetes capaz de procesar esto");
 					}
 						else
 							JOptionPane.showMessageDialog(null, "Por favor,elija una cuenta en la tabla");
@@ -177,7 +187,7 @@ public class Cajero extends JDialog {
 				});
 				btnmcnExtraer.setText("Extraer");
 				btnmcnExtraer.setForeground(Color.BLACK);
-				btnmcnExtraer.setFont(new Font("Segoe UI Black", Font.BOLD, 13));
+				btnmcnExtraer.setFont(new Font("Segoe UI Black", Font.BOLD, 18));
 				btnmcnExtraer.setColorEfecto(Color.GREEN);
 				btnmcnExtraer.setBorder(new CompoundBorder(null, new LineBorder(new Color(25, 25, 112), 6)));
 				btnmcnExtraer.setBackground(new Color(25, 25, 112));
@@ -195,7 +205,7 @@ public class Cajero extends JDialog {
 				});
 				btnmcnSalir.setText("Salir");
 				btnmcnSalir.setForeground(Color.BLACK);
-				btnmcnSalir.setFont(new Font("Segoe UI Black", Font.BOLD, 13));
+				btnmcnSalir.setFont(new Font("Segoe UI Black", Font.BOLD, 18));
 				btnmcnSalir.setColorEfecto(Color.GREEN);
 				btnmcnSalir.setBorder(new CompoundBorder(null, new LineBorder(new Color(25, 25, 112), 6)));
 				btnmcnSalir.setBackground(new Color(25, 25, 112));
@@ -237,12 +247,12 @@ public class Cajero extends JDialog {
 		scrollPane.setBounds(10, 55, 635, 190);
 		getContentPane().add(scrollPane);
 
-		JLabel lblElijaCuentaA = new JLabel("Elija cuenta a extraer:");
+		final JLabel lblElijaCuentaA = new JLabel("Elija cuenta a extraer:");
 		lblElijaCuentaA.setFont(new Font("Segoe UI", Font.BOLD, 20));
 		lblElijaCuentaA.setBounds(14, 13, 206, 43);
 		getContentPane().add(lblElijaCuentaA);
 
-		JLabel lbllasDeMoneda = new JLabel("(Las de moneda mlc no se les puede extraer)");
+		final JLabel lbllasDeMoneda = new JLabel("(Las de moneda mlc no se les puede extraer)");
 		lbllasDeMoneda.setFont(new Font("Segoe UI", Font.BOLD, 20));
 		lbllasDeMoneda.setBounds(220, 13, 425, 43);
 		getContentPane().add(lbllasDeMoneda);
@@ -280,6 +290,44 @@ public class Cajero extends JDialog {
 		fecha.setFont(new Font("Segoe UI Black", Font.PLAIN, 13));
 		fecha.setBounds(560, 295, 93, 16);
 		getContentPane().add(fecha);
+		
+		menuBar = new JMenuBar();
+		menuBar.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
+		menuBar.setBounds(0, 0, 656, 26);
+		getContentPane().add(menuBar);
+		
+		mnNewMenu = new JMenu("Configuracion");
+		menuBar.add(mnNewMenu);
+		
+		mntmNewMenuItem = new JMenuItem("modo claro");
+		mntmNewMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				 final Color claroColor = Color.WHITE;
+			        final Color oscuroColor = Color.BLACK;
+			        final Color defaultColor = null;    
+				final JLabel[] labels ={lblElijaCuentaA,lbllasDeMoneda,lblAgencia,lblMontoAExtraer,fecha,hora};
+				if(!claro){
+					claro=true;
+					panel.setBackground(claroColor);
+					getContentPane().setBackground(claroColor);
+					//menuBar.setBackground(claroColor);
+					for(JLabel l : labels){
+						l.setForeground(oscuroColor);
+					}
+				}
+				else{
+					claro=false;
+					panel.setBackground( defaultColor);
+					getContentPane().setBackground( defaultColor);
+					//menuBar.setBackground( defaultColor);
+					for(JLabel l : labels){
+						l.setForeground(defaultColor);
+					}
+				}
+			}
+		});
+		mntmNewMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0));
+		mnNewMenu.add(mntmNewMenuItem);
 		AñadirTabla();
 
 
@@ -310,5 +358,4 @@ public class Cajero extends JDialog {
 	public boolean SaldoSuficiente(){
 		return monto<=Float.parseFloat(tablaCajero.getValueAt(cambioPos, 1).toString()) ? true : false;
 	}
-	
 }

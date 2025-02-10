@@ -2,7 +2,7 @@ package LogicaClases;
 
 public interface IdepositarEntidad {
 	
-	public float DepositarEntidad(float salarioEstatal);
+	public float SalarioDepositado(float salarioEstatal, float porcentaje);
 	
 	
 
